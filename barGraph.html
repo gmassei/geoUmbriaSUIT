@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+	<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Sustainability box</title>
+		<meta name="keywords" content="">
+		<meta name="description" content="" />
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Archivo+Narrow:400,700" rel="stylesheet" type="text/css">
+		<link href="default.css" rel="stylesheet" type="text/css" media="all" />
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript">
+			google.load("visualization", "1", {packages:["corechart"]});
+			google.setOnLoadCallback(drawChart);
+			function drawChart() {
+				var dataBar = google.visualization.arrayToDataTable([
+['label', 'environment', 'economy', 'social'],
+['PIEMONTE', 0.4496, 0.5997, 0.6839],
+["VALLE D'AOSTA", 0.7326, 0.5374, 0.6935],
+['LOMBARDIA', 0.4343, 0.5714, 0.693],
+['TRENTINO-ALTO ADIGE', 0.6917, 0.5639, 0.7096],
+['VENETO', 0.4688, 0.5647, 0.689],
+['FRIULI VENEZIA GIULIA', 0.4076, 0.579, 0.6867],
+['LIGURIA', 0.3617, 0.5649, 0.6808],
+['EMILIA-ROMAGNA', 0.3834, 0.5774, 0.6961],
+['TOSCANA', 0.4747, 0.5686, 0.684],
+['UMBRIA', 0.4978, 0.5203, 0.6798],
+['MARCHE', 0.4543, 0.5359, 0.679],
+['LAZIO', 0.4031, 0.5891, 0.6641],
+['ABRUZZO', 0.4941, 0.496, 0.6587],
+['MOLISE', 0.4106, 0.4157, 0.6291],
+['CAMPANIA', 0.4554, 0.3724, 0.5899],
+['PUGLIA', 0.3514, 0.3461, 0.6053],
+['BASILICATA', 0.4899, 0.3632, 0.6229],
+['CALABRIA', 0.4491, 0.3381, 0.5955],
+['SICILIA', 0.3996, 0.2782, 0.58],
+['SARDEGNA', 0.3522, 0.3904, 0.611]
+]);
+	var optionsBar = {
+			  title: 'bars of sustainability',
+			  isStacked: 'true' 
+			};
+				var dataBubble = google.visualization.arrayToDataTable([
+['label', 'environment', 'economy', 'social', 'sustainability'],
+['PIEMONTE', 0.4496, 0.5997, 0.6839, 1.7332],
+["VALLE D'AOSTA", 0.7326, 0.5374, 0.6935, 1.9635],
+['LOMBARDIA', 0.4343, 0.5714, 0.693, 1.6987],
+['TRENTINO-ALTO ADIGE', 0.6917, 0.5639, 0.7096, 1.9651999999999998],
+['VENETO', 0.4688, 0.5647, 0.689, 1.7225000000000001],
+['FRIULI VENEZIA GIULIA', 0.4076, 0.579, 0.6867, 1.6732999999999998],
+['LIGURIA', 0.3617, 0.5649, 0.6808, 1.6074],
+['EMILIA-ROMAGNA', 0.3834, 0.5774, 0.6961, 1.6569000000000003],
+['TOSCANA', 0.4747, 0.5686, 0.684, 1.7273],
+['UMBRIA', 0.4978, 0.5203, 0.6798, 1.6979],
+['MARCHE', 0.4543, 0.5359, 0.679, 1.6692],
+['LAZIO', 0.4031, 0.5891, 0.6641, 1.6562999999999999],
+['ABRUZZO', 0.4941, 0.496, 0.6587, 1.6488],
+['MOLISE', 0.4106, 0.4157, 0.6291, 1.4554],
+['CAMPANIA', 0.4554, 0.3724, 0.5899, 1.4177],
+['PUGLIA', 0.3514, 0.3461, 0.6053, 1.3028],
+['BASILICATA', 0.4899, 0.3632, 0.6229, 1.476],
+['CALABRIA', 0.4491, 0.3381, 0.5955, 1.3827],
+['SICILIA', 0.3996, 0.2782, 0.58, 1.2578],
+['SARDEGNA', 0.3522, 0.3904, 0.611, 1.3536000000000001]
+]);
+	var optionsBubble = {
+			title: 'bubbles of sustainability',
+			colorAxis: {colors: ['red', 'green']},
+			hAxis: {title: 'environment'},
+			vAxis: {title: 'economy'},
+			};
+
+			var chartBar = new google.visualization.ColumnChart(document.getElementById('bar_div'));
+			chartBar.draw(dataBar, optionsBar);
+			var chartBubble = new google.visualization.BubbleChart(document.getElementById('bubble_div'));
+			chartBubble.draw(dataBubble, optionsBubble)
+		  }
+		</script>
+	  </head>
+	  <body>
+	  <div id="logo" class="container"><h1>Graph of sustainability</h1>
+		<br></br>
+		<div id="bar_div" style="width: 900px; height: 500px;"  border='0'></div>
+		<br><hr>
+		<div id="bubble_div" style="width: 900px; height: 500px;"  border='1'></div>
+		<br><hr>
+		<img class="aligncenter" src='histogram.png' style="width: 900px; height: 500px;"  border='0'/>
+		<br><hr>
+		<img class="aligncenter" src='points.png' style="width: 900px; height: 500px;"  border='0'/><hr>
+	  </body>
+	</html>
