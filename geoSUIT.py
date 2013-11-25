@@ -229,13 +229,12 @@ class geoSUITDialog(QDialog, Ui_Dialog):
                 for i in range(len(Envfields)):
                     for l in range(len(setting[1])):
                         if Envfields[i]==setting[1][l]:
-                            self.EnvTableWidget.horizontalHeaderItem(i).setToolTip(unicode(str(setting[0][i])))
-                            self.EnvTableWidget.verticalHeaderItem(i).setToolTip(unicode(str(setting[0][i])))
-                            self.EnvWeighTableWidget.horizontalHeaderItem(i).setToolTip(unicode(str(setting[0][i])))
-                            self.EnvWeighTableWidget.setItem(0,i,QTableWidgetItem(str(setting[0][i])))
-                            self.EnvWeighTableWidget.setItem(1,i,QTableWidgetItem(str(setting[2][i])))
-                            self.EnvWeighTableWidget.setItem(2,i,QTableWidgetItem(str(setting[3][i])))
-                            
+                            self.EnvTableWidget.horizontalHeaderItem(i).setToolTip(unicode(str(setting[0][l])))
+                            self.EnvTableWidget.verticalHeaderItem(i).setToolTip(unicode(str(setting[0][l])))
+                            self.EnvWeighTableWidget.horizontalHeaderItem(i).setToolTip(unicode(str(setting[0][l])))
+                            self.EnvWeighTableWidget.setItem(0,i,QTableWidgetItem(str(setting[0][l])))
+                            self.EnvWeighTableWidget.setItem(1,i,QTableWidgetItem(str(setting[2][l])))
+                            self.EnvWeighTableWidget.setItem(2,i,QTableWidgetItem(str(setting[3][l])))                         
             else:
                 for r in range(len(Envfields)):
                     self.EnvWeighTableWidget.setItem(0,r,QTableWidgetItem("-"))
@@ -621,16 +620,19 @@ class geoSUITDialog(QDialog, Ui_Dialog):
             criteria=[self.EnvTableWidget.verticalHeaderItem(f).text() for f in range(self.EnvTableWidget.columnCount())]
             #preference=[str(self.EnvWeighTableWidget.item(2, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]
             weight=[float(self.EnvWeighTableWidget.item(1, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]
+            weight=[ w/sum(weight) for w in weight ]
             self.EnvGetWeightBtn.setEnabled(False)
         elif self.toolBox.currentIndex()==2:
             criteria=[self.EcoTableWidget.verticalHeaderItem(f).text() for f in range(self.EcoTableWidget.columnCount())]
             #preference=[str(self.EcoWeighTableWidget.item(2, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())]
             weight=[float(self.EcoWeighTableWidget.item(1, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())]
+            weight=[ w/sum(weight) for w in weight ]
             self.EcoGetWeightBtn.setEnabled(False)
         elif self.toolBox.currentIndex()==3:
             criteria=[self.SocTableWidget.verticalHeaderItem(f).text() for f in range(self.SocTableWidget.columnCount())]
             #preference=[str(self.SocWeighTableWidget.item(2, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
             weight=[float(self.SocWeighTableWidget.item(1, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
+            weight=[ w/sum(weight) for w in weight ]
             self.SocGetWeightBtn.setEnabled(False)
         else:
             pass
