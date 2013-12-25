@@ -148,7 +148,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
          <rect>
           <x>11</x>
           <y>64</y>
-          <width>144</width>
+          <width>151</width>
           <height>20</height>
          </rect>
         </property>
@@ -513,7 +513,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_5">
         <attribute name="title">

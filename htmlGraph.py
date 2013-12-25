@@ -1,7 +1,7 @@
 import os
 
 def BuilHTMLGraph(suist,env,eco,soc,labels):
-	header=["label","environment","economy","social","sustainability"]
+	header=["label","environmental","economic","social","sustainability"]
 	data=[]
 	for i in range(len(labels)):
 		row=[]
@@ -49,8 +49,8 @@ def BuilHTMLGraph(suist,env,eco,soc,labels):
 	HTMLfile.write("""	var optionsBubble = {
 			title: 'bubbles of sustainability',
 			colorAxis: {colors: ['red', 'green']},
-			hAxis: {title: 'environment'},
-			vAxis: {title: 'economy'},
+			hAxis: {title: 'environmental'},
+			vAxis: {title: 'economic'},
 			};
 
 			var chartBar = new google.visualization.ColumnChart(document.getElementById('bar_div'));
