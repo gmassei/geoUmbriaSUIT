@@ -13,7 +13,7 @@ qgisMinimumVersion=2.0
 #qgisMaximumVersion=2.99
 description=geographical MCDA for sustainability assessment
 category=Vector
-version=2.4.3
+version=2.4.4
 
 
 # end of mandatory metadata
@@ -26,9 +26,9 @@ version=2.4.3
 # tags are comma separated with spaces allowed
 tags=Sustainability, Geographic MCDA, Vector
 
-homepage=http://code.google.com/p/geosustainability/
+homepage=https://github.com/gmassei/geoUmbriaSUIT/wiki/geoUmbriaSUIT
 tracker=http://hub.qgis.org/projects/geoumbriasuit/
-repository=http://code.google.com/p/geosustainability/
+repository=https://github.com/gmassei/geoUmbriaSUIT
 icon=icon.png
 # experimental flag
 experimental=True

@@ -100,10 +100,10 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.EnvTableWidget.setHorizontalHeaderLabels(Envfields)
 		self.EnvTableWidget.setRowCount(len(Envfields))
 		self.EnvTableWidget.setVerticalHeaderLabels(Envfields)
-		EnvSetLabel=["Weigths","Preference"]
+		EnvSetLabel=["Label","Weigths","Preference","Ideal point", "worst point "]
 		self.EnvWeighTableWidget.setColumnCount(len(Envfields))
 		self.EnvWeighTableWidget.setHorizontalHeaderLabels(Envfields)
-		self.EnvWeighTableWidget.setRowCount(2)
+		self.EnvWeighTableWidget.setRowCount(5)
 		self.EnvWeighTableWidget.setVerticalHeaderLabels(EnvSetLabel)
 		for r in range(len(Envfields)):
 			self.EnvTableWidget.setItem(r,r,QTableWidgetItem("1.0"))
@@ -118,10 +118,10 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.EcoTableWidget.setHorizontalHeaderLabels(Ecofields)
 		self.EcoTableWidget.setRowCount(len(Ecofields))
 		self.EcoTableWidget.setVerticalHeaderLabels(Ecofields)
-		EcoSetLabel=["Weigths","Preference"]
+		EcoSetLabel=["Label","Weigths","Preference","Ideal point", "worst point "]
 		self.EcoWeighTableWidget.setColumnCount(len(Ecofields))
 		self.EcoWeighTableWidget.setHorizontalHeaderLabels(Ecofields)
-		self.EcoWeighTableWidget.setRowCount(2)
+		self.EcoWeighTableWidget.setRowCount(5)
 		self.EcoWeighTableWidget.setVerticalHeaderLabels(EcoSetLabel)
 		for r in range(len(Ecofields)):
 			self.EcoTableWidget.setItem(r,r,QTableWidgetItem("1.0"))
@@ -136,10 +136,10 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.SocTableWidget.setHorizontalHeaderLabels(Socfields)
 		self.SocTableWidget.setRowCount(len(Socfields))
 		self.SocTableWidget.setVerticalHeaderLabels(Socfields)
-		SocSetLabel=["Weigths","Preference"]
+		SocSetLabel=["Label","Weigths","Preference","Ideal point", "worst point "]
 		self.SocWeighTableWidget.setColumnCount(len(Socfields))
 		self.SocWeighTableWidget.setHorizontalHeaderLabels(Socfields)
-		self.SocWeighTableWidget.setRowCount(2)
+		self.SocWeighTableWidget.setRowCount(5)
 		self.SocWeighTableWidget.setVerticalHeaderLabels(SocSetLabel)
 		for r in range(len(Socfields)):
 			self.SocTableWidget.setItem(r,r,QTableWidgetItem("1.0"))
@@ -202,7 +202,12 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.SocGetWeightBtn.setEnabled(True)
 		return 0
 
-
+	def fillTable(self,typeWeighTableWidget):
+		fields=self.GetFieldNames(self.active_layer)
+		for r in range(len(fields)):
+			typeWeighTableWidget.setItem(0,r,QTableWidgetItem("-"))
+			typeWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
+			typeWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
 
 	def updateTable(self):
 		"""Prepare and compile tbale in GUI"""
@@ -224,11 +229,6 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			self.EnvWeighTableWidget.setHorizontalHeaderLabels(Envfields)
 			self.EnvWeighTableWidget.setRowCount(5)
 			self.EnvWeighTableWidget.setVerticalHeaderLabels(EnvSetLabel)
-			for r in range(len(Envfields)):
-					self.EnvWeighTableWidget.setItem(0,r,QTableWidgetItem(Envfields[r]))
-					self.EnvWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
-					self.EnvWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
-			
 			if os.path.exists(os.path.join(pathSource,"setting.csv"))==True:
 				setting=[i.strip().split(';') for i in open(os.path.join(pathSource,"setting.csv")).readlines()]
 				for i in range(len(Envfields)):
@@ -239,8 +239,12 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 							self.EnvWeighTableWidget.horizontalHeaderItem(i).setToolTip(unicode(str(setting[0][l])))
 							self.EnvWeighTableWidget.setItem(0,i,QTableWidgetItem(str(setting[0][l])))
 							self.EnvWeighTableWidget.setItem(1,i,QTableWidgetItem(str(setting[2][l])))
-							self.EnvWeighTableWidget.setItem(2,i,QTableWidgetItem(str(setting[3][l])))                         
-
+							self.EnvWeighTableWidget.setItem(2,i,QTableWidgetItem(str(setting[3][l])))
+			else:
+				for r in range(len(Envfields)):
+					self.EnvWeighTableWidget.setItem(0,r,QTableWidgetItem("-"))
+					self.EnvWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
+					self.EnvWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
 
 ############################################################################################################################
 			self.EcoTableWidget.setColumnCount(len(Ecofields))
@@ -252,11 +256,6 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			self.EcoWeighTableWidget.setHorizontalHeaderLabels(Ecofields)
 			self.EcoWeighTableWidget.setRowCount(5)
 			self.EcoWeighTableWidget.setVerticalHeaderLabels(EcoSetLabel)
-			
-			for r in range(len(Ecofields)):
-				self.EcoWeighTableWidget.setItem(0,r,QTableWidgetItem(str(Ecofields[r])))
-				self.EcoWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
-				self.EcoWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
 
 			if os.path.exists(os.path.join(pathSource,"setting.csv"))==True:
 				for e in range(len(Ecofields)):
@@ -268,7 +267,11 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 							self.EcoWeighTableWidget.setItem(0,e,QTableWidgetItem(str(setting[0][s])))
 							self.EcoWeighTableWidget.setItem(1,e,QTableWidgetItem(str(setting[2][s])))
 							self.EcoWeighTableWidget.setItem(2,e,QTableWidgetItem(str(setting[3][s])))
-
+			else:
+				for r in range(len(Ecofields)):
+					self.EcoWeighTableWidget.setItem(0,r,QTableWidgetItem("-"))
+					self.EcoWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
+					self.EcoWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
 ############################################################################################################################
 			self.SocTableWidget.setColumnCount(len(Socfields))
 			self.SocTableWidget.setHorizontalHeaderLabels(Socfields)
@@ -279,11 +282,6 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			self.SocWeighTableWidget.setHorizontalHeaderLabels(Socfields)
 			self.SocWeighTableWidget.setRowCount(5)
 			self.SocWeighTableWidget.setVerticalHeaderLabels(SocSetLabel)
-			
-			for r in range(len(Socfields)):
-				self.SocWeighTableWidget.setItem(0,r,QTableWidgetItem(str(Socfields[r])))
-				self.SocWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
-				self.SocWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
 
 			if os.path.exists(os.path.join(pathSource,"setting.csv"))==True:
 				for t in range(len(Socfields)):
@@ -295,6 +293,16 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 							self.SocWeighTableWidget.setItem(0,t,QTableWidgetItem(str(setting[0][q])))
 							self.SocWeighTableWidget.setItem(1,t,QTableWidgetItem(str(setting[2][q])))
 							self.SocWeighTableWidget.setItem(2,t,QTableWidgetItem(str(setting[3][q])))
+							
+			else:
+				for r in range(len(Socfields)):
+					self.SocWeighTableWidget.setItem(0,r,QTableWidgetItem("-"))
+					self.SocWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
+					self.SocWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
+		else:
+			self.fillTable(self.EnvWeighTableWidget)
+			self.fillTable(self.EcoWeighTableWidget)
+			self.fillTable(self.SocWeighTableWidget)
 		self.updateGUIIdealPoint()
 		return 0
 
@@ -363,6 +371,8 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			self.EnvWeighTableWidget.setHorizontalHeaderItem((self.EnvWeighTableWidget.columnCount()-1),QTableWidgetItem(f))
 			self.EnvWeighTableWidget.setItem(1,(self.EnvWeighTableWidget.columnCount()-1),QTableWidgetItem("1.0"))
 			self.EnvWeighTableWidget.setItem(2,(self.EnvWeighTableWidget.columnCount()-1),QTableWidgetItem("gain"))
+			self.EnvWeighTableWidget.setItem(3,(self.EnvWeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
+			self.EnvWeighTableWidget.setItem(4,(self.EnvWeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
 
 		elif self.toolBox.currentIndex()==2:
 			f=self.EcolistFieldsCBox.currentText()
@@ -375,6 +385,8 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			self.EcoWeighTableWidget.setHorizontalHeaderItem((self.EcoWeighTableWidget.columnCount()-1),QTableWidgetItem(f))
 			self.EcoWeighTableWidget.setItem(1,(self.EcoWeighTableWidget.columnCount()-1),QTableWidgetItem("1.0"))
 			self.EcoWeighTableWidget.setItem(2,(self.EcoWeighTableWidget.columnCount()-1),QTableWidgetItem("gain"))
+			self.EcoWeighTableWidget.setItem(3,(self.EcoWeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
+			self.EcoWeighTableWidget.setItem(4,(self.EcoWeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
 
 		elif self.toolBox.currentIndex()==3:
 			f=self.SoclistFieldsCBox.currentText()
@@ -387,6 +399,8 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			self.SocWeighTableWidget.setHorizontalHeaderItem((self.SocWeighTableWidget.columnCount()-1),QTableWidgetItem(f))
 			self.SocWeighTableWidget.setItem(1,(self.SocWeighTableWidget.columnCount()-1),QTableWidgetItem("1.0"))
 			self.SocWeighTableWidget.setItem(2,(self.SocWeighTableWidget.columnCount()-1),QTableWidgetItem("gain"))
+			self.SocWeighTableWidget.setItem(3,(self.SocWeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
+			self.SocWeighTableWidget.setItem(4,(self.SocWeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
 		else:
 			pass
 		return 0
@@ -595,6 +609,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			pass
 		return 0
 
+
 	def AddDecisionField(self,layer,Label):
 		"""Add field on attribute table"""
 		caps = layer.dataProvider().capabilities()
@@ -620,25 +635,26 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			criteria=[self.EnvTableWidget.verticalHeaderItem(f).text() for f in range(self.EnvTableWidget.columnCount())]
 			#preference=[str(self.EnvWeighTableWidget.item(2, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]
 			weight=[float(self.EnvWeighTableWidget.item(1, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]
-			#weight=[ w/sum(weight) for w in weight ]
+			weight=[ w/sum(weight) for w in weight ]
 			self.EnvGetWeightBtn.setEnabled(False)
 		elif self.toolBox.currentIndex()==2:
 			criteria=[self.EcoTableWidget.verticalHeaderItem(f).text() for f in range(self.EcoTableWidget.columnCount())]
 			#preference=[str(self.EcoWeighTableWidget.item(2, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())]
 			weight=[float(self.EcoWeighTableWidget.item(1, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())]
-			#weight=[ w/sum(weight) for w in weight ]
+			weight=[ w/sum(weight) for w in weight ]
 			self.EcoGetWeightBtn.setEnabled(False)
 		elif self.toolBox.currentIndex()==3:
 			criteria=[self.SocTableWidget.verticalHeaderItem(f).text() for f in range(self.SocTableWidget.columnCount())]
 			#preference=[str(self.SocWeighTableWidget.item(2, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
 			weight=[float(self.SocWeighTableWidget.item(1, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
-			#weight=[ w/sum(weight) for w in weight ]
+			weight=[ w/sum(weight) for w in weight ]
 			self.SocGetWeightBtn.setEnabled(False)
 		else:
 			pass
 		provider=self.active_layer.dataProvider()
 		feat = QgsFeature()
 		fids=[provider.fieldNameIndex(c) for c in criteria]  #obtain array fields index from its name
+		#self.EnvTEdit.append(str(dict(zip(fids,[(field) for field in criteria]))))
 		sumSquareColumn=dict(zip(fids,[self.ExtractFieldSumSquare(field) for field in criteria]))
 		#provider.select(fids)
 		self.active_layer.startEditing()
@@ -646,7 +662,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			for feat in self.active_layer.getFeatures():
 				attributes=feat.attributes()[f]
 				value=(float(attributes)/float(sumSquareColumn[f]))*w   # TOPSIS algorithm: STEP 1 and STEP 2
-				self.EnvTEdit.append(str(attributes)+"/"+str(sumSquareColumn[f])+"="+str(value))
+				#self.EnvTEdit.append(str(attributes)+"-"+str(value))
 				self.active_layer.changeAttributeValue(feat.id(),f,round(value,4))
 		self.active_layer.commitChanges()
 		return 0
@@ -702,15 +718,13 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.SocProgressBar.setRange(1,features)
 		progress=0
 		for feat in self.active_layer.getFeatures():
-			attributes = feat.attributes()
 			IP=WP=0
 			for f,idp,wrp in zip(fids,idealPoint,worstPoint):
 				progress=progress+1
-				#self.EnvTEdit.append(str(f)+"#"+str(attributes[f]))
+				attributes = feat.attributes()
 				IP =IP+(float(attributes[f]-idp)**2)   # TOPSIS algorithm: STEP 4
 				WP =WP+(float(attributes[f]-wrp)**2)
-			relativeCloseness=(WP**(0.5))/((WP**(0.5))+(IP**(0.5)))
-			#self.EnvTEdit.append(str(IP)+"#"+str(WP))
+			relativeCloseness=(WP**(0.5))/((WP**(0.5))+(IP**(0.5))) 
 			self.active_layer.changeAttributeValue(feat.id(), fldValue, round(float(relativeCloseness),4))
 			self.EnvProgressBar.setValue(progress)
 			self.EcoProgressBar.setValue(progress)
@@ -881,7 +895,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		plt.ylabel('Scores')
 		plt.title('Sustainability')
 		plt.xticks((xpos), tuple(labels),rotation=90,fontsize=6 )
-		plt.legend((p1[0], p2[0], p3[0]), ('Environment', 'Economics','Social'))
+		plt.legend((p1[0], p2[0], p3[0]), ('Environmental', 'Economic','Social'))
 		plt.savefig(os.path.join(currentDir,"histogram.png"))
 		self.LblGraphic.setPixmap(QtGui.QPixmap(os.path.join(currentDir,"histogram.png")))
 		plt.close('all')
@@ -904,7 +918,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 	def SaveCfg(self):
 		#pathSource=os.path.dirname(str(self.base_Layer.source()))
 		currentDIR = unicode(os.path.dirname(str(self.base_Layer.source())))
-		fileCfg = open(currentDIR+"setting.csv","w")
+		fileCfg = open(currentDIR+"\\setting.csv","w")
 		label=[str(self.EnvWeighTableWidget.item(0, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())] +\
 			[str(self.EcoWeighTableWidget.item(0, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())] + \
 			[str(self.SocWeighTableWidget.item(0, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
