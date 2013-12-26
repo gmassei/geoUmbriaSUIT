@@ -13,7 +13,7 @@ qgisMinimumVersion=2.0
 #qgisMaximumVersion=2.99
 description=geographical MCDA for sustainability assessment
 category=Vector
-version=2.4.4
+version=2.4.5
 
 
 # end of mandatory metadata

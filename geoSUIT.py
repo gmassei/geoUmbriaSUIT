@@ -203,12 +203,43 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		return 0
 
 	def fillTable(self,typeWeighTableWidget):
-		fields=self.GetFieldNames(self.active_layer)
+		"""support function for updateTable()"""
+		fields=self.GetFieldNames(self.base_Layer)
 		for r in range(len(fields)):
-			typeWeighTableWidget.setItem(0,r,QTableWidgetItem("-"))
+			typeWeighTableWidget.setItem(0,r,QTableWidgetItem("*"))
 			typeWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
 			typeWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
 
+	def updateTableFctn(self,TableWidget,WeighTableWidget,fields):
+		"""base function for updateTable()"""
+		pathSource=os.path.dirname(str(self.base_Layer.source()))
+		TableWidget.setColumnCount(len(fields))
+		TableWidget.setHorizontalHeaderLabels(fields)
+		TableWidget.setRowCount(len(fields))
+		TableWidget.setVerticalHeaderLabels(fields)
+		EnvSetLabel=["Label","Weigths","Preference","Ideal point", "worst point "]
+		WeighTableWidget.setColumnCount(len(fields))
+		WeighTableWidget.setHorizontalHeaderLabels(fields)
+		WeighTableWidget.setRowCount(5)
+		WeighTableWidget.setVerticalHeaderLabels(fields)
+		if os.path.exists(os.path.join(pathSource,"setting.csv"))==True:
+			setting=[i.strip().split(';') for i in open(os.path.join(pathSource,"setting.csv")).readlines()]
+			for i in range(len(fields)):
+				for l in range(len(setting[1])):
+					if fields[i]==setting[1][l]:
+						TableWidget.horizontalHeaderItem(i).setToolTip(unicode(str(setting[0][l])))
+						TableWidget.verticalHeaderItem(i).setToolTip(unicode(str(setting[0][l])))
+						WeighTableWidget.horizontalHeaderItem(i).setToolTip(unicode(str(setting[0][l])))
+						WeighTableWidget.setItem(0,i,QTableWidgetItem(str(setting[0][l])))
+						WeighTableWidget.setItem(1,i,QTableWidgetItem(str(setting[2][l])))
+						WeighTableWidget.setItem(2,i,QTableWidgetItem(str(setting[3][l])))
+		else:
+			for r in range(len(fields)):
+				WeighTableWidget.setItem(0,r,QTableWidgetItem("-"))
+				WeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
+				WeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
+		return 0
+			
 	def updateTable(self):
 		"""Prepare and compile tbale in GUI"""
 		pathSource=os.path.dirname(str(self.base_Layer.source()))
@@ -220,85 +251,10 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			Ecofields=[f for f in self.GetFieldNames(self.active_layer) if f[:len(ECOprefix)]==self.prefixECOlEdt.text()]
 			Socfields=[f for f in self.GetFieldNames(self.active_layer) if f[:len(SOCprefix)]==self.prefixSOClEdt.text()]
 ############################################################################################################################
-			self.EnvTableWidget.setColumnCount(len(Envfields))
-			self.EnvTableWidget.setHorizontalHeaderLabels(Envfields)
-			self.EnvTableWidget.setRowCount(len(Envfields))
-			self.EnvTableWidget.setVerticalHeaderLabels(Envfields)
-			EnvSetLabel=["Label","Weigths","Preference","Ideal point", "worst point "]
-			self.EnvWeighTableWidget.setColumnCount(len(Envfields))
-			self.EnvWeighTableWidget.setHorizontalHeaderLabels(Envfields)
-			self.EnvWeighTableWidget.setRowCount(5)
-			self.EnvWeighTableWidget.setVerticalHeaderLabels(EnvSetLabel)
-			if os.path.exists(os.path.join(pathSource,"setting.csv"))==True:
-				setting=[i.strip().split(';') for i in open(os.path.join(pathSource,"setting.csv")).readlines()]
-				for i in range(len(Envfields)):
-					for l in range(len(setting[1])):
-						if Envfields[i]==setting[1][l]:
-							self.EnvTableWidget.horizontalHeaderItem(i).setToolTip(unicode(str(setting[0][l])))
-							self.EnvTableWidget.verticalHeaderItem(i).setToolTip(unicode(str(setting[0][l])))
-							self.EnvWeighTableWidget.horizontalHeaderItem(i).setToolTip(unicode(str(setting[0][l])))
-							self.EnvWeighTableWidget.setItem(0,i,QTableWidgetItem(str(setting[0][l])))
-							self.EnvWeighTableWidget.setItem(1,i,QTableWidgetItem(str(setting[2][l])))
-							self.EnvWeighTableWidget.setItem(2,i,QTableWidgetItem(str(setting[3][l])))
-			else:
-				for r in range(len(Envfields)):
-					self.EnvWeighTableWidget.setItem(0,r,QTableWidgetItem("-"))
-					self.EnvWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
-					self.EnvWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
-
+			self.updateTableFctn(self.EnvTableWidget,self.EnvWeighTableWidget,Envfields)
+			self.updateTableFctn(self.EcoTableWidget,self.EcoWeighTableWidget,Ecofields)
+			self.updateTableFctn(self.SocTableWidget,self.SocWeighTableWidget,Socfields)
 ############################################################################################################################
-			self.EcoTableWidget.setColumnCount(len(Ecofields))
-			self.EcoTableWidget.setHorizontalHeaderLabels(Ecofields)
-			self.EcoTableWidget.setRowCount(len(Ecofields))
-			self.EcoTableWidget.setVerticalHeaderLabels(Ecofields)
-			EcoSetLabel=["Label","Weigths","Preference","Ideal point", "worst point "]
-			self.EcoWeighTableWidget.setColumnCount(len(Ecofields))
-			self.EcoWeighTableWidget.setHorizontalHeaderLabels(Ecofields)
-			self.EcoWeighTableWidget.setRowCount(5)
-			self.EcoWeighTableWidget.setVerticalHeaderLabels(EcoSetLabel)
-
-			if os.path.exists(os.path.join(pathSource,"setting.csv"))==True:
-				for e in range(len(Ecofields)):
-					for s in range(len(setting[1])):
-						if Ecofields[e]==setting[1][s]:
-							self.EcoTableWidget.horizontalHeaderItem(e).setToolTip((str(setting[0][s])))
-							self.EcoTableWidget.verticalHeaderItem(e).setToolTip((str(setting[0][s])))
-							self.EcoWeighTableWidget.horizontalHeaderItem(e).setToolTip((str(setting[0][s])))
-							self.EcoWeighTableWidget.setItem(0,e,QTableWidgetItem(str(setting[0][s])))
-							self.EcoWeighTableWidget.setItem(1,e,QTableWidgetItem(str(setting[2][s])))
-							self.EcoWeighTableWidget.setItem(2,e,QTableWidgetItem(str(setting[3][s])))
-			else:
-				for r in range(len(Ecofields)):
-					self.EcoWeighTableWidget.setItem(0,r,QTableWidgetItem("-"))
-					self.EcoWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
-					self.EcoWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
-############################################################################################################################
-			self.SocTableWidget.setColumnCount(len(Socfields))
-			self.SocTableWidget.setHorizontalHeaderLabels(Socfields)
-			self.SocTableWidget.setRowCount(len(Socfields))
-			self.SocTableWidget.setVerticalHeaderLabels(Socfields)
-			SocSetLabel=["Label","Weigths","Preference","Ideal point", "worst point "]
-			self.SocWeighTableWidget.setColumnCount(len(Socfields))
-			self.SocWeighTableWidget.setHorizontalHeaderLabels(Socfields)
-			self.SocWeighTableWidget.setRowCount(5)
-			self.SocWeighTableWidget.setVerticalHeaderLabels(SocSetLabel)
-
-			if os.path.exists(os.path.join(pathSource,"setting.csv"))==True:
-				for t in range(len(Socfields)):
-					for q in range(len(setting[1])):
-						if Socfields[t]==setting[1][q]:
-							self.SocTableWidget.horizontalHeaderItem(t).setToolTip((str(setting[0][q])))
-							self.SocTableWidget.verticalHeaderItem(t).setToolTip((str(setting[0][q])))
-							self.SocWeighTableWidget.horizontalHeaderItem(t).setToolTip((str(setting[0][q])))
-							self.SocWeighTableWidget.setItem(0,t,QTableWidgetItem(str(setting[0][q])))
-							self.SocWeighTableWidget.setItem(1,t,QTableWidgetItem(str(setting[2][q])))
-							self.SocWeighTableWidget.setItem(2,t,QTableWidgetItem(str(setting[3][q])))
-							
-			else:
-				for r in range(len(Socfields)):
-					self.SocWeighTableWidget.setItem(0,r,QTableWidgetItem("-"))
-					self.SocWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
-					self.SocWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
 		else:
 			self.fillTable(self.EnvWeighTableWidget)
 			self.fillTable(self.EcoWeighTableWidget)
@@ -306,153 +262,92 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.updateGUIIdealPoint()
 		return 0
 
+
+	def updateGUIIdealPointFctn(self,TableWidget,WeighTableWidget,provider):
+		"""base function for updateGUIIdealPoint()"""
+		criteria=[TableWidget.verticalHeaderItem(f).text() for f in range(TableWidget.columnCount())]
+		preference=[str(WeighTableWidget.item(2, c).text()) for c in range(WeighTableWidget.columnCount())]
+		fids=[provider.fieldNameIndex(c) for c in criteria]  #obtain array fields index from its name
+		minField=[provider.minimumValue( f ) for f in fids]
+		maxField=[provider.maximumValue( f ) for f in fids]
+		for r in range(len(preference)):
+			if preference[r]=='gain':
+				WeighTableWidget.setItem(3,r,QTableWidgetItem(str(maxField[r])))#ideal point
+				WeighTableWidget.setItem(4,r,QTableWidgetItem(str(minField[r])))#worst point
+			elif preference[r]=='cost':
+				WeighTableWidget.setItem(3,r,QTableWidgetItem(str(minField[r])))
+				WeighTableWidget.setItem(4,r,QTableWidgetItem(str(maxField[r])))
+			else:
+				WeighTableWidget.setItem(3,r,QTableWidgetItem("0"))
+				WeighTableWidget.setItem(4,r,QTableWidgetItem("0"))
+	
 	def updateGUIIdealPoint(self):
 		provider=self.active_layer.dataProvider()
 		##Environmental
-		criteria=[self.EnvTableWidget.verticalHeaderItem(f).text() for f in range(self.EnvTableWidget.columnCount())]
-		preference=[str(self.EnvWeighTableWidget.item(2, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]
-		fids=[provider.fieldNameIndex(c) for c in criteria]  #obtain array fields index from its name
-		minField=[provider.minimumValue( f ) for f in fids]
-		maxField=[provider.maximumValue( f ) for f in fids]
-		for r in range(len(preference)):
-			if preference[r]=='gain':
-				self.EnvWeighTableWidget.setItem(3,r,QTableWidgetItem(str(maxField[r])))#ideal point
-				self.EnvWeighTableWidget.setItem(4,r,QTableWidgetItem(str(minField[r])))#worst point
-			elif preference[r]=='cost':
-				self.EnvWeighTableWidget.setItem(3,r,QTableWidgetItem(str(minField[r])))
-				self.EnvWeighTableWidget.setItem(4,r,QTableWidgetItem(str(maxField[r])))
-			else:
-				self.EnvWeighTableWidget.setItem(3,r,QTableWidgetItem("0"))
-				self.EnvWeighTableWidget.setItem(4,r,QTableWidgetItem("0"))
+		self.updateGUIIdealPointFctn(self.EnvTableWidget,self.EnvWeighTableWidget,provider)
 		##Economics
-		criteria=[self.EcoTableWidget.verticalHeaderItem(f).text() for f in range(self.EcoTableWidget.columnCount())]
-		preference=[str(self.EcoWeighTableWidget.item(2, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())]
-		fids=[provider.fieldNameIndex(c) for c in criteria]  #obtain array fields index from its name
-		minField=[provider.minimumValue( f ) for f in fids]
-		maxField=[provider.maximumValue( f ) for f in fids]
-		for r in range(len(preference)):
-			if preference[r]=='gain':
-				self.EcoWeighTableWidget.setItem(3,r,QTableWidgetItem(str(maxField[r])))
-				self.EcoWeighTableWidget.setItem(4,r,QTableWidgetItem(str(minField[r])))
-			elif preference[r]=='cost':
-				self.EcoWeighTableWidget.setItem(3,r,QTableWidgetItem(str(minField[r])))
-				self.EcoWeighTableWidget.setItem(4,r,QTableWidgetItem(str(maxField[r])))
-			else:
-				self.EcoWeighTableWidget.setItem(3,r,QTableWidgetItem("0"))
-				self.EcoWeighTableWidget.setItem(4,r,QTableWidgetItem("0"))
+		self.updateGUIIdealPointFctn(self.EcoTableWidget,self.EcoWeighTableWidget,provider)
 		##Social
-		criteria=[self.SocTableWidget.verticalHeaderItem(f).text() for f in range(self.SocTableWidget.columnCount())]
-		preference=[str(self.SocWeighTableWidget.item(2, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
-		fids=[provider.fieldNameIndex(c) for c in criteria]  #obtain array fields index from its name
-		minField=[provider.minimumValue( f ) for f in fids]
-		maxField=[provider.maximumValue( f ) for f in fids]
-		for r in range(len(preference)):
-			if preference[r]=='gain':
-				self.SocWeighTableWidget.setItem(3,r,QTableWidgetItem(str(maxField[r])))
-				self.SocWeighTableWidget.setItem(4,r,QTableWidgetItem(str(minField[r])))
-			elif preference[r]=='cost':
-				self.SocWeighTableWidget.setItem(3,r,QTableWidgetItem(str(minField[r])))
-				self.SocWeighTableWidget.setItem(4,r,QTableWidgetItem(str(maxField[r])))
-			else:
-				self.SocWeighTableWidget.setItem(3,r,QTableWidgetItem("0"))
+		self.updateGUIIdealPointFctn(self.SocTableWidget,self.SocWeighTableWidget,provider)
+		return 0
+
+	def addFieldFctn(self,listFields,TableWidget,WeighTableWidget):
+		"""base function for AddField()"""
+		TableWidget.insertColumn(TableWidget.columnCount())
+		TableWidget.insertRow(TableWidget.rowCount())
+		TableWidget.setHorizontalHeaderItem((TableWidget.columnCount()-1),QTableWidgetItem(listFields))
+		TableWidget.setVerticalHeaderItem((TableWidget.rowCount()-1),QTableWidgetItem(listFields))
+		##############
+		WeighTableWidget.insertColumn(WeighTableWidget.columnCount())
+		WeighTableWidget.setHorizontalHeaderItem((WeighTableWidget.columnCount()-1),QTableWidgetItem(listFields))
+		WeighTableWidget.setItem(1,(WeighTableWidget.columnCount()-1),QTableWidgetItem("1.0"))
+		WeighTableWidget.setItem(2,(WeighTableWidget.columnCount()-1),QTableWidgetItem("gain"))
+		WeighTableWidget.setItem(3,(WeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
+		WeighTableWidget.setItem(4,(WeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
+		return 0
 			
-
-
 	def AddField(self):
 		"""Add field to table in GUI"""
 		if self.toolBox.currentIndex()==1:
-			f=self.EnvlistFieldsCBox.currentText()
-			self.EnvTableWidget.insertColumn(self.EnvTableWidget.columnCount())
-			self.EnvTableWidget.insertRow(self.EnvTableWidget.rowCount())
-			self.EnvTableWidget.setHorizontalHeaderItem((self.EnvTableWidget.columnCount()-1),QTableWidgetItem(f))
-			self.EnvTableWidget.setVerticalHeaderItem((self.EnvTableWidget.rowCount()-1),QTableWidgetItem(f))
-			##############
-			self.EnvWeighTableWidget.insertColumn(self.EnvWeighTableWidget.columnCount())
-			self.EnvWeighTableWidget.setHorizontalHeaderItem((self.EnvWeighTableWidget.columnCount()-1),QTableWidgetItem(f))
-			self.EnvWeighTableWidget.setItem(1,(self.EnvWeighTableWidget.columnCount()-1),QTableWidgetItem("1.0"))
-			self.EnvWeighTableWidget.setItem(2,(self.EnvWeighTableWidget.columnCount()-1),QTableWidgetItem("gain"))
-			self.EnvWeighTableWidget.setItem(3,(self.EnvWeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
-			self.EnvWeighTableWidget.setItem(4,(self.EnvWeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
-
+			listFields=self.EnvlistFieldsCBox.currentText()
+			self.addFieldFctn(listFields,self.EnvTableWidget,self.EnvWeighTableWidget)
 		elif self.toolBox.currentIndex()==2:
-			f=self.EcolistFieldsCBox.currentText()
-			self.EcoTableWidget.insertColumn(self.EcoTableWidget.columnCount())
-			self.EcoTableWidget.insertRow(self.EcoTableWidget.rowCount())
-			self.EcoTableWidget.setHorizontalHeaderItem((self.EcoTableWidget.columnCount()-1),QTableWidgetItem(f))
-			self.EcoTableWidget.setVerticalHeaderItem((self.EcoTableWidget.rowCount()-1),QTableWidgetItem(f))
-			##############
-			self.EcoWeighTableWidget.insertColumn(self.EcoWeighTableWidget.columnCount())
-			self.EcoWeighTableWidget.setHorizontalHeaderItem((self.EcoWeighTableWidget.columnCount()-1),QTableWidgetItem(f))
-			self.EcoWeighTableWidget.setItem(1,(self.EcoWeighTableWidget.columnCount()-1),QTableWidgetItem("1.0"))
-			self.EcoWeighTableWidget.setItem(2,(self.EcoWeighTableWidget.columnCount()-1),QTableWidgetItem("gain"))
-			self.EcoWeighTableWidget.setItem(3,(self.EcoWeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
-			self.EcoWeighTableWidget.setItem(4,(self.EcoWeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
-
+			listFields=self.EcolistFieldsCBox.currentText()
+			self.addFieldFctn(listFields,self.EcoTableWidget,self.EcoWeighTableWidget)
 		elif self.toolBox.currentIndex()==3:
-			f=self.SoclistFieldsCBox.currentText()
-			self.SocTableWidget.insertColumn(self.SocTableWidget.columnCount())
-			self.SocTableWidget.insertRow(self.SocTableWidget.rowCount())
-			self.SocTableWidget.setHorizontalHeaderItem((self.SocTableWidget.columnCount()-1),QTableWidgetItem(f))
-			self.SocTableWidget.setVerticalHeaderItem((self.SocTableWidget.rowCount()-1),QTableWidgetItem(f))
-			##############
-			self.SocWeighTableWidget.insertColumn(self.SocWeighTableWidget.columnCount())
-			self.SocWeighTableWidget.setHorizontalHeaderItem((self.SocWeighTableWidget.columnCount()-1),QTableWidgetItem(f))
-			self.SocWeighTableWidget.setItem(1,(self.SocWeighTableWidget.columnCount()-1),QTableWidgetItem("1.0"))
-			self.SocWeighTableWidget.setItem(2,(self.SocWeighTableWidget.columnCount()-1),QTableWidgetItem("gain"))
-			self.SocWeighTableWidget.setItem(3,(self.SocWeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
-			self.SocWeighTableWidget.setItem(4,(self.SocWeighTableWidget.columnCount()-1),QTableWidgetItem("0.0"))
+			listFields=self.SoclistFieldsCBox.currentText()
+			self.addFieldFctn(listFields,self.SocTableWidget,self.SocWeighTableWidget)
 		else:
 			pass
 		return 0
 
+	def removeFieldFctn(self,TableWidget,WeighTableWidget):
+		"""base function for RemoveField()"""
+		i=TableWidget.currentColumn()
+		j=WeighTableWidget.currentColumn()
+		if i == -1 and j== -1:
+			QMessageBox.warning(self.iface.mainWindow(), "geoUmbriaSUIT",
+			("column or row must be selected"), QMessageBox.Ok, QMessageBox.Ok)
+		elif i != -1:
+			TableWidget.removeColumn(i)
+			TableWidget.removeRow(i)
+			WeighTableWidget.removeColumn(i)
+		elif j != -1:
+			TableWidget.removeColumn(j)
+			TableWidget.removeRow(j)
+			WeighTableWidget.removeColumn(j)
 
 	def RemoveField(self):
 		"""Remove field in table in GUI"""
 		if self.toolBox.currentIndex()==1:
-			f=self.EnvlistFieldsCBox.currentText()
-			i=self.EnvTableWidget.currentColumn()
-			j=self.EnvWeighTableWidget.currentColumn()
-			if i == -1 and j== -1:
-				QMessageBox.warning(self.iface.mainWindow(), "geoUmbriaSUIT",
-				("column or row must be selected"), QMessageBox.Ok, QMessageBox.Ok)
-			elif i != -1:
-				self.EnvTableWidget.removeColumn(i)
-				self.EnvTableWidget.removeRow(i)
-				self.EnvWeighTableWidget.removeColumn(i)
-			elif j != -1:
-				self.EnvTableWidget.removeColumn(j)
-				self.EnvTableWidget.removeRow(j)
-				self.EnvWeighTableWidget.removeColumn(j)
+			self.EnvTableWidget.currentColumn()
+			self.removeFieldFctn(self.EnvTableWidget,self.EnvWeighTableWidget)
 		elif self.toolBox.currentIndex()==2:
 			self.EcolistFieldsCBox.currentText()
-			i=self.EcoTableWidget.currentColumn()
-			j=self.EcoWeighTableWidget.currentColumn()
-			if i == -1 and j== -1:
-				QMessageBox.warning(self.iface.mainWindow(), "geoUmbriaSUIT",
-				("column or row must be selected"), QMessageBox.Ok, QMessageBox.Ok)
-			elif i != -1:
-				self.EcoTableWidget.removeColumn(i)
-				self.EcoTableWidget.removeRow(i)
-				self.EcoWeighTableWidget.removeColumn(i)
-			elif j != -1:
-				self.EcoTableWidget.removeColumn(j)
-				self.EcoTableWidget.removeRow(j)
-				self.EcoWeighTableWidget.removeColumn(j)
+			self.removeFieldFctn(self.EcoTableWidget,self.EcoWeighTableWidget)
 		elif self.toolBox.currentIndex()==3:
 			self.SoclistFieldsCBox.currentText()
-			i=self.SocTableWidget.currentColumn()
-			j=self.SocWeighTableWidget.currentColumn()
-			if i == -1 and j== -1:
-				QMessageBox.warning(self.iface.mainWindow(), "geoUmbriaSUIT",
-				("column or row must be selected"), QMessageBox.Ok, QMessageBox.Ok)
-			elif i != -1:
-				self.SocTableWidget.removeColumn(i)
-				self.SocTableWidget.removeRow(i)
-				self.SocWeighTableWidget.removeColumn(i)
-			elif j != -1:
-				self.SocTableWidget.removeColumn(j)
-				self.SocTableWidget.removeRow(j)
-				self.SocWeighTableWidget.removeColumn(j)
+			self.removeFieldFctn(self.SocTableWidget,self.SocWeighTableWidget)
 		else:
 			pass
 		return 0
