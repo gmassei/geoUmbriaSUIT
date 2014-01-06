@@ -54,8 +54,9 @@ class geoSustainability:
 		if ((self.active_layer == None) or (self.active_layer.type() != QgsMapLayer.VectorLayer)):
 			QMessageBox.warning(self.iface.mainWindow(), "geoSUIT",
 			("No active layer found\n" "Please make one or more vector layer " "active"), QMessageBox.Ok, QMessageBox.Ok)
-			currentDir = unicode(os.path.abspath( os.path.dirname(__file__)))
-			webbrowser.open(os.path.join(currentDir,"data.html"))
+			#currentDir = unicode(os.path.abspath( os.path.dirname(__file__)))
+			#webbrowser.open(os.path.join(currentDir,"data.html"))
+			webbrowser.open("http://maplab.alwaysdata.net/geoUmbriaSUIT.html")
 			return
 		dlg = geoSUITDialog(self.iface)
 		dlg.exec_()

@@ -26,7 +26,7 @@ version=2.4.5
 # tags are comma separated with spaces allowed
 tags=Sustainability, Geographic MCDA, Vector
 
-homepage=https://github.com/gmassei/geoUmbriaSUIT/wiki/geoUmbriaSUIT
+homepage=http://maplab.alwaysdata.net/geoUmbriaSUIT.html
 tracker=http://hub.qgis.org/projects/geoumbriasuit/
 repository=https://github.com/gmassei/geoUmbriaSUIT
 icon=icon.png

@@ -835,16 +835,19 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		"""    Visualize an About window."""
 		QMessageBox.about(self, "About geoSustainability",
 		"""
-			<p>geoUmbriaSUIT version 2.0<br />2013-05-1<br />License: GPL v. 3</p>
-			<p>Università degli Studi di Perugia - Dipartimento di Scienze Economiche, Estimative e degli Alimenti, <a href="http://www.unipg.it">www.unipg.it</a></p>
-			<p>Agenzia Regionale per la Protezione Ambientale - ARPA, <a href="http://www.arpa.umbria.it">www.arpa.umbria.it</a></p>
-			<p>Description</p>
-			 <p>Please report any bug to <a href="mailto:g_massa@libero.it">g_massa@libero.it</a></p>
+			<p>geoUmbriaSUIT 2.0<br />2014-01-01<br />License: GPL v. 3</p>
+			<hr>
+			<p>Universita' degli Studi di Perugia - Dipartimento di scienze agrarie, alimentari e ambientali <a href="http://www.unipg.it">www.unipg.it</a></p>
+			<p>ARPA Umbria - Agenzia Regionale per la Protezione Ambientale <a href="http://www.arpa.umbria.it">www.arpa.umbria.it</a></p>
+			<hr>
+			<p>Documents, data and tutorial: <a href="http://maplab.alwaysdata.net/geoUmbriaSUIT.html">maplab.alwaysdata.net</a></p>
+			<p>Please report any bug to <a href="mailto:g_massa@libero.it">g_massa@libero.it</a></p>
 		""")
 
 	def open_help(self):
-		currentDir = unicode(os.path.abspath( os.path.dirname(__file__)))
-		webbrowser.open(os.path.join(currentDir,"data.html"))
+		#currentDir = unicode(os.path.abspath( os.path.dirname(__file__)))
+		#webbrowser.open(os.path.join(currentDir,"data.html"))
+		webbrowser.open("http://maplab.alwaysdata.net/geoUmbriaSUIT.html")
 
 
 ###################################################################################################
