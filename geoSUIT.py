@@ -210,6 +210,13 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			typeWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
 			typeWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
 
+
+	def fillTableFctn(self,fields,WeighTableWidget):
+		for r in range(len(fields)):
+			WeighTableWidget.setItem(0,r,QTableWidgetItem("-"))
+			WeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
+			WeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
+		
 	def updateTableFctn(self,TableWidget,WeighTableWidget,fields):
 		"""base function for updateTable()"""
 		pathSource=os.path.dirname(str(self.base_Layer.source()))
@@ -222,22 +229,23 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		WeighTableWidget.setHorizontalHeaderLabels(fields)
 		WeighTableWidget.setRowCount(5)
 		WeighTableWidget.setVerticalHeaderLabels(EnvSetLabel)
-		if os.path.exists(os.path.join(pathSource,"setting.csv"))==True:
-			setting=[i.strip().split(';') for i in open(os.path.join(pathSource,"setting.csv")).readlines()]
-			for i in range(len(fields)):
-				for l in range(len(setting[1])):
-					if fields[i]==setting[1][l]:
-						TableWidget.horizontalHeaderItem(i).setToolTip((str(setting[0][l])))
-						TableWidget.verticalHeaderItem(i).setToolTip((str(setting[0][l])))
-						WeighTableWidget.horizontalHeaderItem(i).setToolTip((str(setting[0][l])))
-						WeighTableWidget.setItem(0,i,QTableWidgetItem(str(setting[0][l])))
-						WeighTableWidget.setItem(1,i,QTableWidgetItem(str(setting[2][l])))
-						WeighTableWidget.setItem(2,i,QTableWidgetItem(str(setting[3][l])))
-		else:
-			for r in range(len(fields)):
-				WeighTableWidget.setItem(0,r,QTableWidgetItem("-"))
-				WeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
-				WeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
+		try:
+			if os.path.exists(os.path.join(pathSource,"setting.csv"))==True:
+				setting=[i.strip().split(';') for i in open(os.path.join(pathSource,"setting.csv")).readlines()]
+				for i in range(len(fields)):
+					for l in range(len(setting[1])):
+						if fields[i]==setting[1][l]:
+							TableWidget.horizontalHeaderItem(i).setToolTip((str(setting[0][l])))
+							TableWidget.verticalHeaderItem(i).setToolTip((str(setting[0][l])))
+							WeighTableWidget.horizontalHeaderItem(i).setToolTip((str(setting[0][l])))
+							WeighTableWidget.setItem(0,i,QTableWidgetItem(str(setting[0][l])))
+							WeighTableWidget.setItem(1,i,QTableWidgetItem(str(setting[2][l])))
+							WeighTableWidget.setItem(2,i,QTableWidgetItem(str(setting[3][l])))
+			else:
+				self.fillTableFctn(fields,WeighTableWidget)
+		except:
+				QgsMessageLog.logMessage("Problem in reading setting file","geoUmbriaSUIT",QgsMessageLog.WARNING)
+				self.fillTableFctn(fields,WeighTableWidget)
 		return 0
 			
 	def updateTable(self):
@@ -813,22 +821,25 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 	def SaveCfg(self):
 		#pathSource=os.path.dirname(str(self.base_Layer.source()))
 		currentDIR = (os.path.dirname(str(self.base_Layer.source())))
-		fileCfg = open(currentDIR+"\\setting.csv","w")
-		label=[str(self.EnvWeighTableWidget.item(0, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())] +\
-			[str(self.EcoWeighTableWidget.item(0, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())] + \
-			[str(self.SocWeighTableWidget.item(0, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
-		criteria,preference,weight=self.UsedCriteria()
-		for l in label:
-			fileCfg.write(str(l)+";")
-		fileCfg.write("\n")
-		for c in criteria:
-			fileCfg.write(str(c)+";")
-		fileCfg.write("\n")
-		fileCfg.write(";".join(weight))
-		fileCfg.write("\n")
-		for p in preference:
-			fileCfg.write(str(p)+";")
-		fileCfg.close()
+		try:
+			fileCfg = open(currentDIR+"\\setting.csv","w")
+			label=[str(self.EnvWeighTableWidget.item(0, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())] +\
+				[str(self.EcoWeighTableWidget.item(0, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())] + \
+				[str(self.SocWeighTableWidget.item(0, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
+			criteria,preference,weight=self.UsedCriteria()
+			for l in label:
+				fileCfg.write(str(l)+";")
+			fileCfg.write("\n")
+			for c in criteria:
+				fileCfg.write(str(c)+";")
+			fileCfg.write("\n")
+			fileCfg.write(";".join(weight))
+			fileCfg.write("\n")
+			for p in preference:
+				fileCfg.write(str(p)+";")
+			fileCfg.close()
+		except:
+			QgsMessageLog.logMessage("Problem in writing setting file","geoUmbriaSUIT",QgsMessageLog.WARNING)
 		
 		
 	def about(self):
