@@ -221,15 +221,15 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		WeighTableWidget.setColumnCount(len(fields))
 		WeighTableWidget.setHorizontalHeaderLabels(fields)
 		WeighTableWidget.setRowCount(5)
-		WeighTableWidget.setVerticalHeaderLabels(fields)
+		WeighTableWidget.setVerticalHeaderLabels(EnvSetLabel)
 		if os.path.exists(os.path.join(pathSource,"setting.csv"))==True:
 			setting=[i.strip().split(';') for i in open(os.path.join(pathSource,"setting.csv")).readlines()]
 			for i in range(len(fields)):
 				for l in range(len(setting[1])):
 					if fields[i]==setting[1][l]:
-						TableWidget.horizontalHeaderItem(i).setToolTip(unicode(str(setting[0][l])))
-						TableWidget.verticalHeaderItem(i).setToolTip(unicode(str(setting[0][l])))
-						WeighTableWidget.horizontalHeaderItem(i).setToolTip(unicode(str(setting[0][l])))
+						TableWidget.horizontalHeaderItem(i).setToolTip((str(setting[0][l])))
+						TableWidget.verticalHeaderItem(i).setToolTip((str(setting[0][l])))
+						WeighTableWidget.horizontalHeaderItem(i).setToolTip((str(setting[0][l])))
 						WeighTableWidget.setItem(0,i,QTableWidgetItem(str(setting[0][l])))
 						WeighTableWidget.setItem(1,i,QTableWidgetItem(str(setting[2][l])))
 						WeighTableWidget.setItem(2,i,QTableWidgetItem(str(setting[3][l])))
@@ -812,7 +812,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 ###################################################################################################
 	def SaveCfg(self):
 		#pathSource=os.path.dirname(str(self.base_Layer.source()))
-		currentDIR = unicode(os.path.dirname(str(self.base_Layer.source())))
+		currentDIR = (os.path.dirname(str(self.base_Layer.source())))
 		fileCfg = open(currentDIR+"\\setting.csv","w")
 		label=[str(self.EnvWeighTableWidget.item(0, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())] +\
 			[str(self.EcoWeighTableWidget.item(0, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())] + \
