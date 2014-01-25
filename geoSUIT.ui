@@ -131,113 +131,6 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         </property>
        </widget>
       </widget>
-      <widget class="QGroupBox" name="PrefixGBox">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>140</y>
-         <width>411</width>
-         <height>131</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Prefixes criteria</string>
-       </property>
-       <widget class="QCheckBox" name="preFIXcheckBox">
-        <property name="geometry">
-         <rect>
-          <x>11</x>
-          <y>64</y>
-          <width>151</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>use prefix for criteria</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="prefixSOClEdt">
-        <property name="geometry">
-         <rect>
-          <x>340</x>
-          <y>90</y>
-          <width>54</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>S_</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_5">
-        <property name="geometry">
-         <rect>
-          <x>190</x>
-          <y>89</y>
-          <width>141</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Social prefix</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label">
-        <property name="geometry">
-         <rect>
-          <x>188</x>
-          <y>35</y>
-          <width>151</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Environmental  prefix</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="prefixENVlEdt">
-        <property name="geometry">
-         <rect>
-          <x>340</x>
-          <y>30</y>
-          <width>53</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>A_</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_2">
-        <property name="geometry">
-         <rect>
-          <x>189</x>
-          <y>62</y>
-          <width>141</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Economic prefix</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="prefixECOlEdt">
-        <property name="geometry">
-         <rect>
-          <x>340</x>
-          <y>59</y>
-          <width>53</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>E_</string>
-        </property>
-       </widget>
-      </widget>
       <widget class="QLabel" name="LblLogo">
        <property name="geometry">
         <rect>
@@ -257,9 +150,9 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
       <widget class="QGroupBox" name="groupBox">
        <property name="geometry">
         <rect>
-         <x>429</x>
+         <x>0</x>
          <y>140</y>
-         <width>141</width>
+         <width>571</width>
          <height>131</height>
         </rect>
        </property>
@@ -269,17 +162,140 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <widget class="QCheckBox" name="checkBox">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>30</y>
-          <width>111</width>
+          <x>40</x>
+          <y>90</y>
+          <width>191</width>
           <height>21</height>
          </rect>
         </property>
         <property name="text">
-         <string> Use setting file</string>
+         <string> Use setting file (setting.csv)</string>
         </property>
         <property name="checked">
          <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="algorithmCBox">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>30</y>
+          <width>151</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="editable">
+         <bool>false</bool>
+        </property>
+        <property name="maxVisibleItems">
+         <number>3</number>
+        </property>
+       </widget>
+       <widget class="QLabel" name="Ranking">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>30</y>
+          <width>91</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Ranking by:</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="prefixECOlEdt">
+        <property name="geometry">
+         <rect>
+          <x>490</x>
+          <y>69</y>
+          <width>53</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>E_</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>349</x>
+          <y>73</y>
+          <width>131</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Economic prefix</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>348</x>
+          <y>46</y>
+          <width>131</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Environmental  prefix</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="preFIXcheckBox">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>10</y>
+          <width>144</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>use prefix for criteria</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_5">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>100</y>
+          <width>131</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Social prefix</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="prefixSOClEdt">
+        <property name="geometry">
+         <rect>
+          <x>490</x>
+          <y>100</y>
+          <width>54</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>S_</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="prefixENVlEdt">
+        <property name="geometry">
+         <rect>
+          <x>490</x>
+          <y>40</y>
+          <width>53</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>A_</string>
         </property>
        </widget>
       </widget>
@@ -378,7 +394,6 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
       <zorder>SetBtnHelp</zorder>
       <zorder>SetBtnAbout</zorder>
       <zorder>SetBtnBox</zorder>
-      <zorder>PrefixGBox</zorder>
       <zorder>LoadProgressBar</zorder>
       <zorder>OutGBox</zorder>
       <zorder>LblLogo</zorder>
@@ -453,7 +468,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <rect>
          <x>10</x>
          <y>420</y>
-         <width>661</width>
+         <width>531</width>
          <height>31</height>
         </rect>
        </property>
@@ -475,6 +490,31 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="text">
         <string>Fields</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="EnvHelpBtn">
+       <property name="geometry">
+        <rect>
+         <x>560</x>
+         <y>420</y>
+         <width>102</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>110</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Help</string>
        </property>
       </widget>
       <widget class="Line" name="line_2">
@@ -513,7 +553,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         </rect>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_5">
         <attribute name="title">
@@ -732,6 +772,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
       <zorder>EnvMapNameLbl</zorder>
       <zorder>EnvTEdit</zorder>
       <zorder>EnvFieldsLbl</zorder>
+      <zorder>EnvHelpBtn</zorder>
       <zorder>line_2</zorder>
       <zorder>line_4</zorder>
       <zorder>EnvTabWidget</zorder>
@@ -797,7 +838,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <rect>
          <x>10</x>
          <y>420</y>
-         <width>651</width>
+         <width>530</width>
          <height>31</height>
         </rect>
        </property>
@@ -806,6 +847,19 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
          <horstretch>0</horstretch>
          <verstretch>2</verstretch>
         </sizepolicy>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="EcoHelpBtn">
+       <property name="geometry">
+        <rect>
+         <x>560</x>
+         <y>420</y>
+         <width>99</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Help</string>
        </property>
       </widget>
       <widget class="QPushButton" name="EcoRemoveFieldBtn">
@@ -1339,7 +1393,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <rect>
          <x>10</x>
          <y>420</y>
-         <width>651</width>
+         <width>530</width>
          <height>31</height>
         </rect>
        </property>
@@ -1348,6 +1402,19 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
          <horstretch>0</horstretch>
          <verstretch>2</verstretch>
         </sizepolicy>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="SocHelpBtn">
+       <property name="geometry">
+        <rect>
+         <x>560</x>
+         <y>420</y>
+         <width>99</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Help</string>
        </property>
       </widget>
       <widget class="QLabel" name="EcoLbl_2">
@@ -1456,7 +1523,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         </rect>
        </property>
        <property name="text">
-        <string>Maps</string>
+        <string>Load maps</string>
        </property>
       </widget>
       <widget class="Line" name="line">
@@ -1538,6 +1605,32 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="spinBoxClasNum">
+       <property name="geometry">
+        <rect>
+         <x>360</x>
+         <y>40</y>
+         <width>42</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="value">
+        <number>5</number>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_7">
+       <property name="geometry">
+        <rect>
+         <x>230</x>
+         <y>40</y>
+         <width>101</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Cclasses in maps</string>
        </property>
       </widget>
      </widget>
@@ -1624,14 +1717,13 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
   <tabstop>GraphBtn</tabstop>
   <tabstop>OutlEdt</tabstop>
   <tabstop>RetriveFileTBtn</tabstop>
-  <tabstop>preFIXcheckBox</tabstop>
-  <tabstop>prefixENVlEdt</tabstop>
-  <tabstop>prefixECOlEdt</tabstop>
   <tabstop>SetBtnBox</tabstop>
   <tabstop>SetBtnHelp</tabstop>
   <tabstop>SetBtnAbout</tabstop>
+  <tabstop>EnvHelpBtn</tabstop>
   <tabstop>EcolistFieldsCBox</tabstop>
   <tabstop>EcoTEdit</tabstop>
+  <tabstop>EcoHelpBtn</tabstop>
   <tabstop>EcoRemoveFieldBtn</tabstop>
   <tabstop>EcoAddFieldBtn</tabstop>
   <tabstop>EnvlistFieldsCBox</tabstop>

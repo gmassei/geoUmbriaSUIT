@@ -86,6 +86,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		outputFile="geosustainability.shp"
 		sourceOut=os.path.join(pathSource,outputFile)
 		self.OutlEdt.setText(str(sourceOut))
+		self.algorithmCBox.addItems(['relative closeness','ideal point','worst point'])
 
 		self.EnvMapNameLbl.setText(self.active_layer.name())
 		self.EcoMapNameLbl.setText(self.active_layer.name())
@@ -442,6 +443,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.StandardizationIdealPoint()
 		self.RelativeCloseness()
 		self.OveralValue()
+		self.setModal(True)
 		return 0
 #############################################################################################################
 
@@ -627,8 +629,15 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 				attributes = feat.attributes()
 				IP =IP+(float(attributes[f]-idp)**2)   # TOPSIS algorithm: STEP 4
 				WP =WP+(float(attributes[f]-wrp)**2)
-			relativeCloseness=(WP**(0.5))/((WP**(0.5))+(IP**(0.5))) 
-			self.active_layer.changeAttributeValue(feat.id(), fldValue, round(float(relativeCloseness),4))
+			relativeCloseness=(WP**(0.5))/((WP**(0.5))+(IP**(0.5)))
+			if self.algorithmCBox.currentText()=='relative closeness':
+				rnkValue=relativeCloseness
+			elif self.algorithmCBox.currentText()=='ideal point':
+				rnkValue=IP
+			else:
+				rnkValue=WP
+
+			self.active_layer.changeAttributeValue(feat.id(), fldValue, round(float(rnkValue),4))
 			self.EnvProgressBar.setValue(progress)
 			self.EcoProgressBar.setValue(progress)
 			self.SocProgressBar.setValue(progress)
@@ -664,9 +673,13 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 
 	def Symbolize(self,field):
 		"""Prepare legends for environmental, socio economics and sustainable values"""
-		classes=['very low (molto basso)', 'low (basso)','medium (medio)','high (alto)','very high (molto alto)']
+		numberOfClasses=self.spinBoxClasNum.value()
+		if(numberOfClasses==5):
+			classes=['very low (molto basso)', 'low (basso)','medium (medio)','high (alto)','very high (molto alto)']
+		else:
+			classes=range(1,numberOfClasses+1)
 		fieldName = field
-		numberOfClasses=len(classes)
+
 		layer = self.iface.activeLayer()
 		fieldIndex = layer.fieldNameIndex(fieldName)
 		provider = layer.dataProvider()
@@ -709,6 +722,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		fields=['EnvIdeal','EcoIdeal','SocIdeal','SustIdeal']
 		for f in fields:
 			self.Symbolize(f)
+		self.setModal(False)
 
 ###########################################################################################
 	def RefreshLayer(self):
@@ -739,6 +753,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.BuildGraphIstogram(currentDir)
 		self.BuildHTML()
 		webbrowser.open(os.path.join(currentDir,"barGraph.html"))
+		self.setModal(False)
 		return 0
 
 	def BuildGraphPnt(self,currentDir ):
