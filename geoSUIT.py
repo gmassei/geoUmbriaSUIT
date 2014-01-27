@@ -86,8 +86,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		outputFile="geosustainability.shp"
 		sourceOut=os.path.join(pathSource,outputFile)
 		self.OutlEdt.setText(str(sourceOut))
-		self.algorithmCBox.addItems(['relative closeness','ideal point','worst point'])
-
+		
 		self.EnvMapNameLbl.setText(self.active_layer.name())
 		self.EcoMapNameLbl.setText(self.active_layer.name())
 		self.SocMapNameLbl.setText(self.active_layer.name())
@@ -291,7 +290,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 				WeighTableWidget.setItem(4,r,QTableWidgetItem("0"))
 	
 	def updateGUIIdealPoint(self):
-		provider=self.active_layer.dataProvider()
+		provider=self.base_Layer.dataProvider() #provider=self.active_layer.dataProvider() 
 		##Environmental
 		self.updateGUIIdealPointFctn(self.EnvTableWidget,self.EnvWeighTableWidget,provider)
 		##Economics
@@ -540,19 +539,19 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			criteria=[self.EnvTableWidget.verticalHeaderItem(f).text() for f in range(self.EnvTableWidget.columnCount())]
 			#preference=[str(self.EnvWeighTableWidget.item(2, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]
 			weight=[float(self.EnvWeighTableWidget.item(1, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]
-			weight=[ w/sum(weight) for w in weight ]
+			#weight=[ w/sum(weight) for w in weight ]
 			self.EnvGetWeightBtn.setEnabled(False)
 		elif self.toolBox.currentIndex()==2:
 			criteria=[self.EcoTableWidget.verticalHeaderItem(f).text() for f in range(self.EcoTableWidget.columnCount())]
 			#preference=[str(self.EcoWeighTableWidget.item(2, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())]
 			weight=[float(self.EcoWeighTableWidget.item(1, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())]
-			weight=[ w/sum(weight) for w in weight ]
+			#weight=[ w/sum(weight) for w in weight ]
 			self.EcoGetWeightBtn.setEnabled(False)
 		elif self.toolBox.currentIndex()==3:
 			criteria=[self.SocTableWidget.verticalHeaderItem(f).text() for f in range(self.SocTableWidget.columnCount())]
 			#preference=[str(self.SocWeighTableWidget.item(2, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
 			weight=[float(self.SocWeighTableWidget.item(1, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
-			weight=[ w/sum(weight) for w in weight ]
+			#weight=[ w/sum(weight) for w in weight ]
 			self.SocGetWeightBtn.setEnabled(False)
 		else:
 			pass
@@ -630,14 +629,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 				IP =IP+(float(attributes[f]-idp)**2)   # TOPSIS algorithm: STEP 4
 				WP =WP+(float(attributes[f]-wrp)**2)
 			relativeCloseness=(WP**(0.5))/((WP**(0.5))+(IP**(0.5)))
-			if self.algorithmCBox.currentText()=='relative closeness':
-				rnkValue=relativeCloseness
-			elif self.algorithmCBox.currentText()=='ideal point':
-				rnkValue=IP
-			else:
-				rnkValue=WP
-
-			self.active_layer.changeAttributeValue(feat.id(), fldValue, round(float(rnkValue),4))
+			self.active_layer.changeAttributeValue(feat.id(), fldValue, round(float(relativeCloseness),4))
 			self.EnvProgressBar.setValue(progress)
 			self.EcoProgressBar.setValue(progress)
 			self.SocProgressBar.setValue(progress)

@@ -163,7 +163,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <property name="geometry">
          <rect>
           <x>40</x>
-          <y>90</y>
+          <y>60</y>
           <width>191</width>
           <height>21</height>
          </rect>
@@ -173,35 +173,6 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         </property>
         <property name="checked">
          <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="algorithmCBox">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>30</y>
-          <width>151</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="editable">
-         <bool>false</bool>
-        </property>
-        <property name="maxVisibleItems">
-         <number>3</number>
-        </property>
-       </widget>
-       <widget class="QLabel" name="Ranking">
-        <property name="geometry">
-         <rect>
-          <x>40</x>
-          <y>30</y>
-          <width>91</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Ranking by:</string>
         </property>
        </widget>
        <widget class="QLineEdit" name="prefixECOlEdt">
@@ -220,7 +191,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <widget class="QLabel" name="label_2">
         <property name="geometry">
          <rect>
-          <x>349</x>
+          <x>329</x>
           <y>73</y>
           <width>131</width>
           <height>20</height>
@@ -233,7 +204,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <widget class="QLabel" name="label">
         <property name="geometry">
          <rect>
-          <x>348</x>
+          <x>328</x>
           <y>46</y>
           <width>131</width>
           <height>16</height>
@@ -246,7 +217,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <widget class="QCheckBox" name="preFIXcheckBox">
         <property name="geometry">
          <rect>
-          <x>350</x>
+          <x>330</x>
           <y>10</y>
           <width>144</width>
           <height>20</height>
@@ -262,7 +233,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <widget class="QLabel" name="label_5">
         <property name="geometry">
          <rect>
-          <x>350</x>
+          <x>330</x>
           <y>100</y>
           <width>131</width>
           <height>22</height>

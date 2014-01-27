@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'geoSUIT.ui'
 #
-# Created: Sat Jan 25 23:28:22 2014
+# Created: Mon Jan 27 20:30:19 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -78,32 +78,24 @@ class Ui_Dialog(object):
         self.groupBox.setGeometry(QtCore.QRect(0, 140, 571, 131))
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.checkBox = QtGui.QCheckBox(self.groupBox)
-        self.checkBox.setGeometry(QtCore.QRect(40, 90, 191, 21))
+        self.checkBox.setGeometry(QtCore.QRect(40, 60, 191, 21))
         self.checkBox.setChecked(True)
         self.checkBox.setObjectName(_fromUtf8("checkBox"))
-        self.algorithmCBox = QtGui.QComboBox(self.groupBox)
-        self.algorithmCBox.setGeometry(QtCore.QRect(120, 30, 151, 22))
-        self.algorithmCBox.setEditable(False)
-        self.algorithmCBox.setMaxVisibleItems(3)
-        self.algorithmCBox.setObjectName(_fromUtf8("algorithmCBox"))
-        self.Ranking = QtGui.QLabel(self.groupBox)
-        self.Ranking.setGeometry(QtCore.QRect(40, 30, 91, 16))
-        self.Ranking.setObjectName(_fromUtf8("Ranking"))
         self.prefixECOlEdt = QtGui.QLineEdit(self.groupBox)
         self.prefixECOlEdt.setGeometry(QtCore.QRect(490, 69, 53, 22))
         self.prefixECOlEdt.setObjectName(_fromUtf8("prefixECOlEdt"))
         self.label_2 = QtGui.QLabel(self.groupBox)
-        self.label_2.setGeometry(QtCore.QRect(349, 73, 131, 20))
+        self.label_2.setGeometry(QtCore.QRect(329, 73, 131, 20))
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.label = QtGui.QLabel(self.groupBox)
-        self.label.setGeometry(QtCore.QRect(348, 46, 131, 16))
+        self.label.setGeometry(QtCore.QRect(328, 46, 131, 16))
         self.label.setObjectName(_fromUtf8("label"))
         self.preFIXcheckBox = QtGui.QCheckBox(self.groupBox)
-        self.preFIXcheckBox.setGeometry(QtCore.QRect(350, 10, 144, 20))
+        self.preFIXcheckBox.setGeometry(QtCore.QRect(330, 10, 144, 20))
         self.preFIXcheckBox.setChecked(True)
         self.preFIXcheckBox.setObjectName(_fromUtf8("preFIXcheckBox"))
         self.label_5 = QtGui.QLabel(self.groupBox)
-        self.label_5.setGeometry(QtCore.QRect(350, 100, 131, 22))
+        self.label_5.setGeometry(QtCore.QRect(330, 100, 131, 22))
         self.label_5.setObjectName(_fromUtf8("label_5"))
         self.prefixSOClEdt = QtGui.QLineEdit(self.groupBox)
         self.prefixSOClEdt.setGeometry(QtCore.QRect(490, 100, 54, 22))
@@ -598,7 +590,6 @@ class Ui_Dialog(object):
         self.RetriveFileTBtn.setText(_translate("Dialog", "...", None))
         self.groupBox.setTitle(_translate("Dialog", "Configure", None))
         self.checkBox.setText(_translate("Dialog", " Use setting file (setting.csv)", None))
-        self.Ranking.setText(_translate("Dialog", "Ranking by:", None))
         self.prefixECOlEdt.setText(_translate("Dialog", "E_", None))
         self.label_2.setText(_translate("Dialog", "Economic prefix", None))
         self.label.setText(_translate("Dialog", "Environmental  prefix", None))
