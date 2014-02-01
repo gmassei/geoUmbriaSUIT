@@ -357,7 +357,7 @@ def format_rules(rules,RULES,header):
 
 def refactoring_label(RULES,currentDIR):
 	"""Use label from settingFile.csv, if exists"""
-	if os.path.exists(os.path.join(currentDIR+"\\settingFile.csv"))==True:
+	if os.path.exists(os.path.join(currentDIR,"settingFile.csv"))==True:
 		setting=[i.strip().split(';') for i in open(os.path.join(currentDIR,"settingFile.csv")).readlines()]
 		for E in RULES:
 			for e in E:
@@ -375,7 +375,8 @@ def print_rules(RULES,infosystem):
 	EXAMPLES=infosystem['examples']
 	j=1
 	currentDIR = unicode(os.path.abspath( os.path.dirname(__file__)))
-	outfile=open(currentDIR+"\\rules.rls","w")
+	outfile=open(os.path.join(currentDIR,"rules.rls"),"w")
+	
 	#outfile.write("\n##  AT LEAST {>= Class} - Type 1 rules and  AT MOST {<= Class} - Type 3 rules\n")
 	#outfile.write('\t[RULES:]\n')
 	for E in RULES:
@@ -399,7 +400,7 @@ def main(currentDIR):
 		print 'start:', ctime(time())
 
 		currentDIR = unicode(os.path.abspath( os.path.dirname(__file__)))
-		infosystem=file2infosystem(currentDIR+"\\example.isf")
+		infosystem=file2infosystem(os.path.join(currentDIR,"example.isf"))
 		decision_class=union_classes(infosystem)
 		downward_union_classes(infosystem,decision_class)
 

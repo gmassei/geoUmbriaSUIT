@@ -76,7 +76,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <x>0</x>
         <y>0</y>
         <width>675</width>
-        <height>459</height>
+        <height>453</height>
        </rect>
       </property>
       <attribute name="label">
@@ -162,9 +162,9 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <widget class="QCheckBox" name="checkBox">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>60</y>
-          <width>191</width>
+          <x>20</x>
+          <y>50</y>
+          <width>221</width>
           <height>21</height>
          </rect>
         </property>
@@ -191,9 +191,9 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <widget class="QLabel" name="label_2">
         <property name="geometry">
          <rect>
-          <x>329</x>
+          <x>309</x>
           <y>73</y>
-          <width>131</width>
+          <width>161</width>
           <height>20</height>
          </rect>
         </property>
@@ -204,9 +204,9 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <widget class="QLabel" name="label">
         <property name="geometry">
          <rect>
-          <x>328</x>
+          <x>308</x>
           <y>46</y>
-          <width>131</width>
+          <width>161</width>
           <height>16</height>
          </rect>
         </property>
@@ -217,9 +217,9 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <widget class="QCheckBox" name="preFIXcheckBox">
         <property name="geometry">
          <rect>
-          <x>330</x>
+          <x>310</x>
           <y>10</y>
-          <width>144</width>
+          <width>171</width>
           <height>20</height>
          </rect>
         </property>
@@ -233,9 +233,9 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <widget class="QLabel" name="label_5">
         <property name="geometry">
          <rect>
-          <x>330</x>
+          <x>310</x>
           <y>100</y>
-          <width>131</width>
+          <width>161</width>
           <height>22</height>
          </rect>
         </property>
@@ -377,7 +377,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <x>0</x>
         <y>0</y>
         <width>675</width>
-        <height>459</height>
+        <height>453</height>
        </rect>
       </property>
       <attribute name="label">
@@ -756,7 +756,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <x>0</x>
         <y>0</y>
         <width>675</width>
-        <height>459</height>
+        <height>453</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1098,7 +1098,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <x>0</x>
         <y>0</y>
         <width>675</width>
-        <height>459</height>
+        <height>453</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1443,7 +1443,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <x>0</x>
         <y>0</y>
         <width>675</width>
-        <height>459</height>
+        <height>453</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1454,8 +1454,8 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <rect>
          <x>570</x>
          <y>120</y>
-         <width>75</width>
-         <height>23</height>
+         <width>90</width>
+         <height>24</height>
         </rect>
        </property>
        <property name="text">
@@ -1489,8 +1489,8 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <rect>
          <x>570</x>
          <y>40</y>
-         <width>75</width>
-         <height>23</height>
+         <width>90</width>
+         <height>24</height>
         </rect>
        </property>
        <property name="text">
@@ -1596,12 +1596,12 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <rect>
          <x>230</x>
          <y>40</y>
-         <width>101</width>
+         <width>111</width>
          <height>20</height>
         </rect>
        </property>
        <property name="text">
-        <string>Cclasses in maps</string>
+        <string>Classes in maps</string>
        </property>
       </widget>
      </widget>
@@ -1611,7 +1611,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <x>0</x>
         <y>0</y>
         <width>675</width>
-        <height>459</height>
+        <height>453</height>
        </rect>
       </property>
       <attribute name="label">

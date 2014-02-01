@@ -25,11 +25,9 @@ from PyQt4 import QtGui
 
 from qgis.core import *
 from qgis.gui import *
-
-import numpy as np
-import webbrowser
-import matplotlib.pyplot as plt
+	
 import os
+import webbrowser
 
 
 import DOMLEM
@@ -47,7 +45,6 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.base_Layer = self.iface.activeLayer()
 		for i in range(1,self.toolBox.count()):
 			self.toolBox.setItemEnabled (i,False)
-
 		QObject.connect(self.RetriveFileTBtn, SIGNAL( "clicked()" ), self.outFile)
 		QObject.connect(self.SetBtnBox, SIGNAL("accepted()"), self.settingStart)
 		QObject.connect(self.SetBtnBox, SIGNAL("rejected()"),self, SLOT("reject()"))
@@ -148,9 +145,10 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		#retrieve signal for modified cell
 		self.SocTableWidget.cellChanged[(int,int)].connect(self.CompleteMatrix)
 		self.SocWeighTableWidget.cellClicked[(int,int)].connect(self.ChangeValue)
-
 		currentDir=unicode(os.path.abspath( os.path.dirname(__file__)))
 		self.LblLogo.setPixmap(QtGui.QPixmap(os.path.join(currentDir,"icon.png")))
+		
+
 
 
 	def GetFieldNames(self, layer):
@@ -448,27 +446,34 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 
 	def calculateWeight(self,pairwise):
 		"Define vector of weight based on eigenvector and eigenvalues"
-		pairwise=np.array(pairwise)
-		eigenvalues, eigenvector=np.linalg.eig(pairwise)
-		maxindex=np.argmax(eigenvalues)
-		eigenvalues=np.float32(eigenvalues)
-		eigenvector=np.float32(eigenvector)
-		weight=eigenvector[:, maxindex] #extract vector from eigenvector with max vaue in eigenvalues
-		weight.tolist() #convert array(numpy)  to vector
-		weight=[ w/sum(weight) for w in weight ]
-		if self.toolBox.currentIndex()==1:
-			for i in range(len(weight)):
-				self.EnvWeighTableWidget.setItem(1,i,QTableWidgetItem(str(round(weight[i],2))))
-		elif self.toolBox.currentIndex()==2:
-			for i in range(len(weight)):
-				self.EcoWeighTableWidget.setItem(1,i,QTableWidgetItem(str(round(weight[i],2))))
-		elif self.toolBox.currentIndex()==3:
-			for i in range(len(weight)):
-				self.SocWeighTableWidget.setItem(1,i,QTableWidgetItem(str(round(weight[i],2))))
-		else:
-			pass
-		return weight, eigenvalues,  eigenvector
+		try:
+			import numpy as np
 
+			pairwise=np.array(pairwise)
+			eigenvalues, eigenvector=np.linalg.eig(pairwise)
+			maxindex=np.argmax(eigenvalues)
+			eigenvalues=np.float32(eigenvalues)
+			eigenvector=np.float32(eigenvector)
+			weight=eigenvector[:, maxindex] #extract vector from eigenvector with max vaue in eigenvalues
+			weight.tolist() #convert array(numpy)  to vector
+			weight=[ w/sum(weight) for w in weight ]
+			if self.toolBox.currentIndex()==1:
+				for i in range(len(weight)):
+					self.EnvWeighTableWidget.setItem(1,i,QTableWidgetItem(str(round(weight[i],2))))
+			elif self.toolBox.currentIndex()==2:
+				for i in range(len(weight)):
+					self.EcoWeighTableWidget.setItem(1,i,QTableWidgetItem(str(round(weight[i],2))))
+			elif self.toolBox.currentIndex()==3:
+				for i in range(len(weight)):
+					self.SocWeighTableWidget.setItem(1,i,QTableWidgetItem(str(round(weight[i],2))))
+			else:
+				pass
+			return weight, eigenvalues, eigenvector
+		except ImportError, e:
+			QMessageBox.information(None, QCoreApplication.translate('geoUmbriaSUIT', "Plugin error"), \
+			QCoreApplication.translate('geoUmbriaSUIT', "Couldn't import Python module 'numpy'.  You can install 'numpy' \
+			with the following command: sudo easy_install numpy'.<br> or you can use 32bit version of QGS. [Message: %s]" % e))
+			return
 
 	def Consistency(self,weight,eigenvalues):
 		"Calculete Consistency index in accord with Saaty (1977)"
@@ -482,6 +487,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 
 	def AnalyticHierarchyProcess(self):
 		"""Calculate weight from matrix of pairwise comparison """
+			
 		if self.toolBox.currentIndex()==1:
 			criteria=[self.EnvTableWidget.verticalHeaderItem(f).text() for f in range(self.EnvTableWidget.columnCount())]
 			pairwise=[[float(self.EnvTableWidget.item(r, c).text()) for r in range(len(criteria))] for c in range(len(criteria))]
@@ -497,6 +503,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		consistency=self.Consistency(weight,eigenvalues)
 		self.ReportLog(eigenvalues,eigenvector, weight, consistency)
 		return 0
+
 
 	def ReportLog(self, eigenvalues,eigenvector, weight, consistency):
 		"Make a log output"
@@ -741,6 +748,10 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 	def BuildOutput(self):
 		"""General function for all graphical and tabula output"""
 		currentDir = unicode(os.path.abspath( os.path.dirname(__file__)))
+		if os.path.isfile(os.path.join(currentDir,"points.png"))==True:
+			os.remove(os.path.join(currentDir,"points.png"))
+		if os.path.isfile(os.path.join(currentDir,"histogram.png"))==True:
+			os.remove(os.path.join(currentDir,"histogram.png"))
 		self.BuildGraphPnt(currentDir)
 		self.BuildGraphIstogram(currentDir)
 		self.BuildHTML()
@@ -750,11 +761,11 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 
 	def BuildGraphPnt(self,currentDir ):
 		""" Build points graph using pyplot"""
+		import matplotlib.pyplot as plt
+		import numpy as np
 		fig = plt.figure()
 		#fig.subplots_adjust(bottom=0.2)
 		ax = fig.add_subplot(111)
-		if os.path.isfile(os.path.join(currentDir,"points.png"))==True:
-			os.remove(os.path.join(currentDir,"points.png"))
 		y=self.ExtractAttributeValue('EnvIdeal')
 		x1=self.ExtractAttributeValue('EcoIdeal')
 		x2=self.ExtractAttributeValue('SocIdeal')
@@ -782,8 +793,8 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 
 	def BuildGraphIstogram(self,currentDir):
 		"""Build Istogram graph using pyplot"""
-		if os.path.isfile(os.path.join(currentDir,"histogram.png"))==True:
-			os.remove(os.path.join(currentDir,"histogram.png"))
+		import matplotlib.pyplot as plt
+		import numpy as np
 		EnvValue=self.ExtractAttributeValue('EnvIdeal')
 		EcoValue=self.ExtractAttributeValue('EcoIdeal')
 		SocValue=self.ExtractAttributeValue('SocIdeal')
@@ -829,7 +840,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		#pathSource=os.path.dirname(str(self.base_Layer.source()))
 		currentDIR = (os.path.dirname(str(self.base_Layer.source())))
 		try:
-			fileCfg = open(currentDIR+"\\setting.csv","w")
+			fileCfg = open(os.path.join(currentDIR,"setting.csv"),"w")
 			label=[str(self.EnvWeighTableWidget.item(0, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())] +\
 				[str(self.EcoWeighTableWidget.item(0, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())] + \
 				[str(self.SocWeighTableWidget.item(0, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
@@ -912,7 +923,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		
 	def WriteISFfile(self,decision):
 		currentDIR = unicode(os.path.abspath( os.path.dirname(__file__)))
-		out_file = open(currentDIR+"\\example.isf","w")
+		out_file = open(os.path.join(currentDIR,"example.isf"),"w")
 		criteria,preference,weight=self.UsedCriteria()
 		criteria.append("Classified")
 		preference.append("gain")
@@ -954,7 +965,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 
 	def ShowRules(self):
 		currentDIR = unicode(os.path.abspath( os.path.dirname(__file__)))
-		rules=open(currentDIR+"\\rules.rls")
+		rules=open(os.path.join(currentDIR,"rules.rls"))
 		R=rules.readlines()
 		self.RulesListWidget.clear()
 		for E in R:

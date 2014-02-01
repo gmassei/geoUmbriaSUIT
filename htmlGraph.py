@@ -12,7 +12,7 @@ def BuilHTMLGraph(suist,env,eco,soc,labels):
 		row.append(suist[i])
 		data.append(row)
 	currentDIR = unicode(os.path.abspath( os.path.dirname(__file__)))
-	log=open(currentDIR+"\\log.html","w")
+	log=open(os.path.join(currentDIR,"log.html"),"w")
 	log.write(currentDIR)
 	HTMLfile=open(os.path.join(currentDIR,"barGraph.html"),"w")
 

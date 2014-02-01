@@ -48,13 +48,18 @@ class geoSustainability:
 		self.iface.removePluginMenu( "&geoUmbriaSUIT", self.action )
 
 	def run(self):	# richiamato al click sull'azione
+		try:
+			import matplotlib.pyplot as plt
+			import numpy as np
+		except ImportError, e:
+			QMessageBox.information(None, QCoreApplication.translate('geoUmbriaSUIT', "Plugin error"), \
+			QCoreApplication.translate('geoUmbriaSUIT', "Couldn't import Python modules 'matplotlib' and 'numpy'. [Message: %s]" % e))
+			return
 		from geoSUIT import geoSUITDialog
 		self.active_layer = self.iface.activeLayer()
 		if ((self.active_layer == None) or (self.active_layer.type() != QgsMapLayer.VectorLayer)):
 			QMessageBox.warning(self.iface.mainWindow(), "geoSUIT",
 			("No active layer found\n" "Please make one or more vector layer " "active"), QMessageBox.Ok, QMessageBox.Ok)
-			#currentDir = unicode(os.path.abspath( os.path.dirname(__file__)))
-			#webbrowser.open(os.path.join(currentDir,"data.html"))
 			webbrowser.open("http://maplab.alwaysdata.net/geoUmbriaSUIT.html")
 			return
 		dlg = geoSUITDialog(self.iface)
