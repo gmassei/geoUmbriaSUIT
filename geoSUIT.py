@@ -752,8 +752,14 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			os.remove(os.path.join(currentDir,"points.png"))
 		if os.path.isfile(os.path.join(currentDir,"histogram.png"))==True:
 			os.remove(os.path.join(currentDir,"histogram.png"))
-		self.BuildGraphPnt(currentDir)
-		self.BuildGraphIstogram(currentDir)
+		try:
+			import matplotlib.pyplot as plt
+			import numpy as np
+			self.BuildGraphPnt(currentDir)
+			self.BuildGraphIstogram(currentDir)
+		except ImportError, e:
+			QMessageBox.information(None, QCoreApplication.translate('geoUmbriaSUIT', "Plugin error"), \
+			QCoreApplication.translate('geoUmbriaSUIT', "Couldn't import Python modules 'matplotlib' and 'numpy'. [Message: %s]" % e))
 		self.BuildHTML()
 		webbrowser.open(os.path.join(currentDir,"barGraph.html"))
 		self.setModal(False)
@@ -794,7 +800,6 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 	def BuildGraphIstogram(self,currentDir):
 		"""Build Istogram graph using pyplot"""
 		import matplotlib.pyplot as plt
-		import numpy as np
 		EnvValue=self.ExtractAttributeValue('EnvIdeal')
 		EcoValue=self.ExtractAttributeValue('EcoIdeal')
 		SocValue=self.ExtractAttributeValue('SocIdeal')
@@ -804,7 +809,8 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		fig.subplots_adjust()
 		ax = fig.add_subplot(111)
 		ax.margins(0.05, None)
-		xpos = np.arange(len(SuitValue))    # the x locations for the groups
+		#xpos = np.arange(len(SuitValue))    # the x locations for the groups
+		xpos = range(len(SuitValue))    # the x locations for the groups
 		width = 0.8     # the width of the bars: can also be len(x) sequence
 		label=self.LabelListFieldsCBox.currentText()
 		labels=self.ExtractAttributeValue(label)

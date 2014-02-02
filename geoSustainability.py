@@ -49,7 +49,6 @@ class geoSustainability:
 
 	def run(self):	# richiamato al click sull'azione
 		try:
-			import matplotlib.pyplot as plt
 			import numpy as np
 		except ImportError, e:
 			QMessageBox.information(None, QCoreApplication.translate('geoUmbriaSUIT', "Plugin error"), \
