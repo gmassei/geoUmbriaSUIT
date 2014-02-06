@@ -448,7 +448,6 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		"Define vector of weight based on eigenvector and eigenvalues"
 		try:
 			import numpy as np
-
 			pairwise=np.array(pairwise)
 			eigenvalues, eigenvector=np.linalg.eig(pairwise)
 			maxindex=np.argmax(eigenvalues)
@@ -542,23 +541,27 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		return (sum(listValue)**(0.5))
 	
 	def StandardizationIdealPoint(self):
+		adjust=1 #10**(self.WeightSlider.value()) #Weight amplifier 
 		if self.toolBox.currentIndex()==1:
-			criteria=[self.EnvTableWidget.verticalHeaderItem(f).text() for f in range(self.EnvTableWidget.columnCount())]
-			#preference=[str(self.EnvWeighTableWidget.item(2, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]
+			criteria=[self.EnvWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.EnvWeighTableWidget.columnCount())]
 			weight=[float(self.EnvWeighTableWidget.item(1, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]
-			#weight=[ w/sum(weight) for w in weight ]
+			weight=[ w/sum(weight)*adjust for w in weight ]
+			for c,w in zip(range(len(criteria)),weight):
+				self.EnvWeighTableWidget.setItem(1,c,QTableWidgetItem(str(w))) 
 			self.EnvGetWeightBtn.setEnabled(False)
 		elif self.toolBox.currentIndex()==2:
-			criteria=[self.EcoTableWidget.verticalHeaderItem(f).text() for f in range(self.EcoTableWidget.columnCount())]
-			#preference=[str(self.EcoWeighTableWidget.item(2, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())]
+			criteria=[self.EcoWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.EcoWeighTableWidget.columnCount())]
 			weight=[float(self.EcoWeighTableWidget.item(1, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())]
-			#weight=[ w/sum(weight) for w in weight ]
+			weight=[ w/sum(weight)*adjust for w in weight ]
+			for c,w in zip(range(len(criteria)),weight):
+				self.EcoWeighTableWidget.setItem(1,c,QTableWidgetItem(str(w))) 
 			self.EcoGetWeightBtn.setEnabled(False)
 		elif self.toolBox.currentIndex()==3:
-			criteria=[self.SocTableWidget.verticalHeaderItem(f).text() for f in range(self.SocTableWidget.columnCount())]
-			#preference=[str(self.SocWeighTableWidget.item(2, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
+			criteria=[self.SocWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.SocWeighTableWidget.columnCount())]
 			weight=[float(self.SocWeighTableWidget.item(1, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
-			#weight=[ w/sum(weight) for w in weight ]
+			weight=[ w/sum(weight)*adjust for w in weight ]
+			for c,w in zip(range(len(criteria)),weight):
+				self.SocWeighTableWidget.setItem(1,c,QTableWidgetItem(str(w))) 
 			self.SocGetWeightBtn.setEnabled(False)
 		else:
 			pass
@@ -573,7 +576,6 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			for feat in self.active_layer.getFeatures():
 				attributes=feat.attributes()[f]
 				value=(float(attributes)/float(sumSquareColumn[f]))*w   # TOPSIS algorithm: STEP 1 and STEP 2
-				#self.EnvTEdit.append(str(attributes)+"-"+str(value))
 				self.active_layer.changeAttributeValue(feat.id(),f,round(value,4))
 		self.active_layer.commitChanges()
 		return 0
@@ -582,12 +584,13 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 	def RelativeCloseness(self):
 		""" Calculate Environmental and Socio-Economicos distance from ideal point"""
 		if self.toolBox.currentIndex()==1:
-			criteria=[self.EnvTableWidget.verticalHeaderItem(f).text() for f in range(self.EnvTableWidget.columnCount())]
+			criteria=[self.EnvWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.EnvWeighTableWidget.columnCount())]
+			weight=[float(self.EnvWeighTableWidget.item(1, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]
 			idealPoint=[float(self.EnvWeighTableWidget.item(3, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]
 			sumSquareColumnList=[self.ExtractFieldSumSquare(field) for field in criteria]
-			idealPoint=[float(self.EnvWeighTableWidget.item(3, c).text())/sumSquareColumnList[c] \
+			idealPoint=[float(self.EnvWeighTableWidget.item(3, c).text())/sumSquareColumnList[c]*weight[c] \
 				for c in range(self.EnvWeighTableWidget.columnCount())]
-			worstPoint=[float(self.EnvWeighTableWidget.item(4, c).text())/sumSquareColumnList[c] \
+			worstPoint=[float(self.EnvWeighTableWidget.item(4, c).text())/sumSquareColumnList[c]*weight[c] \
 				for c in range(self.EnvWeighTableWidget.columnCount())]
 			provider=self.active_layer.dataProvider()
 			if provider.fieldNameIndex("EnvIdeal")==-1:
@@ -595,11 +598,12 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			fldValue = provider.fieldNameIndex("EnvIdeal") #obtain classify field index from its name
 			self.EnvTEdit.append("done") #   setText
 		elif self.toolBox.currentIndex()==2:
-			criteria=[self.EcoTableWidget.verticalHeaderItem(f).text() for f in range(self.EcoTableWidget.columnCount())]
+			criteria=[self.EcoWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.EcoWeighTableWidget.columnCount())]
+			weight=[float(self.EcoWeighTableWidget.item(1, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())]
 			sumSquareColumnList=[self.ExtractFieldSumSquare(field) for field in criteria]
-			idealPoint=[float(self.EcoWeighTableWidget.item(3, c).text())/sumSquareColumnList[c] \
+			idealPoint=[float(self.EcoWeighTableWidget.item(3, c).text())/sumSquareColumnList[c]*weight[c] \
 				for c in range(self.EcoWeighTableWidget.columnCount())]
-			worstPoint=[float(self.EcoWeighTableWidget.item(4, c).text())/sumSquareColumnList[c] \
+			worstPoint=[float(self.EcoWeighTableWidget.item(4, c).text())/sumSquareColumnList[c]*weight[c] \
 				for c in range(self.EcoWeighTableWidget.columnCount())]
 			provider=self.active_layer.dataProvider()
 			if provider.fieldNameIndex("EcoIdeal")==-1:
@@ -607,11 +611,12 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			fldValue = provider.fieldNameIndex("EcoIdeal") #obtain classify field index from its name
 			self.EcoTEdit.append("done")
 		elif self.toolBox.currentIndex()==3:
-			criteria=[self.SocTableWidget.verticalHeaderItem(f).text() for f in range(self.SocTableWidget.columnCount())]
+			criteria=[self.SocWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.SocWeighTableWidget.columnCount())]
+			weight=[float(self.SocWeighTableWidget.item(1, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
 			sumSquareColumnList=[self.ExtractFieldSumSquare(field) for field in criteria]
-			idealPoint=[float(self.SocWeighTableWidget.item(3, c).text())/sumSquareColumnList[c] \
+			idealPoint=[float(self.SocWeighTableWidget.item(3, c).text())/sumSquareColumnList[c]*weight[c]\
 				for c in range(self.SocWeighTableWidget.columnCount())]
-			worstPoint=[float(self.SocWeighTableWidget.item(4, c).text())/sumSquareColumnList[c] \
+			worstPoint=[float(self.SocWeighTableWidget.item(4, c).text())/sumSquareColumnList[c]*weight[c] \
 				for c in range(self.SocWeighTableWidget.columnCount())]
 			provider=self.active_layer.dataProvider()
 			if provider.fieldNameIndex("SocIdeal")==-1:

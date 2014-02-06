@@ -70,13 +70,16 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
      <property name="currentIndex">
       <number>0</number>
      </property>
+     <property name="tabSpacing">
+      <number>6</number>
+     </property>
      <widget class="QWidget" name="page">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
         <width>675</width>
-        <height>453</height>
+        <height>459</height>
        </rect>
       </property>
       <attribute name="label">
@@ -163,7 +166,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>50</y>
+          <y>30</y>
           <width>221</width>
           <height>21</height>
          </rect>
@@ -377,7 +380,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <x>0</x>
         <y>0</y>
         <width>675</width>
-        <height>453</height>
+        <height>459</height>
        </rect>
       </property>
       <attribute name="label">
@@ -756,7 +759,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <x>0</x>
         <y>0</y>
         <width>675</width>
-        <height>453</height>
+        <height>459</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1098,7 +1101,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <x>0</x>
         <y>0</y>
         <width>675</width>
-        <height>453</height>
+        <height>459</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1443,7 +1446,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <x>0</x>
         <y>0</y>
         <width>675</width>
-        <height>453</height>
+        <height>459</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1611,7 +1614,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <x>0</x>
         <y>0</y>
         <width>675</width>
-        <height>453</height>
+        <height>459</height>
        </rect>
       </property>
       <attribute name="label">

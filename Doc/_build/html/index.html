@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Welcome to geoUmbriaSUIT’s documentation! &mdash; geoUmbriaSUIT 0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="geoUmbriaSUIT 0 documentation" href="#" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="#">geoUmbriaSUIT 0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="welcome-to-geoumbriasuit-s-documentation">
+<h1>Welcome to geoUmbriaSUIT&#8217;s documentation!<a class="headerlink" href="#welcome-to-geoumbriasuit-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Geographical MCDA for sustainability assessment</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>GeoUmbriaSUIT  is a QGIS plugin for sustainability assessment in geographic  environmental, using environmental,  economics and social criteria. It implements the algorithm  TOPSIS [2] which define a ranking based on distance from  worst point and  closeness to a ideal point, for each used criteria.</p>
+<p>Entry of  weights can be done directly, if known, or  with the use of a pairwise comparation  table; in this way the user is led to define  a final vector weight, in a repeatable and verifiable path.</p>
+<p>The the plugin works in QGS [3], a free and open source geographic software, quite widely used in several fields. With QGIS and python is quite simple extend the software functionality and build new plugin.  GeoUmbriaSUIT is hosted in official qgis plugin repository [<a class="reference external" href="http://plugins.qgis.org/plugins/">http://plugins.qgis.org/plugins/</a>] and is available under GNU GPL licence.</p>
+<p>The outputs of geoUmbriaSUIT are both geographic  and graphics. The first shows the maps of the multicriteria analysis results for each elementary  area. The graphic output shows the numerical value of sustainabiliti, with the use of  bars , bubble and points .</p>
+<p>The plugin implementes the DOMLEM [4] algorithm based on the &#8220;dominance based rough set&#8221; theory [5]. With its use the user can know the decisional rules derived from the TOPSIS algorithm and give a better overview of  the ranking  of sustainability shows with maps and graphs. The transparence, the  analisys and the  back analysis capability is dramatically increased.</p>
+<p>The plugin geoUmbriaSUIT use a geographic vector file, eg. a shapefile, where the graphics data shows the single evaluation units (for example countries, regions or municipalities), while the alphanumeric data  (the attribute table), describe the environmental, economics and social indicators. With the use of the algorithms available in the plugin, is possible treat separately the indicators in the three dimension of sustainability and compute three different indexes. The linear combination of the three  indexes give  a overall sustainability index for each geographic units.</p>
+<p>The user can use a wide number of indicators (the same number of those present in the shapefile) and he can use  a set of data prepared by himself. However, using the data supplied from ARPA Umbria granted more robustness and repeatability  of output.
+In the next paragraphs we&#8217;ll use <em>&#8220;plugin&#8221;</em> and <em>&#8220;geoUmbriaSUIT&#8221;</em> as synonymous.
+We intend for <em>“research units”</em>  an administrative unit described by environmental, economics and social indicators (eg.  municipality, provinces, regions, country, etc.).
+The numeric output of geoUmbriaSUIT is the <em>“sustainability index”</em>, given from the linear combination of three different indexes: environmental index, economics index and social index. Higher is the value of those  indexes and better is the performance of a single &#8220;research units&#8221;.</p>
+</div>
+<div class="section" id="description-of-geoumbriasuit">
+<h2>Description of geoUmbriaSUIT<a class="headerlink" href="#description-of-geoumbriasuit" title="Permalink to this headline">¶</a></h2>
+<p>Contents:
+.. toctree:</p>
+<div class="highlight-python"><div class="highlight"><pre>:maxdepth: 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to geoUmbriaSUIT&#8217;s documentation!</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#description-of-geoumbriasuit">Description of geoUmbriaSUIT</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="#">geoUmbriaSUIT 0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, gianluca massei.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>
