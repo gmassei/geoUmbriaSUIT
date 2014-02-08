@@ -108,7 +108,10 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			self.EnvWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
 		#retrieve signal for modified cell
 		self.EnvTableWidget.cellChanged[(int,int)].connect(self.CompleteMatrix)
-		self.EnvWeighTableWidget.cellClicked[(int,int)].connect(self.ChangeValue)
+		try:
+			self.EnvWeighTableWidget.cellClicked[(int,int)].connect(self.ChangeValue)
+		except:
+			pass
 #################################################################################
 		Ecofields=self.GetFieldNames(self.active_layer) #field list
 		self.EcoTableWidget.setColumnCount(len(Ecofields))
@@ -200,13 +203,13 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.SocGetWeightBtn.setEnabled(True)
 		return 0
 
-	def fillTable(self,typeWeighTableWidget):
-		"""support function for updateTable()"""
-		fields=self.GetFieldNames(self.base_Layer)
-		for r in range(len(fields)):
-			typeWeighTableWidget.setItem(0,r,QTableWidgetItem("*"))
-			typeWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
-			typeWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
+	#def fillTable(self,typeWeighTableWidget):
+		#"""support function for updateTable()"""
+		#fields=self.GetFieldNames(self.base_Layer)
+		#for r in range(len(fields)):
+			#typeWeighTableWidget.setItem(0,r,QTableWidgetItem("*"))
+			#typeWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
+			#typeWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
 
 
 	def fillTableFctn(self,fields,WeighTableWidget):
@@ -228,7 +231,8 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		WeighTableWidget.setRowCount(5)
 		WeighTableWidget.setVerticalHeaderLabels(EnvSetLabel)
 		try:
-			if os.path.exists(os.path.join(pathSource,"setting.csv"))==True:
+			if (os.path.exists(os.path.join(pathSource,"setting.csv"))==True \
+				and self.settingCheckBox.isChecked()):
 				setting=[i.strip().split(';') for i in open(os.path.join(pathSource,"setting.csv")).readlines()]
 				for i in range(len(fields)):
 					for l in range(len(setting[1])):
@@ -247,8 +251,9 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		return 0
 			
 	def updateTable(self):
-		"""Prepare and compile tbale in GUI"""
+		"""Prepare and compile table in GUI"""
 		pathSource=os.path.dirname(str(self.base_Layer.source()))
+		fields=self.GetFieldNames(self.base_Layer)
 		if self.preFIXcheckBox.isChecked():
 			ENVprefix=self.prefixENVlEdt.text()
 			ECOprefix=self.prefixECOlEdt.text()
@@ -262,9 +267,9 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			self.updateTableFctn(self.SocTableWidget,self.SocWeighTableWidget,Socfields)
 ############################################################################################################################
 		else:
-			self.fillTable(self.EnvWeighTableWidget)
-			self.fillTable(self.EcoWeighTableWidget)
-			self.fillTable(self.SocWeighTableWidget)
+			self.fillTableFctn(fields,EnvWeighTableWidget)
+			self.fillTableFctn(fields,EcoWeighTableWidget)
+			self.fillTableFctn(fields,EnvWeighTableWidget)
 		self.updateGUIIdealPoint()
 		return 0
 
@@ -852,12 +857,12 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		currentDIR = (os.path.dirname(str(self.base_Layer.source())))
 		try:
 			fileCfg = open(os.path.join(currentDIR,"setting.csv"),"w")
-			label=[str(self.EnvWeighTableWidget.item(0, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())] +\
-				[str(self.EcoWeighTableWidget.item(0, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())] + \
-				[str(self.SocWeighTableWidget.item(0, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
+			label=[(self.EnvWeighTableWidget.item(0, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())] +\
+				[(self.EcoWeighTableWidget.item(0, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())] + \
+				[(self.SocWeighTableWidget.item(0, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
 			criteria,preference,weight=self.UsedCriteria()
 			for l in label:
-				fileCfg.write(str(l)+";")
+				fileCfg.write(l.encode('utf-8')+";")
 			fileCfg.write("\n")
 			for c in criteria:
 				fileCfg.write(str(c)+";")
@@ -868,8 +873,9 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 				fileCfg.write(str(p)+";")
 			fileCfg.close()
 		except:
-			QgsMessageLog.logMessage("Problem in writing setting file","geoUmbriaSUIT",QgsMessageLog.WARNING)
-		
+			QgsMessageLog.logMessage("Problem in writing setting file","geoUmbriaSUIT",\
+									QgsMessageLog.WARNING)
+
 		
 	def about(self):
 		"""    Visualize an About window."""

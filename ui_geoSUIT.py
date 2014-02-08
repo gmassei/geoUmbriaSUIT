@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'geoSUIT.ui'
 #
-# Created: Thu Feb 06 20:42:07 2014
+# Created: Sat Feb 08 07:48:08 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -77,10 +77,10 @@ class Ui_Dialog(object):
         self.groupBox = QtGui.QGroupBox(self.page)
         self.groupBox.setGeometry(QtCore.QRect(0, 140, 571, 131))
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
-        self.checkBox = QtGui.QCheckBox(self.groupBox)
-        self.checkBox.setGeometry(QtCore.QRect(20, 30, 221, 21))
-        self.checkBox.setChecked(True)
-        self.checkBox.setObjectName(_fromUtf8("checkBox"))
+        self.settingCheckBox = QtGui.QCheckBox(self.groupBox)
+        self.settingCheckBox.setGeometry(QtCore.QRect(20, 30, 221, 21))
+        self.settingCheckBox.setChecked(True)
+        self.settingCheckBox.setObjectName(_fromUtf8("settingCheckBox"))
         self.prefixECOlEdt = QtGui.QLineEdit(self.groupBox)
         self.prefixECOlEdt.setGeometry(QtCore.QRect(490, 69, 53, 22))
         self.prefixECOlEdt.setObjectName(_fromUtf8("prefixECOlEdt"))
@@ -127,7 +127,7 @@ class Ui_Dialog(object):
         self.SetBtnBox.setObjectName(_fromUtf8("SetBtnBox"))
         self.toolBox.addItem(self.page, _fromUtf8(""))
         self.EnvironmentaleQTbox = QtGui.QWidget()
-        self.EnvironmentaleQTbox.setGeometry(QtCore.QRect(0, 0, 675, 459))
+        self.EnvironmentaleQTbox.setGeometry(QtCore.QRect(0, 0, 98, 28))
         self.EnvironmentaleQTbox.setObjectName(_fromUtf8("EnvironmentaleQTbox"))
         self.EnvlistFieldsCBox = QtGui.QComboBox(self.EnvironmentaleQTbox)
         self.EnvlistFieldsCBox.setGeometry(QtCore.QRect(88, 62, 364, 22))
@@ -252,7 +252,7 @@ class Ui_Dialog(object):
         self.EnvAddFieldBtn.setObjectName(_fromUtf8("EnvAddFieldBtn"))
         self.toolBox.addItem(self.EnvironmentaleQTbox, _fromUtf8(""))
         self.EconomicsQTBox = QtGui.QWidget()
-        self.EconomicsQTBox.setGeometry(QtCore.QRect(0, 0, 675, 459))
+        self.EconomicsQTBox.setGeometry(QtCore.QRect(0, 0, 98, 28))
         self.EconomicsQTBox.setObjectName(_fromUtf8("EconomicsQTBox"))
         self.EcolistFieldsCBox = QtGui.QComboBox(self.EconomicsQTBox)
         self.EcolistFieldsCBox.setGeometry(QtCore.QRect(88, 50, 364, 22))
@@ -369,7 +369,7 @@ class Ui_Dialog(object):
         self.line_9.setObjectName(_fromUtf8("line_9"))
         self.toolBox.addItem(self.EconomicsQTBox, _fromUtf8(""))
         self.SocialQTBox = QtGui.QWidget()
-        self.SocialQTBox.setGeometry(QtCore.QRect(0, 0, 675, 459))
+        self.SocialQTBox.setGeometry(QtCore.QRect(0, 0, 98, 28))
         self.SocialQTBox.setObjectName(_fromUtf8("SocialQTBox"))
         self.SocTabWidget = QtGui.QTabWidget(self.SocialQTBox)
         self.SocTabWidget.setGeometry(QtCore.QRect(10, 90, 655, 291))
@@ -487,7 +487,7 @@ class Ui_Dialog(object):
         self.line_13.setObjectName(_fromUtf8("line_13"))
         self.toolBox.addItem(self.SocialQTBox, _fromUtf8(""))
         self.AnalysisQTBox = QtGui.QWidget()
-        self.AnalysisQTBox.setGeometry(QtCore.QRect(0, 0, 675, 459))
+        self.AnalysisQTBox.setGeometry(QtCore.QRect(0, 0, 98, 28))
         self.AnalysisQTBox.setObjectName(_fromUtf8("AnalysisQTBox"))
         self.GraphBtn = QtGui.QPushButton(self.AnalysisQTBox)
         self.GraphBtn.setGeometry(QtCore.QRect(570, 120, 90, 24))
@@ -535,7 +535,7 @@ class Ui_Dialog(object):
         self.label_7.setObjectName(_fromUtf8("label_7"))
         self.toolBox.addItem(self.AnalysisQTBox, _fromUtf8(""))
         self.RulesQTBox = QtGui.QWidget()
-        self.RulesQTBox.setGeometry(QtCore.QRect(0, 0, 675, 459))
+        self.RulesQTBox.setGeometry(QtCore.QRect(0, 0, 98, 28))
         self.RulesQTBox.setObjectName(_fromUtf8("RulesQTBox"))
         self.CritExtractBtn = QtGui.QPushButton(self.RulesQTBox)
         self.CritExtractBtn.setGeometry(QtCore.QRect(10, 360, 651, 31))
@@ -590,7 +590,7 @@ class Ui_Dialog(object):
         self.OutGBox.setTitle(_translate("Dialog", "Output file", None))
         self.RetriveFileTBtn.setText(_translate("Dialog", "...", None))
         self.groupBox.setTitle(_translate("Dialog", "Configure", None))
-        self.checkBox.setText(_translate("Dialog", " Use setting file (setting.csv)", None))
+        self.settingCheckBox.setText(_translate("Dialog", " Use setting file (setting.csv)", None))
         self.prefixECOlEdt.setText(_translate("Dialog", "E_", None))
         self.label_2.setText(_translate("Dialog", "Economic prefix", None))
         self.label.setText(_translate("Dialog", "Environmental  prefix", None))
