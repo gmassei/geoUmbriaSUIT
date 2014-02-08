@@ -1,4 +1,5 @@
 import os
+import operator
 
 def BuilHTMLGraph(suist,env,eco,soc,labels):
 	header=["label","environmental","economic","social","sustainability"]
@@ -12,6 +13,7 @@ def BuilHTMLGraph(suist,env,eco,soc,labels):
 		row.append(suist[i])
 		data.append(row)
 	currentDIR = unicode(os.path.abspath( os.path.dirname(__file__)))
+	data = sorted(data, key=operator.itemgetter(-1),reverse=True)
 	log=open(os.path.join(currentDIR,"log.html"),"w")
 	log.write(currentDIR)
 	HTMLfile=open(os.path.join(currentDIR,"barGraph.html"),"w")
@@ -52,7 +54,6 @@ def BuilHTMLGraph(suist,env,eco,soc,labels):
 			hAxis: {title: 'environmental'},
 			vAxis: {title: 'economic'},
 			};
-
 			var chartBar = new google.visualization.ColumnChart(document.getElementById('bar_div'));
 			chartBar.draw(dataBar, optionsBar);
 			var chartBubble = new google.visualization.BubbleChart(document.getElementById('bubble_div'));
