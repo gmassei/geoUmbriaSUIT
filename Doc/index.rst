@@ -70,8 +70,6 @@ Running geoUmbriaSUIT
 		
 		The steps and commands to be given in the  "Economic criteria" and "social criteria" pages are the same as we  saw in the "Environmental criteria". Doesn't matter the order of elaboration, but is important that all the pages are completed and the button “Apply” are pressed. Otherwise, only partial evaluation will be done. We always can check if a component (Environmental, Economics or social) is been elaborated: if  “Apply” button is activate, the elaboration isn't been  performed, otherwise the calculus is completed and we can go to the next step. 
 	
-.. image:: ./_image/setting.jpg
-	
 
 	
 Outputs
