@@ -28,6 +28,7 @@ from qgis.gui import *
 	
 import os
 import webbrowser
+import shutil
 
 
 import DOMLEM
@@ -74,6 +75,8 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 
 		QObject.connect(self.AnlsBtnBox, SIGNAL("rejected()"),self, SLOT("reject()"))
 		QObject.connect(self.CritExtractBtn, SIGNAL( "clicked()" ), self.ExtractRules)
+		QObject.connect(self.SaveRulesBtn, SIGNAL( "clicked()" ), self.SaveRules)
+		
 		
 		sourceIn=str(self.iface.activeLayer().source())
 		self.BaseLayerLbl.setText(sourceIn)
@@ -202,14 +205,6 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.EcoGetWeightBtn.setEnabled(True)
 		self.SocGetWeightBtn.setEnabled(True)
 		return 0
-
-	#def fillTable(self,typeWeighTableWidget):
-		#"""support function for updateTable()"""
-		#fields=self.GetFieldNames(self.base_Layer)
-		#for r in range(len(fields)):
-			#typeWeighTableWidget.setItem(0,r,QTableWidgetItem("*"))
-			#typeWeighTableWidget.setItem(1,r,QTableWidgetItem("1.0"))
-			#typeWeighTableWidget.setItem(2,r,QTableWidgetItem("gain"))
 
 
 	def fillTableFctn(self,fields,WeighTableWidget):
@@ -546,25 +541,25 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		return (sum(listValue)**(0.5))
 	
 	def StandardizationIdealPoint(self):
-		adjust=1 #10**(self.WeightSlider.value()) #Weight amplifier 
+		"""PErform STEP 1 and STEP 2 of TOPSIS algorithm"""
 		if self.toolBox.currentIndex()==1:
 			criteria=[self.EnvWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.EnvWeighTableWidget.columnCount())]
 			weight=[float(self.EnvWeighTableWidget.item(1, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]
-			weight=[ w/sum(weight)*adjust for w in weight ]
+			weight=[ round(w/sum(weight),4) for w in weight ]
 			for c,w in zip(range(len(criteria)),weight):
 				self.EnvWeighTableWidget.setItem(1,c,QTableWidgetItem(str(w))) 
 			self.EnvGetWeightBtn.setEnabled(False)
 		elif self.toolBox.currentIndex()==2:
 			criteria=[self.EcoWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.EcoWeighTableWidget.columnCount())]
 			weight=[float(self.EcoWeighTableWidget.item(1, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())]
-			weight=[ w/sum(weight)*adjust for w in weight ]
+			weight=[ round(w/sum(weight),4) for w in weight ]
 			for c,w in zip(range(len(criteria)),weight):
 				self.EcoWeighTableWidget.setItem(1,c,QTableWidgetItem(str(w))) 
 			self.EcoGetWeightBtn.setEnabled(False)
 		elif self.toolBox.currentIndex()==3:
 			criteria=[self.SocWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.SocWeighTableWidget.columnCount())]
 			weight=[float(self.SocWeighTableWidget.item(1, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
-			weight=[ w/sum(weight)*adjust for w in weight ]
+			weight=[ round(w/sum(weight),4) for w in weight ]
 			for c,w in zip(range(len(criteria)),weight):
 				self.SocWeighTableWidget.setItem(1,c,QTableWidgetItem(str(w))) 
 			self.SocGetWeightBtn.setEnabled(False)
@@ -702,13 +697,19 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			Max = minimum + (( maximum - minimum ) / numberOfClasses * ( i + 1 ))
 			Label = "%s [%.2f - %.2f]" % (c,Min,Max)
 			if field=='SustIdeal':
-				Colour = QColor(255-255*i/numberOfClasses,255*i/numberOfClasses,0) #red to green
+				Colour = QColor((255-85*i/numberOfClasses),\
+								(255-255*i/numberOfClasses),\
+								(127-127*i/numberOfClasses)) #red to green
 			elif field=='EnvIdeal':
-				Colour = QColor(255-255*i/numberOfClasses,255,125-125*i/numberOfClasses) #yellow to green
+				Colour = QColor((255-255*i/numberOfClasses),\
+								(255-170*i/numberOfClasses),\
+								(127-127*i/numberOfClasses)) #yellow to green
 			elif field=='EcoIdeal':
 				Colour = QColor(255,255-255*i/numberOfClasses,0) #yellow to red
 			elif field=='SocIdeal':
-				Colour = QColor((255-100*i/numberOfClasses),255,204+51*i/numberOfClasses) #yellow to cyan 204,255,255
+				Colour = QColor((255-255*i/numberOfClasses),\
+								(255-85*i/numberOfClasses),\
+								(127+128*i/numberOfClasses)) #yellow to cyan 255,255,127
 			Symbol = QgsSymbolV2.defaultSymbol(layer.geometryType())
 			Symbol.setColor(Colour)
 			Symbol.setAlpha(Opacity)
@@ -895,7 +896,6 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		#webbrowser.open(os.path.join(currentDir,"data.html"))
 		webbrowser.open("http://maplab.alwaysdata.net/geoUmbriaSUIT.html")
 
-
 ###################################################################################################
 
 	def DiscretizeDecision(self,value,listClass,numberOfClasses):
@@ -996,7 +996,22 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.WriteISFfile(decision)
 		DOMLEM.main(pathSource)
 		self.ShowRules()
+		self.setModal(False)
 		return 0
+		
+	def SaveRules(self):
+		currentDIR = unicode(os.path.abspath( os.path.dirname(__file__)))
+		rules=(os.path.join(currentDIR,"rules.rls"))
+		filename = QtGui.QFileDialog.getSaveFileName(self, 'Save File', os.getenv('HOME'),".rls") 
+		shutil.copy2(rules, filename)
+		return 0
+
+	def openFile(self):
+		filename = QtGui.QFileDialog.getOpenFileName(self, 'Open File', os.getenv('HOME')) 
+		f = open(filename, 'r') 
+		filedata = f.read() 
+		self.text.setText(filedata) 
+		f.close()
 
 
 

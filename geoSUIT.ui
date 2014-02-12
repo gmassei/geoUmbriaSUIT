@@ -68,7 +68,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
       <enum>QFrame::Plain</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <property name="tabSpacing">
       <number>6</number>
@@ -379,8 +379,8 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>98</width>
-        <height>28</height>
+        <width>675</width>
+        <height>459</height>
        </rect>
       </property>
       <attribute name="label">
@@ -758,8 +758,8 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>98</width>
-        <height>28</height>
+        <width>675</width>
+        <height>459</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1100,8 +1100,8 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>98</width>
-        <height>28</height>
+        <width>675</width>
+        <height>459</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1445,8 +1445,8 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>98</width>
-        <height>28</height>
+        <width>675</width>
+        <height>459</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1613,8 +1613,8 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>98</width>
-        <height>28</height>
+        <width>675</width>
+        <height>459</height>
        </rect>
       </property>
       <attribute name="label">
@@ -1625,47 +1625,12 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <rect>
          <x>10</x>
          <y>360</y>
-         <width>651</width>
+         <width>561</width>
          <height>31</height>
         </rect>
        </property>
        <property name="text">
         <string> Extract rules</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="baseLbl">
-       <property name="geometry">
-        <rect>
-         <x>170</x>
-         <y>410</y>
-         <width>491</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_6">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>410</y>
-         <width>81</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>MS Shell Dlg 2</family>
-         <pointsize>10</pointsize>
-         <weight>9</weight>
-         <italic>true</italic>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Active layer</string>
        </property>
       </widget>
       <widget class="QListWidget" name="RulesListWidget">
@@ -1677,6 +1642,45 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
          <height>341</height>
         </rect>
        </property>
+      </widget>
+      <widget class="QPushButton" name="SaveRulesBtn">
+       <property name="geometry">
+        <rect>
+         <x>580</x>
+         <y>360</y>
+         <width>81</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Save rules</string>
+       </property>
+      </widget>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>400</y>
+         <width>651</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Active layer</string>
+       </property>
+       <widget class="QLabel" name="baseLbl">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>621</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </widget>

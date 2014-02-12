@@ -11,7 +11,6 @@ Geographical MCDA for sustainability assessment
 
 Tutorial
 --------
-.. note:: Tutorial for the use of geoUmbriaSUIT
 
 **Step 0** - Load geoUmbriaSUIT
 ...............................
@@ -72,12 +71,15 @@ All the indexes are calculated and now we can build the maps and the graph  show
      :height: 500
      :align: center
 
-***************************************************************
+.. note:: Analysis page
+
 
 
 .. image:: ./_image/sustMap.jpg
      :height: 500
      :align: center
+	 
+.. note:: Output map example 
 
 
 **Step 6** - Output charts
@@ -100,12 +102,14 @@ The last page, named **“Rules”**,  supply a tool for data  discovery and bac
      :height: 500
      :align: center
 	 
-***************************************************************
+.. note:: Rules extraction example (rule 12)
+
 
 .. image:: ./_image/rule_3.jpg
      :height: 500
      :align: center
-	 
+
+.. note:: Rules extraction example (rule 2)
 
 	
 Bibliography
