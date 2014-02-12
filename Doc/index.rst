@@ -9,6 +9,20 @@ Welcome to geoUmbriaSUIT's documentation!
 
 Geographical MCDA for sustainability assessment
 
+
+Index
+-----
+.. toctree::
+   :maxdepth: 3
+
+   manual
+   tutorial
+   bibliography
+   ...
+
+
+
+
 Introduction
 ------------
 
@@ -31,87 +45,7 @@ Introduction
 	The numeric output of geoUmbriaSUIT is the “sustainability index”, given from the linear combination of three different indexes: environmental index, economics index and social index. Higher is the value of those  indexes and better is the performance of a single "research units".
 
 	
-Description of geoUmbriaSUIT
-----------------------------
-
-Installation
-............
-		The plugin works under QGIS 2.0 environment but we need follow the installation procedure  the first time we use it:
-		
-		1. from the menu “Plugins” choose  “Manage and Install plugin”,  the “Plugin manager” window will open;
-		
-		2. if geoUmbriaSUIT is  already installed, we will find it under the “installed” plugin in  “Plugin manger” . Otherwise, the plugin will be listed under “Get more” and we can install it by clicking  the “Install plugin”. 
-		
-		3. after the end of installation procedure, geoUmbriaSUIT will be accessible from the menu “Plugins”. 
-
-Running geoUmbriaSUIT
-......................
-
-		The user has to load a vector geographic data in qgis and select it clicking with the mouse over the name. The attribute table of those file have to hold the indicators we intend to use in the assessment. The user can download data example from the site http://maplab.alwaysdata.net/geoUmbriaSUIT.html. 
-		
-		From the menu “Plugins” we can select “geoUmbriaSUIT” and the window shown in **figure 2** will open; only the first tab (“Setting”) will be active.
-
-		
-		In the box  “Base layer”  is shown the path and the name of the file used for the analysis (base layer) and selected by user before the start of geoUmbriaSUIT. 
-		In the box “Output file” the user can select the path of output file that will generate during the simulations with geoUmbriaSUIT. The plugin shows a default value, but the user can change as he prefer. 
-		
-		If the  check “use prefix for criteria” in the box “Prefixes criteria” is selected, the criteria will automatically  qualified as environmental, economics and social by a specified prefix, with  the default values are, respectively, *A_*, *E_*, *S_*. For example, we can register the indicator "Particular matter in air - PM10”   as "A_PM10"  in the table of attribute and geoUmbriaSUIT will qualify it as an environmental indicator.  The same will be done  with the others social (*S_*) and economic (*E_*) indicators.  If the user doesn't select any prefix, he have to select the indicators for the three dimension of sustainability in the next step, picking and selecting each single field from the table of attribute.  If the setting page is completed, the uses can click on “OK” button for prepare the analysis and activate the others pages.  On the  “Envirnmental criteria”, the label “Layer” show the original file from we take the data and  it doesn't will modified during the analisys. The most important section is the central table, were the columns are labeled with the field in the table of attribute  of the original file.
-		
-		In the **figure 3**, we have only two field: A_GAS_SERR e A_ELET_RIN, because we have chosen to use the *A_* prefix as environmental identifier in the previous “Setting” page.  In this way geoUmbriaSUIT has selected all the fields in the table of attribute wit prefix *A_* and use it for the environmental analysis, as  “Environmental criteria”. If we had no chosen to use the prefix, we will have to select all the criteria we need  from the attribute table using the buttons “Add” and “Remove”, leaving all the fields  with the environmental  meaning (the same thing  in the economics and social pages).
-		
-		The row “Label” in the table describe the name of the field/criterion in a extensive and more expressive way, respect the limited space reserved in a shapefile for the name. The “Weights” field holds the weights for the criteria in the columns. The user can insert the weight digiting the values in the cells, otherwise he can use the “Advanced” method, using the table pairwise comparisons. With the row  “Preference” the user can choose the preference of each criterion: if the highest value is preferable in term of sustainability,  the value is  "Gain"; on the contrary, if the lowest value for the criterion  is preferable in term of sustainability,  the user has to select “Cost”.  The values “Cost/Gain” are mutually exclusive,  and the user can  choose  the right value clicking alternatively on the cell.  
-		
-		The “Ideal point” e “Worst point” cells are filled with the default values picked from the attributes table. geoUmbriaSUIT can select the best and the worst value for each criterion in the attribute table and proposes this value to the user. For example, the criterion "Energy from renewable sources",  is a “gain” criterion (high values are preferable) and the default  “Ideal point” is the highest value from this criterion in attributes table. The “Worst point”, instead, is the lowest value from the attributes table for the criterion "Energy from renewable sources" .  Otherwise,  the criteria "Particulate matter – PM10” in the air,  is a “Cost” criterion and the default “Ideal point” value, picked from the attributes table, is the lowest, while the  “Worst point” is the highest.  The user can modify the default values with others, like law limits or politics targets, simply digiting the right value in the cell . 
-		
-		The user can press the  “Save” button for register all the values in a file (setting.csv)  for use the setting parameters in the next simulation for the same geographic file. If the user doesn't save the values inserted, he has to insert all the values for each simulation.
-		
-		Pressing the "Apply" button the environment index will be calculated based on the TOPSIS algorithm. Obviously, only the environmental criteria will used in the calculation.
-		All the operation described for “Environmental criteria”, with the same meaning, will be repeated for “Economic criteria” and “Social criteria” pages, for calculus of economic  and social index. At the end, we will have one index for each “dimension” of the sustainability.
-		
-		The steps and commands to be given in the  "Economic criteria" and "social criteria" pages are the same as we  saw in the "Environmental criteria". Doesn't matter the order of elaboration, but is important that all the pages are completed and the button “Apply” are pressed. Otherwise, only partial evaluation will be done. We always can check if a component (Environmental, Economics or social) is been elaborated: if  “Apply” button is activate, the elaboration isn't been  performed, otherwise the calculus is completed and we can go to the next step. 
-	
-
-	
-Outputs
-.......
-
-		The page “Analysis” [figura 4] allow the user to get the outputs provided from the plugin. We can get three  type of output:
-		
-		1. cartographic: pressing the “Load maps” button, geoUmbriaSUIT load four  thematic maps, showing the environment (EnvIdeal), economic (EcoIdeal) social (SocIdeal)  and the comprehensive sustainability performance of each “research units” based on respective index.  The user can change the class numbers changing the value in “Classes map” control  but the label will be only in numeric, from the lowest to highest value.
-		
-		2. graphic:   the user has to select the field used for labeling the “research units” from the combo-box “Label field”. For example, if we assessment concerns the Italian regions, we have to select the field that holds the name of  the regions. The same for Provinces, municipality or other administrative or phisical units. Pressing the “Graph” button, geoUmbriaSUIT will load an html pages in a web browser with four graphs. The first shows a stack – histogram whose the overall height is proportional to sustainability value as the sum (linear combination) of the three indexes (environmental, economics and social value) calculated using TOPSIS algorithm.  The second graph is a “bobble-graph” whose position, dimension and colors  of bobbles provide information about sustainability and the its three dimension. In particular, the x-axis Is ordered with the environmental index, the y-axis is ordered with economics index, the color (from red to green) is ordered with social index and the dimension of bobble is proportional with the sustainability value. The first two graphs uses Google chart API's and require an active internet connection. The third and the fourth graphs are quite similar to the the first two, but they are “static” and they doesn't require an internet active connection.
-		
-		3. alphanumeric: geoUmbriaSUIT implements the Dominance Based Rough Set theory [5] for discovery and explain the data output. In the page “Rules” there is a button named “Extract rules” for extraction of decisional rules on the basis of classification given from TOPSIS algorithm. If a rule as a syntax like  “IF  A>= X THEN AT LEAST i-th”,  we can read it as “ if criterion A has the value greater than or equal to x, then the class of membership will be at least the i-th ". On the other hand, if the extracted rule has the  syntax like  “IF  A>= X THEN AT MOST i-th”, it can be read as “If the criterion A has the value greater than or equal to x, then the class of membership will be at most the i-th ”. If the user select a single rules, the “research units” covered  from the  rules will selected. In other words, selecting a single rule from the text box, we can see the “examples” which support that rule.
-
-Tutorial
----------
-	**TODO**
 
 
-Bibliography
-------------
-
-[1] Boggia A. et al. (2007): Il modello di monitoraggio software UmbriaSUIT 1.0, ARPA Umbria, Perugia. 
-
-[2] Hwang C. L. and Yoon K. Multiple Objective Decision Making Methods and Applications, A State-of-the-Art Survey . Springer - Verlag, 1981.
-
-[3] QGIS Development Team, 2013. QGIS Geographic Information System. Open Source Geospatial Foundation Project. http://qgis.osgeo.org 
-
-[4] Salvatore Greco , Benedetto Matarazzo , Roman Slowinski , Jerzy Stefanowski, An Algorithm for Induction of Decision Rules Consistent with the Dominance Principle, Revised Papers from the Second International Conference on Rough Sets and Current Trends in Computing, p.304-313, October 16-19, 2000 
-
-[5] Greco, S., Matarazzo, B., Słowiński, R.: Rough sets theory for multi-criteria decision analysis. European Journal of Operational Research, 129, 1 (2001) 1–47
-		
-
-
-
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
 . 

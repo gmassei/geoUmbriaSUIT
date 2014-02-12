@@ -23,7 +23,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="geoUmbriaSUIT 0 documentation" href="#" /> 
+    <link rel="top" title="geoUmbriaSUIT 0 documentation" href="#" />
+    <link rel="next" title="geoUmbriaSUIT’s manual" href="manual.html" /> 
   </head>
   <body>
     <div class="related">
@@ -32,6 +33,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="manual.html" title="geoUmbriaSUIT’s manual"
+             accesskey="N">next</a> |</li>
         <li><a href="#">geoUmbriaSUIT 0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -44,6 +48,38 @@
   <div class="section" id="welcome-to-geoumbriasuit-s-documentation">
 <h1>Welcome to geoUmbriaSUIT&#8217;s documentation!<a class="headerlink" href="#welcome-to-geoumbriasuit-s-documentation" title="Permalink to this headline">¶</a></h1>
 <p>Geographical MCDA for sustainability assessment</p>
+<div class="section" id="index">
+<h2>Index<a class="headerlink" href="#index" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="manual.html">geoUmbriaSUIT&#8217;s manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="manual.html#description-of-geoumbriasuit">Description of geoUmbriaSUIT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#installation">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#running-geoumbriasuit">Running geoUmbriaSUIT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="manual.html#outputs">Outputs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">geoUmbriaSUIT&#8217;s Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#tutorial">Tutorial</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#step-0-load-geoumbriasuit">Step 0 - Load geoUmbriaSUIT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#step-1-setting">Step 1 - Setting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#step-2-environmental-criteria">Step 2 - Environmental criteria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#step-3-economic-criteria">Step 3 - Economic criteria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#step-4-social-criteria">Step 4 - Social criteria</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#step-5-output-maps">Step 5 - Output maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#step-6-output-charts">Step 6 - Output charts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html#step-7-extract-rules">Step 7 - Extract rules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+</div>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <blockquote>
@@ -59,71 +95,8 @@ The outputs of geoUmbriaSUIT are both geographic  and graphics. The first shows 
 <p>We intend for “research units”  an administrative unit described by environmental, economics and social indicators (eg.  municipality, provinces, regions, country, etc.) .
 The numeric output of geoUmbriaSUIT is the “sustainability index”, given from the linear combination of three different indexes: environmental index, economics index and social index. Higher is the value of those  indexes and better is the performance of a single &#8220;research units&#8221;.</p>
 </div></blockquote>
-</div>
-<div class="section" id="description-of-geoumbriasuit">
-<h2>Description of geoUmbriaSUIT<a class="headerlink" href="#description-of-geoumbriasuit" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="installation">
-<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div><p>The plugin works under QGIS 2.0 environment but we need follow the installation procedure  the first time we use it:</p>
-<ol class="arabic simple">
-<li>from the menu “Plugins” choose  “Manage and Install plugin”,  the “Plugin manager” window will open;</li>
-<li>if geoUmbriaSUIT is  already installed, we will find it under the “installed” plugin in  “Plugin manger” . Otherwise, the plugin will be listed under “Get more” and we can install it by clicking  the “Install plugin”.</li>
-<li>after the end of installation procedure, geoUmbriaSUIT will be accessible from the menu “Plugins”.</li>
-</ol>
-</div></blockquote>
-</div>
-<div class="section" id="running-geoumbriasuit">
-<h3>Running geoUmbriaSUIT<a class="headerlink" href="#running-geoumbriasuit" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div><p>The user has to load a vector geographic data in qgis and select it clicking with the mouse over the name. The attribute table of those file have to hold the indicators we intend to use in the assessment. The user can download data example from the site <a class="reference external" href="http://maplab.alwaysdata.net/geoUmbriaSUIT.html">http://maplab.alwaysdata.net/geoUmbriaSUIT.html</a>.</p>
-<p>From the menu “Plugins” we can select “geoUmbriaSUIT” and the window shown in <strong>figure 2</strong> will open; only the first tab (“Setting”) will be active.</p>
-<p>In the box  “Base layer”  is shown the path and the name of the file used for the analysis (base layer) and selected by user before the start of geoUmbriaSUIT.
-In the box “Output file” the user can select the path of output file that will generate during the simulations with geoUmbriaSUIT. The plugin shows a default value, but the user can change as he prefer.</p>
-<p>If the  check “use prefix for criteria” in the box “Prefixes criteria” is selected, the criteria will automatically  qualified as environmental, economics and social by a specified prefix, with  the default values are, respectively, <em>A_</em>, <em>E_</em>, <em>S_</em>. For example, we can register the indicator &#8220;Particular matter in air - PM10”   as &#8220;A_PM10&#8221;  in the table of attribute and geoUmbriaSUIT will qualify it as an environmental indicator.  The same will be done  with the others social (<em>S_</em>) and economic (<em>E_</em>) indicators.  If the user doesn&#8217;t select any prefix, he have to select the indicators for the three dimension of sustainability in the next step, picking and selecting each single field from the table of attribute.  If the setting page is completed, the uses can click on “OK” button for prepare the analysis and activate the others pages.  On the  “Envirnmental criteria”, the label “Layer” show the original file from we take the data and  it doesn&#8217;t will modified during the analisys. The most important section is the central table, were the columns are labeled with the field in the table of attribute  of the original file.</p>
-<p>In the <strong>figure 3</strong>, we have only two field: A_GAS_SERR e A_ELET_RIN, because we have chosen to use the <em>A_</em> prefix as environmental identifier in the previous “Setting” page.  In this way geoUmbriaSUIT has selected all the fields in the table of attribute wit prefix <em>A_</em> and use it for the environmental analysis, as  “Environmental criteria”. If we had no chosen to use the prefix, we will have to select all the criteria we need  from the attribute table using the buttons “Add” and “Remove”, leaving all the fields  with the environmental  meaning (the same thing  in the economics and social pages).</p>
-<p>The row “Label” in the table describe the name of the field/criterion in a extensive and more expressive way, respect the limited space reserved in a shapefile for the name. The “Weights” field holds the weights for the criteria in the columns. The user can insert the weight digiting the values in the cells, otherwise he can use the “Advanced” method, using the table pairwise comparisons. With the row  “Preference” the user can choose the preference of each criterion: if the highest value is preferable in term of sustainability,  the value is  &#8220;Gain&#8221;; on the contrary, if the lowest value for the criterion  is preferable in term of sustainability,  the user has to select “Cost”.  The values “Cost/Gain” are mutually exclusive,  and the user can  choose  the right value clicking alternatively on the cell.</p>
-<p>The “Ideal point” e “Worst point” cells are filled with the default values picked from the attributes table. geoUmbriaSUIT can select the best and the worst value for each criterion in the attribute table and proposes this value to the user. For example, the criterion &#8220;Energy from renewable sources&#8221;,  is a “gain” criterion (high values are preferable) and the default  “Ideal point” is the highest value from this criterion in attributes table. The “Worst point”, instead, is the lowest value from the attributes table for the criterion &#8220;Energy from renewable sources&#8221; .  Otherwise,  the criteria &#8220;Particulate matter – PM10” in the air,  is a “Cost” criterion and the default “Ideal point” value, picked from the attributes table, is the lowest, while the  “Worst point” is the highest.  The user can modify the default values with others, like law limits or politics targets, simply digiting the right value in the cell .</p>
-<p>The user can press the  “Save” button for register all the values in a file (setting.csv)  for use the setting parameters in the next simulation for the same geographic file. If the user doesn&#8217;t save the values inserted, he has to insert all the values for each simulation.</p>
-<p>Pressing the &#8220;Apply&#8221; button the environment index will be calculated based on the TOPSIS algorithm. Obviously, only the environmental criteria will used in the calculation.
-All the operation described for “Environmental criteria”, with the same meaning, will be repeated for “Economic criteria” and “Social criteria” pages, for calculus of economic  and social index. At the end, we will have one index for each “dimension” of the sustainability.</p>
-<p>The steps and commands to be given in the  &#8220;Economic criteria&#8221; and &#8220;social criteria&#8221; pages are the same as we  saw in the &#8220;Environmental criteria&#8221;. Doesn&#8217;t matter the order of elaboration, but is important that all the pages are completed and the button “Apply” are pressed. Otherwise, only partial evaluation will be done. We always can check if a component (Environmental, Economics or social) is been elaborated: if  “Apply” button is activate, the elaboration isn&#8217;t been  performed, otherwise the calculus is completed and we can go to the next step.</p>
-</div></blockquote>
-</div>
-<div class="section" id="outputs">
-<h3>Outputs<a class="headerlink" href="#outputs" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div><p>The page “Analysis” [figura 4] allow the user to get the outputs provided from the plugin. We can get three  type of output:</p>
-<ol class="arabic simple">
-<li>cartographic: pressing the “Load maps” button, geoUmbriaSUIT load four  thematic maps, showing the environment (EnvIdeal), economic (EcoIdeal) social (SocIdeal)  and the comprehensive sustainability performance of each “research units” based on respective index.  The user can change the class numbers changing the value in “Classes map” control  but the label will be only in numeric, from the lowest to highest value.</li>
-<li>graphic:   the user has to select the field used for labeling the “research units” from the combo-box “Label field”. For example, if we assessment concerns the Italian regions, we have to select the field that holds the name of  the regions. The same for Provinces, municipality or other administrative or phisical units. Pressing the “Graph” button, geoUmbriaSUIT will load an html pages in a web browser with four graphs. The first shows a stack – histogram whose the overall height is proportional to sustainability value as the sum (linear combination) of the three indexes (environmental, economics and social value) calculated using TOPSIS algorithm.  The second graph is a “bobble-graph” whose position, dimension and colors  of bobbles provide information about sustainability and the its three dimension. In particular, the x-axis Is ordered with the environmental index, the y-axis is ordered with economics index, the color (from red to green) is ordered with social index and the dimension of bobble is proportional with the sustainability value. The first two graphs uses Google chart API&#8217;s and require an active internet connection. The third and the fourth graphs are quite similar to the the first two, but they are “static” and they doesn&#8217;t require an internet active connection.</li>
-<li>alphanumeric: geoUmbriaSUIT implements the Dominance Based Rough Set theory [5] for discovery and explain the data output. In the page “Rules” there is a button named “Extract rules” for extraction of decisional rules on the basis of classification given from TOPSIS algorithm. If a rule as a syntax like  “IF  A&gt;= X THEN AT LEAST i-th”,  we can read it as “ if criterion A has the value greater than or equal to x, then the class of membership will be at least the i-th &#8221;. On the other hand, if the extracted rule has the  syntax like  “IF  A&gt;= X THEN AT MOST i-th”, it can be read as “If the criterion A has the value greater than or equal to x, then the class of membership will be at most the i-th ”. If the user select a single rules, the “research units” covered  from the  rules will selected. In other words, selecting a single rule from the text box, we can see the “examples” which support that rule.</li>
-</ol>
-</div></blockquote>
-</div>
-</div>
-<div class="section" id="tutorial">
-<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
-<blockquote>
-<div><strong>TODO</strong></div></blockquote>
-</div>
-<div class="section" id="bibliography">
-<h2>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this headline">¶</a></h2>
-<p>[1] Boggia A. et al. (2007): Il modello di monitoraggio software UmbriaSUIT 1.0, ARPA Umbria, Perugia.</p>
-<p>[2] Hwang C. L. and Yoon K. Multiple Objective Decision Making Methods and Applications, A State-of-the-Art Survey . Springer - Verlag, 1981.</p>
-<p>[3] QGIS Development Team, 2013. QGIS Geographic Information System. Open Source Geospatial Foundation Project. <a class="reference external" href="http://qgis.osgeo.org">http://qgis.osgeo.org</a></p>
-<p>[4] Salvatore Greco , Benedetto Matarazzo , Roman Slowinski , Jerzy Stefanowski, An Algorithm for Induction of Decision Rules Consistent with the Dominance Principle, Revised Papers from the Second International Conference on Rough Sets and Current Trends in Computing, p.304-313, October 16-19, 2000</p>
-<p>[5] Greco, S., Matarazzo, B., Słowiński, R.: Rough sets theory for multi-criteria decision analysis. European Journal of Operational Research, 129, 1 (2001) 1–47</p>
-</div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
-<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
-<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
-</ul>
 <p>.</p>
+</div>
 </div>
 
 
@@ -135,20 +108,15 @@ All the operation described for “Environmental criteria”, with the same mean
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Welcome to geoUmbriaSUIT&#8217;s documentation!</a><ul>
+<li><a class="reference internal" href="#index">Index</a></li>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
-<li><a class="reference internal" href="#description-of-geoumbriasuit">Description of geoUmbriaSUIT</a><ul>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#running-geoumbriasuit">Running geoUmbriaSUIT</a></li>
-<li><a class="reference internal" href="#outputs">Outputs</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#tutorial">Tutorial</a></li>
-<li><a class="reference internal" href="#bibliography">Bibliography</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 
+  <h4>Next topic</h4>
+  <p class="topless"><a href="manual.html"
+                        title="next chapter">geoUmbriaSUIT&#8217;s manual</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/index.txt"
@@ -177,6 +145,9 @@ All the operation described for “Environmental criteria”, with the same mean
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="manual.html" title="geoUmbriaSUIT’s manual"
+             >next</a> |</li>
         <li><a href="#">geoUmbriaSUIT 0 documentation</a> &raquo;</li> 
       </ul>
     </div>

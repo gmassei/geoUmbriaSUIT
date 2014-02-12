@@ -4,15 +4,13 @@
    contain the root `toctree` directive.
 
    
-Welcome to geoUmbriaSUIT's documentation!
+geoUmbriaSUIT's Tutorial
 =========================================
-
-Geographical MCDA for sustainability assessment
 
 Tutorial
 --------
 
-**Step 0** - Load geoUmbriaSUIT
+Step 0 - Load geoUmbriaSUIT
 ...............................
 
 Load the file “regioni_test”, select it in QGIS  and run geoUmbriaSUIT from the menu: **Plugin/geoUmbriaSUIT/geoUmbriaSUIT** (or pressing the icon on the toolbar).
@@ -24,7 +22,7 @@ Load the file “regioni_test”, select it in QGIS  and run geoUmbriaSUIT from 
 
 	 
 	 
-**Step 1** - Setting
+Step 1 - Setting
 ....................
 
 The page “Setting” shows the default setting parameters; if the values proposed are acceptable, we can press “OK” button.
@@ -35,7 +33,7 @@ The page “Setting” shows the default setting parameters; if the values propo
      
 
 	 
-**Step 2** - Environmental criteria
+Step 2 - Environmental criteria
 ...................................
 
 The page “Environmental criteria” shows the default values for the environmental assessment. For each criterion  (in the column header) the label , the weight, the preference (cost or gain), the ideal and worst point values are shown as default values. The user can change the values  and with the button “Save”  he can register  the changes.  Pressing the “Apply” button the user run the  calculus for assessment  of environmental index 
@@ -44,7 +42,7 @@ The page “Environmental criteria” shows the default values for the environme
      :height: 500
      :align: center
 	 
-**Step 3** - Economic criteria
+Step 3 - Economic criteria
 ..............................
 
 The page “Economic criteria” has the same structure as the environmental, even the parameters are all the same meaning. With the button “Apply” we can run the model for the assessment of economics index.
@@ -53,7 +51,7 @@ The page “Economic criteria” has the same structure as the environmental, ev
      :height: 500
      :align: center
 	 
-**Step 4** - Social criteria
+Step 4 - Social criteria
 ............................
 
 The parameters in page “Social criteria” have the same meaning as those in  Environmental and Economics assessment. The user can perform the calculation of social index pressing “Apply” button.
@@ -62,7 +60,7 @@ The parameters in page “Social criteria” have the same meaning as those in  
      :height: 500
      :align: center
 	 
-**Step 5** - Output maps
+Step 5 - Output maps
 ........................
 
 All the indexes are calculated and now we can build the maps and the graph  showing the output. The user has to press **“Load maps”**  button in **"Analysis"** page for to load in QGIS four maps: "EnvIdeal" (Environmental index), "EcoIdeal" (Economics index), "SocIdeal" (Social index) and the overall sustainability index map, named “SustIdeal”. 
@@ -82,7 +80,7 @@ All the indexes are calculated and now we can build the maps and the graph  show
 .. note:: Output map example 
 
 
-**Step 6** - Output charts
+Step 6 - Output charts
 ..........................
 
 From the combo box **“Label field”** in the **"Analysis"** page the user has to choose the field of the attributes table that identifies the  name of “research unit” ( eg. the name of the region). Pressing the “Graph” button, geoUmbriaSUIT opens a html page in the browser with four graph. The first shows a stack – histogram whose the overall height is proportional to sustainability value as the sum (linear combination) of the three indexes (environmental, economics and social value).  The second graph is a “bobble-graph” whose position, dimension and colors  of bobbles provide information about sustainability and the its three dimension. In particular, the x-axis Is ordered with the environmental index, the y-axis is ordered with economics index, the color (from red to green) is ordered with social index and the dimension of bobble is proportional with the sustainability value.  The third and the fourth graphs are quite similar to the the first two, but they are “static” and they doesn't require an internet active connection.
@@ -93,7 +91,7 @@ From the combo box **“Label field”** in the **"Analysis"** page the user has
 
 
 
-**Step 7** - Extract rules
+Step 7 - Extract rules
 ..........................
 
 The last page, named **“Rules”**,  supply a tool for data  discovery and back analysis of the assessment .Pressing the button “Extract rules”, the user gets the rules derived from  ranking performed from geoUmbriaSUIT, based on five sustainability classes . Selecting a single rule, all the regions that support those rules will be selected in yellow on the maps in QGIS.
@@ -112,27 +110,7 @@ The last page, named **“Rules”**,  supply a tool for data  discovery and bac
 .. note:: Rules extraction example (rule 2)
 
 	
-Bibliography
-------------
 
-[1] Boggia A. et al. (2007): Il modello di monitoraggio software UmbriaSUIT 1.0, ARPA Umbria, Perugia. 
-
-[2] Hwang C. L. and Yoon K. Multiple Objective Decision Making Methods and Applications, A State-of-the-Art Survey . Springer - Verlag, 1981.
-
-[3] QGIS Development Team, 2013. QGIS Geographic Information System. Open Source Geospatial Foundation Project. http://qgis.osgeo.org 
-
-[4] Salvatore Greco , Benedetto Matarazzo , Roman Slowinski , Jerzy Stefanowski, An Algorithm for Induction of Decision Rules Consistent with the Dominance Principle, Revised Papers from the Second International Conference on Rough Sets and Current Trends in Computing, p.304-313, October 16-19, 2000 
-
-[5] Greco, S., Matarazzo, B., Słowiński, R.: Rough sets theory for multi-criteria decision analysis. European Journal of Operational Research, 129, 1 (2001) 1–47
-		
-
-
-
-
-
-
-Indices and tables
-==================
 
 * :ref:`genindex`
 * :ref:`modindex`
