@@ -100,7 +100,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.EnvTableWidget.setHorizontalHeaderLabels(Envfields)
 		self.EnvTableWidget.setRowCount(len(Envfields))
 		self.EnvTableWidget.setVerticalHeaderLabels(Envfields)
-		EnvSetLabel=["Label","Weigths","Preference","Ideal point", "worst point "]
+		EnvSetLabel=["Label","Weigths","Preference","Ideal point", "Worst point "]
 		self.EnvWeighTableWidget.setColumnCount(len(Envfields))
 		self.EnvWeighTableWidget.setHorizontalHeaderLabels(Envfields)
 		self.EnvWeighTableWidget.setRowCount(5)
@@ -121,7 +121,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.EcoTableWidget.setHorizontalHeaderLabels(Ecofields)
 		self.EcoTableWidget.setRowCount(len(Ecofields))
 		self.EcoTableWidget.setVerticalHeaderLabels(Ecofields)
-		EcoSetLabel=["Label","Weigths","Preference","Ideal point", "worst point "]
+		EcoSetLabel=["Label","Weigths","Preference","Ideal point", "Worst point "]
 		self.EcoWeighTableWidget.setColumnCount(len(Ecofields))
 		self.EcoWeighTableWidget.setHorizontalHeaderLabels(Ecofields)
 		self.EcoWeighTableWidget.setRowCount(5)
@@ -139,7 +139,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.SocTableWidget.setHorizontalHeaderLabels(Socfields)
 		self.SocTableWidget.setRowCount(len(Socfields))
 		self.SocTableWidget.setVerticalHeaderLabels(Socfields)
-		SocSetLabel=["Label","Weigths","Preference","Ideal point", "worst point "]
+		SocSetLabel=["Label","Weigths","Preference","Ideal point", "Worst point "]
 		self.SocWeighTableWidget.setColumnCount(len(Socfields))
 		self.SocWeighTableWidget.setHorizontalHeaderLabels(Socfields)
 		self.SocWeighTableWidget.setRowCount(5)
@@ -220,7 +220,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		TableWidget.setHorizontalHeaderLabels(fields)
 		TableWidget.setRowCount(len(fields))
 		TableWidget.setVerticalHeaderLabels(fields)
-		EnvSetLabel=["Label","Weigths","Preference","Ideal point", "worst point "]
+		EnvSetLabel=["Label","Weigths","Preference","Ideal point", "Worst point "]
 		WeighTableWidget.setColumnCount(len(fields))
 		WeighTableWidget.setHorizontalHeaderLabels(fields)
 		WeighTableWidget.setRowCount(5)
@@ -541,7 +541,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		return (sum(listValue)**(0.5))
 	
 	def StandardizationIdealPoint(self):
-		"""PErform STEP 1 and STEP 2 of TOPSIS algorithm"""
+		"""Perform STEP 1 and STEP 2 of TOPSIS algorithm"""
 		if self.toolBox.currentIndex()==1:
 			criteria=[self.EnvWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.EnvWeighTableWidget.columnCount())]
 			weight=[float(self.EnvWeighTableWidget.item(1, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]

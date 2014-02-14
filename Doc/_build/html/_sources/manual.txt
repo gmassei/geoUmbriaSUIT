@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
    
-geoUmbriaSUIT's manual
+geoUmbriaSUIT's **manual**
 =========================================
 
 
@@ -13,7 +13,7 @@ Description of geoUmbriaSUIT
 ----------------------------
 
 Installation
-............
+++++++++++++
 		The plugin works under QGIS 2.0 environment but we need follow the installation procedure  the first time we use it:
 		
 		1. from the menu “Plugins” choose  “Manage and Install plugin”,  the “Plugin manager” window will open;
@@ -23,7 +23,7 @@ Installation
 		3. after the end of installation procedure, geoUmbriaSUIT will be accessible from the menu “Plugins”. 
 
 Running geoUmbriaSUIT
-......................
++++++++++++++++++++++
 
 		The user has to load a vector geographic data in qgis and select it clicking with the mouse over the name. The attribute table of those file have to hold the indicators we intend to use in the assessment. The user can download data example from the site http://maplab.alwaysdata.net/geoUmbriaSUIT.html. 
 		
@@ -51,7 +51,7 @@ Running geoUmbriaSUIT
 
 	
 Outputs
-.......
++++++++
 
 		The page “Analysis” [figura 4] allow the user to get the outputs provided from the plugin. We can get three  type of output:
 		

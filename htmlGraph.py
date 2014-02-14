@@ -40,7 +40,8 @@ def BuilHTMLGraph(suist,env,eco,soc,labels):
 	HTMLfile.write("\n]);\n")
 	HTMLfile.write("""	var optionsBar = {
 			  title: 'bars of sustainability',
-			  isStacked: 'true' 
+			  isStacked: 'true',
+			  legend:{position:'in'},
 			};
 				var dataBubble = google.visualization.arrayToDataTable([\n""")
 	HTMLfile.write(str(header)+",\n")
@@ -65,13 +66,13 @@ def BuilHTMLGraph(suist,env,eco,soc,labels):
 	  <body>
 	  <div id="logo" class="container"><h1>Graph of sustainability</h1>
 		<br></br>
-		<div id="bar_div" style="width: 900px; height: 500px;"  border='0'></div>
+		<div id="bar_div" style="width: 1350px; height: 750px;"  border='0'></div>
 		<br><hr>
-		<div id="bubble_div" style="width: 900px; height: 500px;"  border='1'></div>
+		<div id="bubble_div" style="width: 1350px; height: 750px;"  border='0'></div>
 		<br><hr>
-		<img class="aligncenter" src='histogram.png' style="width: 900px; height: 500px;"  border='0'/>
+		<img class="aligncenter" src='histogram.png' style="width: 1250px; height: 750px;"  border='0'/>
 		<br><hr>
-		<img class="aligncenter" src='points.png' style="width: 900px; height: 500px;"  border='0'/><hr>
+		<img class="aligncenter" src='points.png' style="width: 1250px; height: 750px;"  border='0'/><hr>
 	  </body>
 	</html>""")
 	HTMLfile.close()
