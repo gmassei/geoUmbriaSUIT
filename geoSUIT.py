@@ -197,7 +197,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		newlayer = QgsVectorLayer(outputFilename, "geosustainability", "ogr")
 		QgsMapLayerRegistry.instance().addMapLayer(newlayer)
 		self.active_layer =newlayer
-		self.active_layer=QgsVectorLayer(self.OutlEdt.text(), self.active_layer.name(), "ogr") ##TODO verify
+		self.active_layer=QgsVectorLayer(self.OutlEdt.text(), self.active_layer.name(), "ogr") ##TODO check
 		self.toolBox.setEnabled(True)
 		self.updateTable()
 		self.LabelListFieldsCBox.addItems(provider.fieldNameMap().keys())
@@ -922,7 +922,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		for feat in self.base_Layer.getFeatures():
 			DiscValue=self.DiscretizeDecision(listInput[int(feat.id())],listClass,numberOfClasses)
 			self.base_Layer.changeAttributeValue(feat.id(), fidClass, float(DiscValue))
-		decision.append(DiscValue)
+			decision.append(DiscValue)
 		self.base_Layer.commitChanges()
 		return list(set(decision))
 

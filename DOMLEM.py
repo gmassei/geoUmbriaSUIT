@@ -357,8 +357,8 @@ def format_rules(rules,RULES,header):
 
 def refactoring_label(RULES,currentDIR):
 	"""Use label from settingFile.csv, if exists"""
-	if os.path.exists(os.path.join(currentDIR,"settingFile.csv"))==True:
-		setting=[i.strip().split(';') for i in open(os.path.join(currentDIR,"settingFile.csv")).readlines()]
+	if os.path.exists(os.path.join(currentDIR,"setting.csv"))==True:
+		setting=[i.strip().split(';') for i in open(os.path.join(currentDIR,"setting.csv")).readlines()]
 		for E in RULES:
 			for e in E:
 				for f,l in zip(setting[1],setting[0]):
@@ -420,23 +420,23 @@ def main(currentDIR):
 			
 		header=infosystem['attributes']
 		RULES=[]
-	## *** AT LEAST {>= Class} - Type 1 rules *** "
-		for lower in lower_appx_up[1:]:
-			EXAMPLES=infosystem['examples'].copy()
-			rules=find_rules(EXAMPLES,lower,header,"one")
-			RULES=format_rules(rules,RULES,header)
 	##  *** AT MOST {<= Class} - Type 3 rules ***"
 		for lower in lower_appx_dw[:-1]:
 			EXAMPLES=infosystem['examples'].copy()
 			rules=find_rules(EXAMPLES,lower,header,"three")
 			RULES=format_rules(rules,RULES,header)
+			## *** AT LEAST {>= Class} - Type 1 rules *** "
+		for lower in lower_appx_up[1:]:
+			EXAMPLES=infosystem['examples'].copy()
+			rules=find_rules(EXAMPLES,lower,header,"one")
+			RULES=format_rules(rules,RULES,header)
 		refactoring_label(RULES,currentDIR)
 		print_rules(RULES,infosystem)
 		end=time()
-		print "Time -> %.4f s" % (end-start)
+		#print "Time -> %.4f s" % (end-start)
 		return 0
 	except TypeError:
-		print "\n\t Computing error. Exiting"
+		#print "\n\t Computing error. Exiting"
 		sys.exit(0)
 
 ###########execute the script##########################
