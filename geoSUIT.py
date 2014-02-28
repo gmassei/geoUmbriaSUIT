@@ -29,6 +29,7 @@ from qgis.gui import *
 import os
 import webbrowser
 import shutil
+import csv
 
 
 import DOMLEM
@@ -155,8 +156,6 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		self.LblLogo.setPixmap(QtGui.QPixmap(os.path.join(currentDir,"icon.png")))
 		
 
-
-
 	def GetFieldNames(self, layer):
 		"""retrive field names from active map/layer"""
 		fields = layer.dataProvider().fields()
@@ -196,7 +195,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		del writer
 		newlayer = QgsVectorLayer(outputFilename, "geosustainability", "ogr")
 		QgsMapLayerRegistry.instance().addMapLayer(newlayer)
-		self.active_layer =newlayer
+		self.active_layer=newlayer
 		self.active_layer=QgsVectorLayer(self.OutlEdt.text(), self.active_layer.name(), "ogr") ##TODO check
 		self.toolBox.setEnabled(True)
 		self.updateTable()
@@ -524,7 +523,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		"""Add field on attribute table"""
 		caps = layer.dataProvider().capabilities()
 		if caps & QgsVectorDataProvider.AddAttributes:
-			res = layer.dataProvider().addAttributes( [QgsField(Label, QVariant.Double) ] )
+			res = layer.dataProvider().addAttributes( [QgsField(Label, QVariant.Double,"",24,4,"")] )
 		return 0
 
 
@@ -683,7 +682,6 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		else:
 			classes=range(1,numberOfClasses+1)
 		fieldName = field
-
 		layer = self.iface.activeLayer()
 		fieldIndex = layer.fieldNameIndex(fieldName)
 		provider = layer.dataProvider()
@@ -693,8 +691,8 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		Opacity = 1
 		for c,i in zip(classes,range(len(classes))):
 		# Crea il simbolo ed il range...
-			Min = minimum + (( maximum - minimum ) / numberOfClasses * i)
-			Max = minimum + (( maximum - minimum ) / numberOfClasses * ( i + 1 ))
+			Min = round(minimum + (( maximum - minimum ) / numberOfClasses * i),4)
+			Max = round(minimum + (( maximum - minimum ) / numberOfClasses * ( i + 1 )),4)
 			Label = "%s [%.2f - %.2f]" % (c,Min,Max)
 			if field=='SustIdeal':
 				Colour = QColor((255-85*i/numberOfClasses),\
@@ -759,6 +757,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 	def BuildOutput(self):
 		"""General function for all graphical and tabula output"""
 		currentDir = unicode(os.path.abspath( os.path.dirname(__file__)))
+		self.ExportTable()
 		if os.path.isfile(os.path.join(currentDir,"points.png"))==True:
 			os.remove(os.path.join(currentDir,"points.png"))
 		if os.path.isfile(os.path.join(currentDir,"histogram.png"))==True:
@@ -850,11 +849,27 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		htmlGraph.BuilHTMLGraph(SuitValue,EnvValue,EcoValue,SocValue,labels)
 		return 0
 		
-		
+	def ExportTable(self):
+		criteria=[self.EnvWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.EnvWeighTableWidget.columnCount())]
+		currentDIR = (os.path.dirname(str(self.base_Layer.source())))
+		bLayer=self.base_Layer
+		field_names = [field.name() for field in bLayer.pendingFields()]+['EnvIdeal','EcoIdeal','SocIdeal','SustIdeal']
+		EnvValue=self.ExtractAttributeValue('EnvIdeal')
+		EcoValue=self.ExtractAttributeValue('EcoIdeal')
+		SocValue=self.ExtractAttributeValue('SocIdeal')
+		SustValue=self.ExtractAttributeValue('SustIdeal')
+		att2csv=[]
+		for feature,env,eco,soc,sust in zip(bLayer.getFeatures(),EnvValue,EcoValue,SocValue,SustValue):
+			row=feature.attributes()+[env,eco,soc,sust]
+			att2csv.append(row)
+		with open(os.path.join(currentDIR,'attributes.csv'), 'wb') as csvfile:
+			spamwriter = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+			spamwriter.writerow(field_names)
+			spamwriter.writerows(att2csv)
+		return 0
 		
 ###################################################################################################
 	def SaveCfg(self):
-		#pathSource=os.path.dirname(str(self.base_Layer.source()))
 		currentDIR = (os.path.dirname(str(self.base_Layer.source())))
 		try:
 			fileCfg = open(os.path.join(currentDIR,"setting.csv"),"w")
