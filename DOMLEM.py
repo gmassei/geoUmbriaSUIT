@@ -325,8 +325,11 @@ def find_rules(EXAMPLES,approximation,header,rule_type):
 			e=check_rules(static_examples,e,B,rule_type)
 			E.append(e)
 			#remove examples covered by RULE
+			EXAMPLES=remove_objects(EXAMPLES,rules_cover(EXAMPLES,E,rule_type))
 			G=list((set(B))-(set(rules_cover(static_examples,E,rule_type)))) # N.B. rules_cover function act on original set of examples
 	return E		
+	
+	
 ###########################################################################################################
 def format_rules(rules,RULES,header):
 	"""Fill rules properties for a readable and complete forms"""
@@ -432,10 +435,10 @@ def main(currentDIR):
 		refactoring_label(RULES,currentDIR)
 		print_rules(RULES,infosystem)
 		end=time()
-		#print "Time -> %.4f s" % (end-start)
+		print "Time -> %.4f s" % (end-start)
 		return 0
 	except TypeError:
-		#print "\n\t Computing error. Exiting"
+		print "\n\t Computing error. Exiting"
 		sys.exit(0)
 
 ###########execute the script##########################

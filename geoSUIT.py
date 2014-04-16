@@ -261,9 +261,9 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			self.updateTableFctn(self.SocTableWidget,self.SocWeighTableWidget,Socfields)
 ############################################################################################################################
 		else:
-			self.fillTableFctn(fields,EnvWeighTableWidget)
-			self.fillTableFctn(fields,EcoWeighTableWidget)
-			self.fillTableFctn(fields,EnvWeighTableWidget)
+			self.fillTableFctn(fields,self.EnvWeighTableWidget)
+			self.fillTableFctn(fields,self.EcoWeighTableWidget)
+			self.fillTableFctn(fields,self.EnvWeighTableWidget)
 		self.updateGUIIdealPoint()
 		return 0
 
@@ -850,23 +850,27 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		return 0
 		
 	def ExportTable(self):
-		criteria=[self.EnvWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.EnvWeighTableWidget.columnCount())]
-		currentDIR = (os.path.dirname(str(self.base_Layer.source())))
-		bLayer=self.base_Layer
-		field_names = [field.name() for field in bLayer.pendingFields()]+['EnvIdeal','EcoIdeal','SocIdeal','SustIdeal']
-		EnvValue=self.ExtractAttributeValue('EnvIdeal')
-		EcoValue=self.ExtractAttributeValue('EcoIdeal')
-		SocValue=self.ExtractAttributeValue('SocIdeal')
-		SustValue=self.ExtractAttributeValue('SustIdeal')
-		att2csv=[]
-		for feature,env,eco,soc,sust in zip(bLayer.getFeatures(),EnvValue,EcoValue,SocValue,SustValue):
-			row=feature.attributes()+[env,eco,soc,sust]
-			att2csv.append(row)
-		with open(os.path.join(currentDIR,'attributes.csv'), 'wb') as csvfile:
-			spamwriter = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
-			spamwriter.writerow(field_names)
-			spamwriter.writerows(att2csv)
-		return 0
+		try:
+			criteria=[self.EnvWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.EnvWeighTableWidget.columnCount())]
+			currentDIR = (os.path.dirname(str(self.base_Layer.source())))
+			bLayer=self.base_Layer
+			field_names = [field.name() for field in bLayer.pendingFields()]+['EnvIdeal','EcoIdeal','SocIdeal','SustIdeal']
+			EnvValue=self.ExtractAttributeValue('EnvIdeal')
+			EcoValue=self.ExtractAttributeValue('EcoIdeal')
+			SocValue=self.ExtractAttributeValue('SocIdeal')
+			SustValue=self.ExtractAttributeValue('SustIdeal')
+			att2csv=[]
+			for feature,env,eco,soc,sust in zip(bLayer.getFeatures(),EnvValue,EcoValue,SocValue,SustValue):
+				row=feature.attributes()+[env,eco,soc,sust]
+				att2csv.append(row)
+			with open(os.path.join(currentDIR,'attributes.csv'), 'wb') as csvfile:
+				spamwriter = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+				spamwriter.writerow(field_names)
+				spamwriter.writerows(att2csv)
+			return 0
+		except:
+			QgsMessageLog.logMessage("Problem in writing export table file","geoUmbriaSUIT",\
+									QgsMessageLog.WARNING)
 		
 ###################################################################################################
 	def SaveCfg(self):
