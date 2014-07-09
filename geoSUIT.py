@@ -248,6 +248,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		"""Prepare and compile table in GUI"""
 		pathSource=os.path.dirname(str(self.base_Layer.source()))
 		fields=self.GetFieldNames(self.base_Layer)
+		#fields = [field.name() for field in self.base_Layer.pendingFields() ]
 		if self.preFIXcheckBox.isChecked():
 			ENVprefix=self.prefixENVlEdt.text()
 			ECOprefix=self.prefixECOlEdt.text()
@@ -682,11 +683,13 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		else:
 			classes=range(1,numberOfClasses+1)
 		fieldName = field
-		layer = self.iface.activeLayer()
+		layer=self.active_layer
 		fieldIndex = layer.fieldNameIndex(fieldName)
 		provider = layer.dataProvider()
 		minimum = provider.minimumValue( fieldIndex )
 		maximum = provider.maximumValue( fieldIndex )
+		string="%s,%s,%s" %(minimum,maximum,layer.name() )
+		self.SocTEdit.append(string)
 		RangeList = []
 		Opacity = 1
 		for c,i in zip(classes,range(len(classes))):
@@ -722,15 +725,14 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 
 	def RenderLayer(self):
 		""" Load thematic layers in canvas """
-		layer = self.iface.activeLayer()
-		QgsMapLayerRegistry.instance().removeMapLayer(layer.id())
-		#layer = QgsVectorLayer(self.OutlEdt.text(), "geosustainability", "ogr")
-		layer = QgsVectorLayer(self.OutlEdt.text(), (os.path.basename(str(self.OutlEdt.text()))), "ogr")
-		QgsMapLayerRegistry.instance().addMapLayer(layer)
+		self.setModal(False)
+		layer = self.active_layer
+		#QgsMapLayerRegistry.instance().removeMapLayer(layer.id())
+		#layer = QgsVectorLayer(self.OutlEdt.text(), (os.path.basename(str(self.OutlEdt.text()))), "ogr")
+		#QgsMapLayerRegistry.instance().addMapLayer(layer)
 		fields=['EnvIdeal','EcoIdeal','SocIdeal','SustIdeal']
 		for f in fields:
 			self.Symbolize(f)
-		self.setModal(False)
 
 ###########################################################################################
 	def RefreshLayer(self):

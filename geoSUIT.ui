@@ -68,7 +68,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
       <enum>QFrame::Plain</enum>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>0</number>
      </property>
      <property name="tabSpacing">
       <number>6</number>
@@ -85,19 +85,6 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
       <attribute name="label">
        <string>Setting</string>
       </attribute>
-      <widget class="QProgressBar" name="LoadProgressBar">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>470</y>
-         <width>660</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-      </widget>
       <widget class="QGroupBox" name="OutGBox">
        <property name="geometry">
         <rect>
@@ -365,14 +352,27 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
         <bool>true</bool>
        </property>
       </widget>
+      <widget class="QProgressBar" name="LoadProgressBar">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>430</y>
+         <width>191</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
       <zorder>SetBtnHelp</zorder>
       <zorder>SetBtnAbout</zorder>
       <zorder>SetBtnBox</zorder>
-      <zorder>LoadProgressBar</zorder>
       <zorder>OutGBox</zorder>
       <zorder>LblLogo</zorder>
       <zorder>groupBox</zorder>
       <zorder>groupBox_2</zorder>
+      <zorder>LoadProgressBar</zorder>
      </widget>
      <widget class="QWidget" name="EnvironmentaleQTbox">
       <property name="geometry">

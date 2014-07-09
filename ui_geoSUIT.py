@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'geoSUIT.ui'
 #
-# Created: Wed Feb 12 19:38:27 2014
+# Created: Tue May 27 23:43:53 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -56,10 +56,6 @@ class Ui_Dialog(object):
         self.page = QtGui.QWidget()
         self.page.setGeometry(QtCore.QRect(0, 0, 675, 459))
         self.page.setObjectName(_fromUtf8("page"))
-        self.LoadProgressBar = QtGui.QProgressBar(self.page)
-        self.LoadProgressBar.setGeometry(QtCore.QRect(0, 470, 660, 21))
-        self.LoadProgressBar.setProperty("value", 0)
-        self.LoadProgressBar.setObjectName(_fromUtf8("LoadProgressBar"))
         self.OutGBox = QtGui.QGroupBox(self.page)
         self.OutGBox.setGeometry(QtCore.QRect(0, 70, 661, 60))
         self.OutGBox.setObjectName(_fromUtf8("OutGBox"))
@@ -125,6 +121,10 @@ class Ui_Dialog(object):
         self.SetBtnBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.SetBtnBox.setCenterButtons(True)
         self.SetBtnBox.setObjectName(_fromUtf8("SetBtnBox"))
+        self.LoadProgressBar = QtGui.QProgressBar(self.page)
+        self.LoadProgressBar.setGeometry(QtCore.QRect(0, 430, 191, 21))
+        self.LoadProgressBar.setProperty("value", 0)
+        self.LoadProgressBar.setObjectName(_fromUtf8("LoadProgressBar"))
         self.toolBox.addItem(self.page, _fromUtf8(""))
         self.EnvironmentaleQTbox = QtGui.QWidget()
         self.EnvironmentaleQTbox.setGeometry(QtCore.QRect(0, 0, 675, 459))
@@ -556,7 +556,7 @@ class Ui_Dialog(object):
         self.gridLayout.addWidget(self.toolBox, 0, 0, 1, 1)
 
         self.retranslateUi(Dialog)
-        self.toolBox.setCurrentIndex(5)
+        self.toolBox.setCurrentIndex(0)
         self.toolBox.layout().setSpacing(6)
         self.EnvTabWidget.setCurrentIndex(0)
         self.EcoTabWidget.setCurrentIndex(0)
