@@ -18,7 +18,8 @@ The plugin works under QGIS 2.0 environment, but the first time we use it we nee
 
 1. from the menu **Plugins** choose  **Manage and Install plugin**,  the **Plugin manager** window will open;
 
-2. if geoUmbriaSUIT is already installed, we will find it under the **installed** plugins in **Plugin manager**. Otherwise, the plugin will be listed under **Get more** and we can install it by clicking on **Install plugin**;
+2. if geoUmbriaSUIT is already installed, we will find it under the **installed** plugins in **Plugin manager**. 
+Otherwise, the plugin will be listed under **Get more** and we can install it by clicking on **Install plugin**;
 
 3. after the end of installation procedure, geoUmbriaSUIT will be accessible from the menu **Plugins**;  
 

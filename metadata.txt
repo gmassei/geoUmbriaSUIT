@@ -13,7 +13,7 @@ qgisMinimumVersion=2.0
 #qgisMaximumVersion=2.99
 description=geographical MCDA for sustainability assessment
 category=Vector
-version=2.6.5
+version=2.6.8
 
 # end of mandatory metadata
 
@@ -23,6 +23,7 @@ version=2.6.5
 # changelog= new social tab and rules extraction tabs
 
 # tags are comma separated with spaces allowed
+changelog=2.6.8 removed static chart (numpy compatibility)
 tags=Sustainability, Geographic MCDA, Vector
 
 homepage=http://maplab.alwaysdata.net/geoUmbriaSUIT.html

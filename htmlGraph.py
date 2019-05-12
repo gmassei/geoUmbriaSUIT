@@ -1,8 +1,8 @@
 import os
 import operator
 
-def BuilHTMLGraph(suist,env,eco,soc,labels):
-	header=["label","environmental","economic","social","sustainability"]
+def BuilHTMLGraph(env,eco,soc,labels):
+	header=["label","environmental","economic","social"]
 	data=[]
 	for i in range(len(labels)):
 		row=[]

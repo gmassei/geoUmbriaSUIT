@@ -71,7 +71,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		QObject.connect(self.SocCalculateBtn, SIGNAL( "clicked()" ), self.AnalyticHierarchyProcess)
 		QObject.connect(self.SocGetWeightBtn, SIGNAL( "clicked()" ), self.Elaborate)
 
-		QObject.connect(self.RenderBtn,SIGNAL("clicked()"), self.RenderLayer)
+		QObject.connect(self.RenderBtn,SIGNAL("clicked()"), self.renderLayer)
 		QObject.connect(self.GraphBtn, SIGNAL("clicked()"), self.BuildOutput)
 
 		QObject.connect(self.AnlsBtnBox, SIGNAL("rejected()"),self, SLOT("reject()"))
@@ -264,7 +264,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		else:
 			self.fillTableFctn(fields,self.EnvWeighTableWidget)
 			self.fillTableFctn(fields,self.EcoWeighTableWidget)
-			self.fillTableFctn(fields,self.EnvWeighTableWidget)
+			self.fillTableFctn(fields,self.SocWeighTableWidget)
 		self.updateGUIIdealPoint()
 		return 0
 
@@ -438,8 +438,8 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			
 	def Elaborate(self):
 		self.StandardizationIdealPoint()
-		self.RelativeCloseness()
-		self.OveralValue()
+		self.relativeCloseness()
+		#self.OveralValue()
 		self.setModal(True)
 		return 0
 #############################################################################################################
@@ -576,12 +576,13 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			for feat in self.active_layer.getFeatures():
 				attributes=feat.attributes()[f]
 				value=(float(attributes)/float(sumSquareColumn[f]))*w   # TOPSIS algorithm: STEP 1 and STEP 2
+				#print sumSquareColumn[f]
 				self.active_layer.changeAttributeValue(feat.id(),f,round(value,4))
 		self.active_layer.commitChanges()
 		return 0
 		
 			
-	def RelativeCloseness(self):
+	def relativeCloseness(self):
 		""" Calculate Environmental and Socio-Economicos distance from ideal point"""
 		if self.toolBox.currentIndex()==1:
 			criteria=[self.EnvWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.EnvWeighTableWidget.columnCount())]
@@ -652,24 +653,24 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		return 0
 
 		
-	def OveralValue(self):
-		"""Sum Environmental and Socio-economics value for calculate  Sustainable value"""
-		provider=self.active_layer.dataProvider()
-		if provider.fieldNameIndex("SustIdeal")==-1:
-			self.AddDecisionField(self.active_layer,"SustIdeal")
-		fldValue = provider.fieldNameIndex("SustIdeal") #obtain classify field index from its name
-		fids=[provider.fieldNameIndex(c) for c in ['EnvIdeal','EcoIdeal','SocIdeal']]
-		if -1 not in fids:
-			self.active_layer.startEditing()
-			for feat in self.active_layer.getFeatures():
-				attributes=feat.attributes()
-				#self.EnvTEdit.append(str(fids)+"-"+str([(attributes[att]) for att in fids]))
-				value=sum([float(str(attributes[att])) for att in fids])
-				self.active_layer.changeAttributeValue(feat.id(), fldValue, round(float(value),4))
-			self.active_layer.commitChanges()
-			return 0
-		else:
-			return -1
+	#def OveralValue(self):
+		#"""Sum Environmental and Socio-economics value for calculate  Sustainable value"""
+		#provider=self.active_layer.dataProvider()
+		#if provider.fieldNameIndex("SustIdeal")==-1:
+			#self.AddDecisionField(self.active_layer,"SustIdeal")
+		#fldValue = provider.fieldNameIndex("SustIdeal") #obtain classify field index from its name
+		#fids=[provider.fieldNameIndex(c) for c in ['EnvIdeal','EcoIdeal','SocIdeal']]
+		#if -1 not in fids:
+			#self.active_layer.startEditing()
+			#for feat in self.active_layer.getFeatures():
+				#attributes=feat.attributes()
+				##self.EnvTEdit.append(str(fids)+"-"+str([(attributes[att]) for att in fids]))
+				#value=sum([float(str(attributes[att])) for att in fids])
+				#self.active_layer.changeAttributeValue(feat.id(), fldValue, round(float(value),4))
+			#self.active_layer.commitChanges()
+			#return 0
+		#else:
+			#return -1
 		
 
 
@@ -723,14 +724,14 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 		add.setRendererV2(Renderer)
 		QgsMapLayerRegistry.instance().addMapLayer(add)
 
-	def RenderLayer(self):
+	def renderLayer(self):
 		""" Load thematic layers in canvas """
 		self.setModal(False)
 		layer = self.active_layer
 		#QgsMapLayerRegistry.instance().removeMapLayer(layer.id())
 		#layer = QgsVectorLayer(self.OutlEdt.text(), (os.path.basename(str(self.OutlEdt.text()))), "ogr")
 		#QgsMapLayerRegistry.instance().addMapLayer(layer)
-		fields=['EnvIdeal','EcoIdeal','SocIdeal','SustIdeal']
+		fields=['EnvIdeal','EcoIdeal','SocIdeal']
 		for f in fields:
 			self.Symbolize(f)
 
@@ -764,91 +765,91 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			os.remove(os.path.join(currentDir,"points.png"))
 		if os.path.isfile(os.path.join(currentDir,"histogram.png"))==True:
 			os.remove(os.path.join(currentDir,"histogram.png"))
-		try:
-			import matplotlib.pyplot as plt
-			import numpy as np
-			self.BuildGraphPnt(currentDir)
-			self.BuildGraphIstogram(currentDir)
-		except ImportError, e:
-			QMessageBox.information(None, QCoreApplication.translate('geoUmbriaSUIT', "Plugin error"), \
-			QCoreApplication.translate('geoUmbriaSUIT', "Couldn't import Python modules 'matplotlib' and 'numpy'. [Message: %s]" % e))
+		#try:
+			#import matplotlib.pyplot as plt
+			#import numpy as np
+			#self.BuildGraphPnt(currentDir)
+			#self.BuildGraphIstogram(currentDir)
+		#except ImportError, e:
+			#QMessageBox.information(None, QCoreApplication.translate('geoUmbriaSUIT', "Plugin error"), \
+			#QCoreApplication.translate('geoUmbriaSUIT', "Couldn't import Python modules 'matplotlib' and 'numpy'. [Message: %s]" % e))
 		self.BuildHTML()
 		webbrowser.open(os.path.join(currentDir,"barGraph.html"))
 		self.setModal(False)
 		return 0
 
-	def BuildGraphPnt(self,currentDir ):
-		""" Build points graph using pyplot"""
-		import matplotlib.pyplot as plt
-		import numpy as np
-		fig = plt.figure()
+	#def BuildGraphPnt(self,currentDir ):
+		#""" Build points graph using pyplot"""
+		#import matplotlib.pyplot as plt
+		#import numpy as np
+		#fig = plt.figure()
+		##fig.subplots_adjust(bottom=0.2)
+		#ax = fig.add_subplot(111)
+		#y=self.ExtractAttributeValue('EnvIdeal')
+		#x1=self.ExtractAttributeValue('EcoIdeal')
+		#x2=self.ExtractAttributeValue('SocIdeal')
+		#x=[i+j for i,j in zip(x1,x2)]
+		#label=self.LabelListFieldsCBox.currentText()
+		#labels=self.ExtractAttributeValue(label)
+		#plt.ylabel('Envirnmental value')
+		#plt.xlabel('Socio-economic value')
+		#g=plt.plot(x,y,'ro')
+
+		#plt.setp(g, 'markersize', 5)
+		#plt.setp(g, 'markerfacecolor', 'g')
+		#for i in range(len(labels)):
+			#plt.text (x[i], y[i], labels[i], fontsize=6)
+		#########################################
+		#xlim=ax.get_xlim()
+		#ylim=ax.get_ylim()
+		#im = plt.imread(os.path.join(currentDir,"base.png"))
+		#implot = plt.imshow(im,zorder=0, extent=[xlim[0], xlim[1],  ylim[0], ylim[1]])
+		#########################################
+		#plt.savefig(os.path.join(currentDir,"points.png"))
+		#plt.close('all')
+		#return 0
+
+
+	#def BuildGraphIstogram(self,currentDir):
+		#"""Build Istogram graph using pyplot"""
+		#import matplotlib.pyplot as plt
+		#EnvValue=self.ExtractAttributeValue('EnvIdeal')
+		#EcoValue=self.ExtractAttributeValue('EcoIdeal')
+		#SocValue=self.ExtractAttributeValue('SocIdeal')
+		#SuitValue=[x+y+z for (x,y,z) in zip(EnvValue,EcoValue,SocValue)]
+		#fig = plt.figure()
 		#fig.subplots_adjust(bottom=0.2)
-		ax = fig.add_subplot(111)
-		y=self.ExtractAttributeValue('EnvIdeal')
-		x1=self.ExtractAttributeValue('EcoIdeal')
-		x2=self.ExtractAttributeValue('SocIdeal')
-		x=[i+j for i,j in zip(x1,x2)]
-		label=self.LabelListFieldsCBox.currentText()
-		labels=self.ExtractAttributeValue(label)
-		plt.ylabel('Envirnmental value')
-		plt.xlabel('Socio-economic value')
-		g=plt.plot(x,y,'ro')
-
-		plt.setp(g, 'markersize', 5)
-		plt.setp(g, 'markerfacecolor', 'g')
-		for i in range(len(labels)):
-			plt.text (x[i], y[i], labels[i], fontsize=6)
-		########################################
-		xlim=ax.get_xlim()
-		ylim=ax.get_ylim()
-		im = plt.imread(os.path.join(currentDir,"base.png"))
-		implot = plt.imshow(im,zorder=0, extent=[xlim[0], xlim[1],  ylim[0], ylim[1]])
-		########################################
-		plt.savefig(os.path.join(currentDir,"points.png"))
-		plt.close('all')
-		return 0
-
-
-	def BuildGraphIstogram(self,currentDir):
-		"""Build Istogram graph using pyplot"""
-		import matplotlib.pyplot as plt
-		EnvValue=self.ExtractAttributeValue('EnvIdeal')
-		EcoValue=self.ExtractAttributeValue('EcoIdeal')
-		SocValue=self.ExtractAttributeValue('SocIdeal')
-		SuitValue=[x+y+z for (x,y,z) in zip(EnvValue,EcoValue,SocValue)]
-		fig = plt.figure()
-		fig.subplots_adjust(bottom=0.2)
-		fig.subplots_adjust()
-		ax = fig.add_subplot(111)
-		ax.margins(0.05, None)
-		#xpos = np.arange(len(SuitValue))    # the x locations for the groups
-		xpos = range(len(SuitValue))    # the x locations for the groups
-		width = 0.8     # the width of the bars: can also be len(x) sequence
-		label=self.LabelListFieldsCBox.currentText()
-		labels=self.ExtractAttributeValue(label)
-		p1 = plt.bar((xpos), EnvValue, width=width, color='g',align='center') # yerr=womenStd)
-		p2 = plt.bar((xpos), EcoValue, width=width, color='r', bottom=EnvValue, align='center') #, yerr=menStd)
-		bot=[e+c for e,c in zip(EnvValue,EcoValue)]
-		p3 = plt.bar((xpos), SocValue, width=width, color='c', bottom=bot, align='center') #, yerr=menStd)
-		#n, bins, patches = plt.hist( [EnvValue,EcoValue,SocValue], histtype='bar', stacked=True)
-		plt.ylabel('Scores')
-		plt.title('Sustainability')
-		plt.xticks((xpos), tuple(labels),rotation=90,fontsize=6 )
-		plt.legend((p1[0], p2[0], p3[0]), ('Environmental', 'Economic','Social'))
-		plt.savefig(os.path.join(currentDir,"histogram.png"))
-		self.LblGraphic.setPixmap(QtGui.QPixmap(os.path.join(currentDir,"histogram.png")))
-		plt.close('all')
-		return 0
+		#fig.subplots_adjust()
+		#ax = fig.add_subplot(111)
+		#ax.margins(0.05, None)
+		##xpos = np.arange(len(SuitValue))    # the x locations for the groups
+		#xpos = range(len(SuitValue))    # the x locations for the groups
+		#width = 0.8     # the width of the bars: can also be len(x) sequence
+		#label=self.LabelListFieldsCBox.currentText()
+		#labels=self.ExtractAttributeValue(label)
+		#p1 = plt.bar((xpos), EnvValue, width=width, color='g',align='center') # yerr=womenStd)
+		#p2 = plt.bar((xpos), EcoValue, width=width, color='r', bottom=EnvValue, align='center') #, yerr=menStd)
+		#bot=[e+c for e,c in zip(EnvValue,EcoValue)]
+		#p3 = plt.bar((xpos), SocValue, width=width, color='c', bottom=bot, align='center') #, yerr=menStd)
+		##n, bins, patches = plt.hist( [EnvValue,EcoValue,SocValue], histtype='bar', stacked=True)
+		#plt.ylabel('Scores')
+		#plt.title('Sustainability')
+		#plt.xticks((xpos), tuple(labels),rotation=90,fontsize=6 )
+		#plt.legend((p1[0], p2[0], p3[0]), ('Environmental', 'Economic','Social'))
+		#plt.savefig(os.path.join(currentDir,"histogram.png"))
+		#self.LblGraphic.setPixmap(QtGui.QPixmap(os.path.join(currentDir,"histogram.png")))
+		#plt.close('all')
+		#return 0
 		
 	def BuildHTML(self):
 		EnvValue=self.ExtractAttributeValue('EnvIdeal')
 		EcoValue=self.ExtractAttributeValue('EcoIdeal')
 		SocValue=self.ExtractAttributeValue('SocIdeal')
-		SuitValue=[x+y+z for (x,y,z) in zip(EnvValue,EcoValue,SocValue)]
+		#SuitValue=[x+y+z for (x,y,z) in zip(EnvValue,EcoValue,SocValue)]
 		label=self.LabelListFieldsCBox.currentText()
 		labels=self.ExtractAttributeValue(label)
 		labels=[str(l) for l in labels]
-		htmlGraph.BuilHTMLGraph(SuitValue,EnvValue,EcoValue,SocValue,labels)
+		htmlGraph.BuilHTMLGraph(EnvValue,EcoValue,SocValue,labels)
 		return 0
 		
 	def ExportTable(self):
@@ -856,14 +857,14 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 			criteria=[self.EnvWeighTableWidget.horizontalHeaderItem(f).text() for f in range(self.EnvWeighTableWidget.columnCount())]
 			currentDIR = (os.path.dirname(str(self.base_Layer.source())))
 			bLayer=self.base_Layer
-			field_names = [field.name() for field in bLayer.pendingFields()]+['EnvIdeal','EcoIdeal','SocIdeal','SustIdeal']
+			field_names = [field.name() for field in bLayer.pendingFields()]+['EnvIdeal','EcoIdeal','SocIdeal']
 			EnvValue=self.ExtractAttributeValue('EnvIdeal')
 			EcoValue=self.ExtractAttributeValue('EcoIdeal')
 			SocValue=self.ExtractAttributeValue('SocIdeal')
-			SustValue=self.ExtractAttributeValue('SustIdeal')
+			#SustValue=self.ExtractAttributeValue('SustIdeal')
 			att2csv=[]
-			for feature,env,eco,soc,sust in zip(bLayer.getFeatures(),EnvValue,EcoValue,SocValue,SustValue):
-				row=feature.attributes()+[env,eco,soc,sust]
+			for feature,env,eco,soc in zip(bLayer.getFeatures(),EnvValue,EcoValue,SocValue):
+				row=feature.attributes()+[env,eco,soc]
 				att2csv.append(row)
 			with open(os.path.join(currentDIR,'attributes.csv'), 'wb') as csvfile:
 				spamwriter = csv.writer(csvfile, delimiter=',',quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -877,26 +878,25 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 ###################################################################################################
 	def SaveCfg(self):
 		currentDIR = (os.path.dirname(str(self.base_Layer.source())))
-		try:
-			fileCfg = open(os.path.join(currentDIR,"setting.csv"),"w")
-			label=[(self.EnvWeighTableWidget.item(0, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())] +\
-				[(self.EcoWeighTableWidget.item(0, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())] + \
-				[(self.SocWeighTableWidget.item(0, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
-			criteria,preference,weight=self.UsedCriteria()
-			for l in label:
-				fileCfg.write(l.encode('utf-8')+";")
-			fileCfg.write("\n")
-			for c in criteria:
-				fileCfg.write(str(c)+";")
-			fileCfg.write("\n")
-			fileCfg.write(";".join(weight))
-			fileCfg.write("\n")
-			for p in preference:
-				fileCfg.write(str(p)+";")
-			fileCfg.close()
-		except:
-			QgsMessageLog.logMessage("Problem in writing setting file","geoUmbriaSUIT",\
-									QgsMessageLog.WARNING)
+		fileCfg = open(os.path.join(currentDIR,"setting.csv"),"w")
+		envLabel=[(self.EnvWeighTableWidget.item(0, c).text()) for c in range(self.EnvWeighTableWidget.columnCount())]
+		ecoLabel=[(self.EcoWeighTableWidget.item(0, c).text()) for c in range(self.EcoWeighTableWidget.columnCount())]
+		socLabel=[(self.SocWeighTableWidget.item(0, c).text()) for c in range(self.SocWeighTableWidget.columnCount())]
+		label=envLabel+ecoLabel+socLabel
+		criteria,preference,weight=self.UsedCriteria()
+		for l in label:
+			fileCfg.write(l.encode('utf-8')+";")
+			print l
+		fileCfg.write("\n")
+		for c in criteria:
+			fileCfg.write(str(c)+";")
+			print c
+		fileCfg.write("\n")
+		fileCfg.write(";".join(weight))
+		fileCfg.write("\n")
+		for p in preference:
+			fileCfg.write(str(p)+";")
+		fileCfg.close()
 
 		
 	def about(self):
@@ -926,16 +926,27 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 				DiscValue=o+1
 		return DiscValue
 	
-	def AddDiscretizedField(self):
+	def dimensionActivated(self):
+		if 	self.EnvRadioBtn.isChecked():
+			field='EnvIdeal'
+		elif self.EcoRadioBtn.isChecked():
+			field='EcoIdeal'
+		else:
+			field='SocIdeal'
+		return field
+		
+			
+	def addDiscretizedField(self):
 		"""add new field"""
+		field=self.dimensionActivated()
 		numberOfClasses=5
 		provider=self.base_Layer.dataProvider()
 		#provider=self.active_layer.dataProvider()
 		if provider.fieldNameIndex("Classified")==-1:
 			self.AddDecisionField(self.base_Layer,"Classified")
 		fidClass = provider.fieldNameIndex("Classified") #obtain classify field index from its name
-		listInput=self.ExtractAttributeValue("SustIdeal")
-		widthOfClass=(max(listInput)-min(listInput))/numberOfClasses
+		listInput=self.ExtractAttributeValue(field)
+		widthOfClass=float((max(listInput))-float(min(listInput)))/float(numberOfClasses)
 		listClass=[(min(listInput)+(widthOfClass)*i) for i in range(numberOfClasses+1)]
 		#self.EnvTEdit.setText(str(listClass))
 		self.base_Layer.startEditing()
@@ -1013,7 +1024,7 @@ class geoSUITDialog(QDialog, Ui_Dialog):
 
 	def ExtractRules(self):
 		pathSource=os.path.dirname(str(self.iface.activeLayer().source()))
-		decision=self.AddDiscretizedField()
+		decision=self.addDiscretizedField()
 		self.WriteISFfile(decision)
 		DOMLEM.main(pathSource)
 		self.ShowRules()

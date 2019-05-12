@@ -40,7 +40,7 @@
    <property name="sizeConstraint">
     <enum>QLayout::SetDefaultConstraint</enum>
    </property>
-   <item row="0" column="0">
+   <item row="0" column="1">
     <widget class="QToolBox" name="toolBox">
      <property name="enabled">
       <bool>true</bool>
@@ -68,7 +68,7 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
       <enum>QFrame::Plain</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <property name="tabSpacing">
       <number>6</number>
@@ -1623,9 +1623,9 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
       <widget class="QPushButton" name="CritExtractBtn">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>360</y>
-         <width>561</width>
+         <x>520</x>
+         <y>10</y>
+         <width>141</width>
          <height>31</height>
         </rect>
        </property>
@@ -1637,9 +1637,9 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>10</y>
+         <y>60</y>
          <width>651</width>
-         <height>341</height>
+         <height>291</height>
         </rect>
        </property>
       </widget>
@@ -1681,6 +1681,48 @@ font: 75 italic 10pt &quot;MS Shell Dlg 2&quot;;</string>
          <string>TextLabel</string>
         </property>
        </widget>
+      </widget>
+      <widget class="QRadioButton" name="EnvRadioBtn">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>131</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Environment rules</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="EcoRadioBtn">
+       <property name="geometry">
+        <rect>
+         <x>200</x>
+         <y>10</y>
+         <width>111</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Economic rules</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="SocRadioBtn">
+       <property name="geometry">
+        <rect>
+         <x>370</x>
+         <y>10</y>
+         <width>101</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Social rules</string>
+       </property>
       </widget>
      </widget>
     </widget>

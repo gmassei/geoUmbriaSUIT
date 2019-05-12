@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'geoSUIT.ui'
 #
-# Created: Tue May 27 23:43:53 2014
-#      by: PyQt4 UI code generator 4.9.6
+# Created: Wed Aug 03 18:40:17 2016
+#      by: PyQt4 UI code generator 4.10.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -538,10 +538,10 @@ class Ui_Dialog(object):
         self.RulesQTBox.setGeometry(QtCore.QRect(0, 0, 675, 459))
         self.RulesQTBox.setObjectName(_fromUtf8("RulesQTBox"))
         self.CritExtractBtn = QtGui.QPushButton(self.RulesQTBox)
-        self.CritExtractBtn.setGeometry(QtCore.QRect(10, 360, 561, 31))
+        self.CritExtractBtn.setGeometry(QtCore.QRect(520, 10, 141, 31))
         self.CritExtractBtn.setObjectName(_fromUtf8("CritExtractBtn"))
         self.RulesListWidget = QtGui.QListWidget(self.RulesQTBox)
-        self.RulesListWidget.setGeometry(QtCore.QRect(10, 10, 651, 341))
+        self.RulesListWidget.setGeometry(QtCore.QRect(10, 60, 651, 291))
         self.RulesListWidget.setObjectName(_fromUtf8("RulesListWidget"))
         self.SaveRulesBtn = QtGui.QPushButton(self.RulesQTBox)
         self.SaveRulesBtn.setGeometry(QtCore.QRect(580, 360, 81, 31))
@@ -552,11 +552,21 @@ class Ui_Dialog(object):
         self.baseLbl = QtGui.QLabel(self.groupBox_3)
         self.baseLbl.setGeometry(QtCore.QRect(20, 20, 621, 21))
         self.baseLbl.setObjectName(_fromUtf8("baseLbl"))
+        self.EnvRadioBtn = QtGui.QRadioButton(self.RulesQTBox)
+        self.EnvRadioBtn.setGeometry(QtCore.QRect(10, 10, 131, 21))
+        self.EnvRadioBtn.setChecked(True)
+        self.EnvRadioBtn.setObjectName(_fromUtf8("EnvRadioBtn"))
+        self.EcoRadioBtn = QtGui.QRadioButton(self.RulesQTBox)
+        self.EcoRadioBtn.setGeometry(QtCore.QRect(200, 10, 111, 21))
+        self.EcoRadioBtn.setObjectName(_fromUtf8("EcoRadioBtn"))
+        self.SocRadioBtn = QtGui.QRadioButton(self.RulesQTBox)
+        self.SocRadioBtn.setGeometry(QtCore.QRect(370, 10, 101, 21))
+        self.SocRadioBtn.setObjectName(_fromUtf8("SocRadioBtn"))
         self.toolBox.addItem(self.RulesQTBox, _fromUtf8(""))
-        self.gridLayout.addWidget(self.toolBox, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.toolBox, 0, 1, 1, 1)
 
         self.retranslateUi(Dialog)
-        self.toolBox.setCurrentIndex(0)
+        self.toolBox.setCurrentIndex(5)
         self.toolBox.layout().setSpacing(6)
         self.EnvTabWidget.setCurrentIndex(0)
         self.EcoTabWidget.setCurrentIndex(0)
@@ -645,5 +655,8 @@ class Ui_Dialog(object):
         self.SaveRulesBtn.setText(_translate("Dialog", "Save rules", None))
         self.groupBox_3.setTitle(_translate("Dialog", "Active layer", None))
         self.baseLbl.setText(_translate("Dialog", "TextLabel", None))
+        self.EnvRadioBtn.setText(_translate("Dialog", "Environment rules", None))
+        self.EcoRadioBtn.setText(_translate("Dialog", "Economic rules", None))
+        self.SocRadioBtn.setText(_translate("Dialog", "Social rules", None))
         self.toolBox.setItemText(self.toolBox.indexOf(self.RulesQTBox), _translate("Dialog", "Rules", None))
 
